@@ -26,7 +26,7 @@ In this section definitions and explanations of acronyms and abbreviations are l
 ### 1.4 References
 |			Title									|	Date		|
 |---------------------------------------------------|---------------|
-| [NeCo Blog](http:/necoproject.wordpress.de/) | 19.10.2017 |
+| [NeCo Blog](http:/necoproject.wordpress.com/) | 19.10.2017 |
 | [Overall Use Case Diagram (OUCD)](https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg)| 19.10.2017 |
 
 ### 1.5 Overview
