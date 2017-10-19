@@ -27,7 +27,7 @@ In this section definitions and explanations of acronyms and abbreviations are l
 |			Title									|	Date		|
 |---------------------------------------------------|---------------|
 | [NeCo Blog](http:/necoproject.wordpress.com/) | 19.10.2017 |
-| [Neco](https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg)| 19.10.2017 |
+| [SRS](https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg)| 19.10.2017 |
 
 ### 1.5 Overview
 The following chapters are about our vision and perspective, the software requirements, the demands we have, licensing and
@@ -42,7 +42,7 @@ For security reasons we’ll use latest encrypting technology like RSA&AES-Encry
 People using our App can chat with strangers in their near environment. 
 
 The following picture shows the overall use case diagram of our software:
-![Neco]
+![Ouverall Use Case Diagramm (OUCD)](https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg "Ouverall Use Case Diagramm (OUCD)")
 
 ## 3. Specific Requirements
 ### 3.1 Functionality - Android App
