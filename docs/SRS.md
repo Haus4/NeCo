@@ -42,7 +42,7 @@ For security reasons we’ll use latest encrypting technology like RSA&AES-Encry
 People using our App can chat with strangers in their near environment. 
 
 The following picture shows the overall use case diagram of our software:
-
+![OUCD]
 
 ## 3. Specific Requirements
 ### 3.1 Functionality - Android App
