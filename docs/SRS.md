@@ -104,17 +104,17 @@ The whole application will be built with an intuitive design, so there shouldnâ€
 #### 3.9.1 User Interfaces
 Please consult the different use case descriptions for UI mockups (screenshots) and UI functionality descriptions:
 
-- [UC1: Chat][uc capture video]
-- [UC3: Local Chat][uc maintain profile]
-- [UC2: Share files][uc configure settings]
-- [UC4: Encrypted chat][uc switch user]
-- [UC5: Manage profile][uc register]
-- [UC6: Manage friends in friendlist][uc browse media]
-- [UC7: Get Points][uc manage users]
-- [UC8: Manage chatrooms][uc delete own media]
-- [UC9: Name moderator][uc download own media]
-- [UC10: Kick/Ban user][uc view own media]
-- [UC11: Delete message][uc approve registration]
+- [UC1: Chat][uc chat]
+- [UC3: Local Chat][uc local chat]
+- [UC2: Share files][uc share files]
+- [UC4: Encrypted chat][uc encrypted chat]
+- [UC5: Manage profile][uc manage profile]
+- [UC6: Manage friendlist][uc manage friendlist]
+- [UC7: Get Points][uc get points]
+- [UC8: Manage chatrooms][uc manage chatrooms]
+- [UC9: Name moderator][uc name moderator]
+- [UC10: Kick/Ban user][uc kick user]
+- [UC11: Delete message][uc delete message]
 
 #### 3.10.2 Hardware Interfaces
 (n/a)
@@ -142,37 +142,28 @@ You can find any internal linked sources in the chapter References (go to the to
 
 [Overall Use Case Diagram (OUCD)]: https://github.com/Haus4/NeCo/blob/master/docs/UseCaseDiagramm.jpg "Link to Github"
 
-[uc capture video]: http://unveiled.systemgrid.de/wp/docu/srs_uc1/ "Use Case 1: Capture and stream video"
-[uc configure settings]: http://unveiled.systemgrid.de/wp/docu/srs_uc2/ "Use Case 2: Configure settings"
-[uc maintain profile]: http://unveiled.systemgrid.de/wp/docu/srs_uc3/ "Use Case 3: Maintain profile"
-[uc switch user]: http://unveiled.systemgrid.de/wp/docu/srs_uc4/ "Use Case 4: Switch user"
-[uc register]: http://unveiled.systemgrid.de/wp/docu/srs_uc5/ "Use Case 5: Register"
-[uc browse media]: http://unveiled.systemgrid.de/wp/docu/srs_uc6/ "Use Case 6: Browse own media"
-[uc manage users]: http://unveiled.systemgrid.de/wp/docu/srs_uc7/ "Use Case 7: Manage users"
-[uc delete own media]: http://unveiled.systemgrid.de/wp/docu/srs_uc8/ "Use Case 8: Delete own media"
-[uc download own media]: http://unveiled.systemgrid.de/wp/docu/srs_uc9/ "Use Case 9: Download own media"
-[uc view own media]: http://unveiled.systemgrid.de/wp/docu/srs_uc10/ "Use Case 10: View own media"
-[uc approve registration]: http://unveiled.systemgrid.de/wp/docu/srs_uc11/ "Use Case 11: Approve registration"
-[uc upload file]: http://unveiled.systemgrid.de/wp/docu/srs_uc12/ "Use Case 12: Upload file"
+[uc chat]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 1: Chat with another User"
+[uc local chat]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 2: Chat with another user nearby"
+[uc share files]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 3: Share files with another User"
+[uc encrypted chat]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 4: Chat encrypted"
+[uc manage profile]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 5: Manage profile informations"
+[uc manage friendlist]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 6: Manage friends in friendlist"
+[uc get points]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 7: Get Points for using the app"
+[uc manage chatrooms]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 8: Manage chatrooms"
+[uc name moderator]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 9: Name a moderator"
+[uc kick user]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 10: Kick/Ban an user"
+[uc delete message]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 11: Delete a message"
+
 
 [sad]: http://unveiled.systemgrid.de/wp/docu/sad/ "Software Architecture Document"
 [testplan]: http://unveiled.systemgrid.de/wp/docu/testplan/ "Testplan"
-[blog]: http://unveiled.systemgrid.de/wp/blog/ "Unveiled Blog"
-[website]: http://unveiled.systemgrid.de/ "Unveiled Website"
-[jira]: http://jira.it.dh-karlsruhe.de:8080/secure/RapidBoard.jspa?rapidView=10&projectKey=UNV "Jira Unveiled Scrum Board"
-[github]: https://github.com/SAS-Systems "Sourcecode hosted at Github"
-[presentation]: https://github.com/SAS-Systems/Unveiled-Documentation/blob/master/Unveiled_Presentation_Final.pptx "Final project presentation"
-[installation guide]: http://unveiled.systemgrid.de/wp/docu/installation/ "Android App Installation Guide"
-[fpc]: http://unveiled.systemgrid.de/wp/docu/fpc/ "Function point calculation and use case estimation"
-
-[RFC 3550]: https://tools.ietf.org/html/rfc3550
-[RFC 2326]: https://tools.ietf.org/html/rfc2326
-[RFC 1889]: https://www.ietf.org/rfc/rfc1889.txt
-
-[libstreaming]: https://github.com/fyhertz/libstreaming
+[blog]: https://necoproject.wordpress.com/ "Neco Blog"
+[github]: https://github.com/Haus4/NeCo "Sourcecode hosted at Github"
+[presentation]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Final project presentation"
+[installation guide]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Android App Installation Guide"
 
 <!-- Picture-Link definitions: -->
 [OUCD]: https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg "Overall Use Case Diagram"
-[class diagram php]: https://raw.githubusercontent.com/SAS-Systems/Unveiled-Documentation/master/Bilder/UML%20Class%20diagrams/UML-PHP-Stack_new.png "Class Diagram for our Backend PHP-Stack"
-[deployment diagram]: https://raw.githubusercontent.com/SAS-Systems/Unveiled-Documentation/master/Bilder/UML%20Class%20diagrams/UML_deployment.png "Deployment diagram, shows all modules and the relations between them"
-[ci lifecycle]: https://raw.githubusercontent.com/SAS-Systems/Unveiled-Documentation/master/Bilder/auto_deployment_lifecycle.png "Continuous Integration process"
+
+[deployment diagram]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Deployment diagram, shows all modules and the relations between them"
+[ci lifecycle]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Continuous Integration process"
