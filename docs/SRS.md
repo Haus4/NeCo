@@ -44,6 +44,7 @@ People using our App can chat with strangers in their near environment.
 The following picture shows the overall use case diagram of our software:
 ![Ouverall Use Case Diagramm (OUCD)](https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg "Ouverall Use Case Diagramm (OUCD)")
 
+
 ## 3. Specific Requirements
 ### 3.1 Functionality - Android App
 #### 3.1.1 Chat
@@ -104,18 +105,17 @@ The whole application will be built with an intuitive design, so there shouldnâ€
 #### 3.9.1 User Interfaces
 Please consult the different use case descriptions for UI mockups (screenshots) and UI functionality descriptions:
 
-- [UC1: Capture and stream video][uc capture video]
-- [UC3: Maintain user profile][uc maintain profile]
-- [UC2: Configure settigns][uc configure settings]
-- [UC4: Switch user][uc switch user]
-- [UC5: Register][uc register]
-- [UC6: Browse own media][uc browse media]
-- [UC7: Manage Users][uc manage users]
-- [UC8: Delete own media][uc delete own media]
-- [UC9: Download own media][uc download own media]
-- [UC10: View own media][uc view own media]
-- [UC11: Approve registration][uc approve registration]
-- [UC12: Upload file][uc upload file]
+- [UC1: Chat][uc capture video]
+- [UC3: Local Chat][uc maintain profile]
+- [UC2: Share files][uc configure settings]
+- [UC4: Encrypted chat][uc switch user]
+- [UC5: Manage profile][uc register]
+- [UC6: Manage friends in friendlist][uc browse media]
+- [UC7: Get Points][uc manage users]
+- [UC8: Manage chatrooms][uc delete own media]
+- [UC9: Name moderator][uc download own media]
+- [UC10: Kick/Ban user][uc view own media]
+- [UC11: Delete message][uc approve registration]
 
 #### 3.10.2 Hardware Interfaces
 (n/a)
@@ -127,26 +127,21 @@ Please consult the different use case descriptions for UI mockups (screenshots) 
 (n/a)
 
 ### 3.11 Licensing Requirement
-Our server side code is subject to the [Apache Licence 2.0](http://www.apache.org/licenses/LICENSE-2.0) as the libraries used in this application part.
+
 
 ### 3.12 Legal, Copyright and other Notices
 (n/a)
 
 ### 3.13 Applicable Standards
-RFCs:
 
-- [RFC 3550][] - RTP: A Transport Protocol for Real-Time Applications
-- [RFC 1889][] - RTP: A Transport Protocol for Real-Time Applications
-- [RFC 2326][] - Real Time Streaming Protocol (RTSP)
 
 ## 4. Supporting Information
 ### 4.1 Appendices
-You can find any internal linked sources in the chapter References (go to the top of this document). If you would like to know what the current status of this project is please visit the [Unveiled Blog][blog].
+You can find any internal linked sources in the chapter References (go to the top of this document). If you would like to know what the current status of this project is please visit the [NeCo Blog][blog].
 
 
-<!-- Link definitions: -->
-[Edward Snowden]: http://www.brainyquote.com/quotes/quotes/e/edwardsnow551870.html
-[Overall Use Case Diagram (OUCD)]: https://github.com/SAS-Systems/Unveiled-Documentation/blob/master/Bilder/UC_Diagrams/Unveiled_Overall%20Use%20Case%20Diagram.png "Link to Github"
+
+[Overall Use Case Diagram (OUCD)]: https://github.com/Haus4/NeCo/blob/master/docs/UseCaseDiagramm.jpg "Link to Github"
 
 [uc capture video]: http://unveiled.systemgrid.de/wp/docu/srs_uc1/ "Use Case 1: Capture and stream video"
 [uc configure settings]: http://unveiled.systemgrid.de/wp/docu/srs_uc2/ "Use Case 2: Configure settings"
