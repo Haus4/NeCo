@@ -48,111 +48,60 @@ The following picture shows the overall use case diagram of our software:
 ### 3.1 Functionality - Android App
 #### 3.1.1 Chat
 The app provides the user with the possibility to chat with another person.
--------------------
 
-#### 3.1.2 Switch user
-On this page the user is able to type in his/her login information.
-If somebody has multiple users and log in information, the application allows him to switch between them as well. To see the use case diagram
-of this use case go to this [document][uc switch user].
+#### 3.1.2 Share files
+The user is able to share files with the chatroom.
 
-#### 3.1.3 Take Picture
-The user is able to take pictures with the smartphone camera. The picture will be instantly uploaded to a server.
+#### 3.1.3 Chat with people nearby
+The app enables the user to chat with people in his near environment. This is provided through localization within the functionality of the smartphone.
 
-#### 3.1.4 Take Video
-The user is able to film with the smartphone camera. The captured video material is live streamed to a server to store the
-data. There is a detached [document][uc capture video] describing this use case more precisely.
+#### 3.1.4 Chat encrypted
+The app provides an encypted chat, where messages get encrypted with RSA&AES-Encrypting.
 
-#### 3.1.5 Upload File
-If the automatic upload of the video or picture failed, the user is able to upload the file manually. This use case is described in [this document][uc upload file].
+#### 3.1.5 Moderated Chat
+The app provides naming a moderator, who is able to kick or ban users, delete messages.
+
+#### 3.1.6 Manage Profile
+The user is able to change his/her nickname and profile picture within the app. Also managing a friendlist by adding and deleting friends is possible.
+
+#### 3.1.7 Pointsystem
+The app provides a reward system where the user gets points for joining an chatroom or using the app.
 
 
-### 3.2 Functionality - Website
-#### 3.2.1 Register for a new account
-At the home page of the website there is the possibility to register for a new user. A registration is approved by verifying the user e-mail address. For more information please consider [this document][uc approve registration].
-
-#### 3.2.2 Login-Page
-The website contains a login-form for users that have already registered for an account.
-
-#### 3.2.3 Maintain Profile
-This overview page allows the user to view and maintain his profile. A more detailed description can be found [here][uc switch user].
-
-#### 3.2.4 Media Browser
-At this page all captured and uploaded media of a single user is shown. He can browse the content easily.
-
-#### 3.2.5 Content viewer
-Each uploaded file is shown in the media browser. Detailed information is shown below and in a modal dialog the video can be watched. See [this document][uc view own media] for further information.
-
-#### 3.2.6 Delete files
-The user is able to delete his own media stored on the server. [Use case document][uc delete own media].
-
-#### 3.2.7 Download files
-Captured media can be downloaded only by the owner. Therefore he is able to select specific files in the media browser for download. [Use case document][uc download own media].
-
-#### 3.2.8 Approve registration
-Users have to verify their e-mail address to approve their account. [Use case document][uc approve registration].
-
-#### 3.2.9 Manage Users
-The administrator is able to perform several different functions on user data. You can read more about this use case [here][uc manage users].
-
-#### 3.2.10 Manage Media
-Inappropriate uploads can be deleted by the administrator.
-
-### 3.3 Usability
-#### 3.3.1 Smartphone user
+### 3.2 Usability
+#### 3.2.1 Smartphone user
 The user should know how to use Android as an mobile operating system and how to install and use an mobile application on it. We will provide a installation guide.
 
-#### 3.3.2 Using a browser
-The user of our website has to know how to open and work with a modern browser like Chrome, Firefox or Opera.
+### 3.3 Reliability
+#### 3.3.1 Server availability
+Our own server should ensure a 95% up-time.
 
-#### 3.3.3 Honest person
-We expect the user to be a honest person, who just upload media that makes our world a better place. Our users should obey the law.
+Our server is co-hosted at the DHBW so we must rely on their service.
 
-### 3.4 Reliability
-#### 3.4.1 Server availability
-Our own server should ensure a 90% up-time.
+### 3.4 Performance
+The sending of the messages and files files from one User to another must not guarantee real-time data transfer, because the message and files will not be displayed and watched live. Nevertheless the transfer should not take longer than 5 seconds to ensure fast respond times.
 
-We will also provide an installation-kit so that every institution can host their own streaming server application. In that case the server availability is under the institutions responsibility.
-
-#### 3.4.2 MTTR
-This is also in the hands of the server owners.
-
-#### 3.4.3 Compliant to RFCs
-Our streaming server and our AndroidApp should be compliant to [RFC 2326][](RTSP) and [RFC 3550][](RTP) to be easily scalable and to ensure a stable and performant stream (also to other clients and servers if required).
-
-### 3.5 Performance
-The streaming of the media files from the Android app to the server must not guarantee real-time data transfer, because the file will not be displayed and watched live. It is just saved on the server side. But the data transfer should not take more time than twice the time of the recording had taken.
-
-### 3.6 Supportability
-#### 3.6.1 Language support
+### 3.5 Supportability
+#### 3.5.1 Language support
 We will use the following languages, which will also be well supported in the future:
 
-- Java EE 7 (Work on Java EE 8 is already in progress)
-- Android 6.0 (Marshmallow)
-- the well-known Internet Standards HTML5, CSS3 and JavaScript
-- PHP version 5
+- C#
+- Android
 
-#### 3.6.2 Support for dependencies
-We will build our own RTSP streaming library compliant to [RFC 2326][] and [RFC 3550][] in Java for our backend. Therefore we can ensure that this library is compatible with our streaming application at any time. At client side we will use libstreaming that is hosted by Github. You can find the source code and the description at their [Github-Page][libstreaming]. This library may not be supported in the future, but at this time it will be possible to us our own streaming library in the Android app as well.
-
-Our website frontend uses Angular and jQuery for displaying the media browser and managing the HTML DOM-manipulations.
-
-### 3.7 Design Constraints
+### 3.6 Design Constraints
 All information about the architectural design of our application stack can be found in our [software architecture document][sad]. In the following subchapters you can read about some generall important decisions.
 
-#### 3.7.1 Backend in Java and PHP
-The backend of this software should be written in PHP and Java. The PHP-stack is responsible for a RESTful API that is used both by our webinterface and by the Android application. The Java-stack implements a powerful streaming server that uses the RTP and RTSP protocol as already mentioned.
-
-#### 3.7.2 MVC architecture
+#### 3.6.1 MVC architecture
 Our Android application should implement the MVC pattern.
 
-### 3.8 On-line User Documentation and Help System Requirements
+### 3.7 On-line User Documentation and Help System Requirements
 The whole application will be built with an intuitive design, so there shouldn’t be a need for the user to ask us or the program for help. However we will write our own blog, on which users can find information and ask us questions.
 
-### 3.9 Purchased Components
+### 3.8 Purchased Components
 (n/a)
 
-### 3.10 Interfaces
-#### 3.10.1 User Interfaces
+### 3.9 Interfaces
+#### 3.9.1 User Interfaces
 Please consult the different use case descriptions for UI mockups (screenshots) and UI functionality descriptions:
 
 - [UC1: Capture and stream video][uc capture video]
