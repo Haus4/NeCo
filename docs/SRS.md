@@ -142,28 +142,28 @@ You can find any internal linked sources in the chapter References (go to the to
 
 [Overall Use Case Diagram (OUCD)]: https://github.com/Haus4/NeCo/blob/master/docs/UseCaseDiagramm.jpg "Link to Github"
 
-[uc chat]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 1: Chat with another User"
-[uc local chat]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 2: Chat with another user nearby"
-[uc share files]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 3: Share files with another User"
-[uc encrypted chat]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 4: Chat encrypted"
-[uc manage profile]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 5: Manage profile informations"
-[uc manage friendlist]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 6: Manage friends in friendlist"
-[uc get points]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 7: Get Points for using the app"
-[uc manage chatrooms]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 8: Manage chatrooms"
-[uc name moderator]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 9: Name a moderator"
-[uc kick user]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 10: Kick/Ban an user"
-[uc delete message]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Use Case 11: Delete a message"
+[uc chat]: https://de.wikipedia.org/wiki/42 "Use Case 1: Chat with another User"
+[uc local chat]: https://de.wikipedia.org/wiki/42 "Use Case 2: Chat with another user nearby"
+[uc share files]: https://de.wikipedia.org/wiki/42 "Use Case 3: Share files with another User"
+[uc encrypted chat]: https://de.wikipedia.org/wiki/42 "Use Case 4: Chat encrypted"
+[uc manage profile]: https://de.wikipedia.org/wiki/42 "Use Case 5: Manage profile informations"
+[uc manage friendlist]: https://de.wikipedia.org/wiki/42 "Use Case 6: Manage friends in friendlist"
+[uc get points]: https://de.wikipedia.org/wiki/42 "Use Case 7: Get Points for using the app"
+[uc manage chatrooms]: https://de.wikipedia.org/wiki/42 "Use Case 8: Manage chatrooms"
+[uc name moderator]: https://de.wikipedia.org/wiki/42 "Use Case 9: Name a moderator"
+[uc kick user]: https://de.wikipedia.org/wiki/42 "Use Case 10: Kick/Ban an user"
+[uc delete message]: https://de.wikipedia.org/wiki/42 "Use Case 11: Delete a message"
 
 
 [sad]: http://unveiled.systemgrid.de/wp/docu/sad/ "Software Architecture Document"
 [testplan]: http://unveiled.systemgrid.de/wp/docu/testplan/ "Testplan"
 [blog]: https://necoproject.wordpress.com/ "Neco Blog"
 [github]: https://github.com/Haus4/NeCo "Sourcecode hosted at Github"
-[presentation]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Final project presentation"
-[installation guide]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Android App Installation Guide"
+[presentation]: https://de.wikipedia.org/wiki/42 "Final project presentation"
+[installation guide]: https://de.wikipedia.org/wiki/42 "Android App Installation Guide"
 
 <!-- Picture-Link definitions: -->
 [OUCD]: https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg "Overall Use Case Diagram"
 
-[deployment diagram]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Deployment diagram, shows all modules and the relations between them"
-[ci lifecycle]: https://de.wikipedia.org/wiki/Schwarze_Sonne "Continuous Integration process"
+[deployment diagram]: https://de.wikipedia.org/wiki/42 "Deployment diagram, shows all modules and the relations between them"
+[ci lifecycle]: https://de.wikipedia.org/wiki/42 "Continuous Integration process"
