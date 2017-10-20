@@ -42,8 +42,7 @@ For security reasons we’ll use latest encrypting technology like RSA&AES-Encry
 People using our App can chat with strangers in their near environment. 
 
 The following picture shows the overall use case diagram of our software:
-![Ouverall Use Case Diagramm (OUCD)](https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg "Ouverall Use Case Diagramm (OUCD)")
-
+![OUCD]
 
 ## 3. Specific Requirements
 ### 3.1 Functionality - Android App
@@ -173,7 +172,7 @@ You can find any internal linked sources in the chapter References (go to the to
 [libstreaming]: https://github.com/fyhertz/libstreaming
 
 <!-- Picture-Link definitions: -->
-[OUCD]: https://raw.githubusercontent.com/SAS-Systems/Unveiled-Documentation/master/Bilder/UC_Diagrams/Unveiled_Overall%20Use%20Case%20Diagram.png "Overall Use Case Diagram"
+[OUCD]: https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg "Overall Use Case Diagram"
 [class diagram php]: https://raw.githubusercontent.com/SAS-Systems/Unveiled-Documentation/master/Bilder/UML%20Class%20diagrams/UML-PHP-Stack_new.png "Class Diagram for our Backend PHP-Stack"
 [deployment diagram]: https://raw.githubusercontent.com/SAS-Systems/Unveiled-Documentation/master/Bilder/UML%20Class%20diagrams/UML_deployment.png "Deployment diagram, shows all modules and the relations between them"
 [ci lifecycle]: https://raw.githubusercontent.com/SAS-Systems/Unveiled-Documentation/master/Bilder/auto_deployment_lifecycle.png "Continuous Integration process"
