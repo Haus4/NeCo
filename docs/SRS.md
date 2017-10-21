@@ -37,7 +37,7 @@ the technical realization of this project.
 ### 2.1 Vision
 Our idea is to develop a Xamarin App for chatting with strangers around you.
 The basic idea behind NeCo is to use localization technologies to create chatrooms with people around you, similar to the popular app “Jodel”.  The difference is that you chat with random people in your local area, to meet, to party, or just to have fun.
-For security reasons we’ll use latest encrypting technology like RSA&AES-Encrypting. Ideas for future features could be a friend list to keep in contact.
+For security reasons we’ll use latest encryption technology like RSA&AES-Encryption. Ideas for future features could be a friend list to keep in contact.
 
 People using our App can chat with strangers in their near environment. 
 
@@ -56,7 +56,7 @@ The user is able to share files with the chatroom.
 The app enables the user to chat with people in his near environment. This is provided through localization within the functionality of the smartphone.
 
 #### 3.1.4 Chat encrypted
-The app provides an encypted chat, where messages get encrypted with RSA&AES-Encrypting.
+The app provides an encypted chat, where messages get encrypted with RSA&AES-Encryption.
 
 #### 3.1.5 Moderated Chat
 The app provides naming a moderator, who is able to kick or ban users, delete messages.
