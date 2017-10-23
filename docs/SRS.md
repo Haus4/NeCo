@@ -1,4 +1,4 @@
-# Unveiled - Software Requirements Specification
+# NeCo - Software Requirements Specification
 
 ## 1. Introduction
 ### 1.1 Purpose
@@ -155,8 +155,6 @@ You can find any internal linked sources in the chapter References (go to the to
 [uc delete message]: https://de.wikipedia.org/wiki/42 "Use Case 11: Delete a message"
 
 
-[sad]: http://unveiled.systemgrid.de/wp/docu/sad/ "Software Architecture Document"
-[testplan]: http://unveiled.systemgrid.de/wp/docu/testplan/ "Testplan"
 [blog]: https://necoproject.wordpress.com/ "Neco Blog"
 [github]: https://github.com/Haus4/NeCo "Sourcecode hosted at Github"
 [presentation]: https://de.wikipedia.org/wiki/42 "Final project presentation"
