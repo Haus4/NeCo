@@ -14,7 +14,6 @@ namespace Neco.Server
             Console.Title = "NeCo Server";
             string annotation = "(c) 2017 NeCo. All rights reserved.";
             string logo = "    |              |\n   .' `.          .' `.\n  : :   \\_..--.._/   : :\n  | . '            ` . |\n  '   ___        ___   `\n  '  `.  `.    .'  .'  `\n :     `-.|    |.-'     :\n .     .  `    '  .     ,\n /      `. \\  / .'      \\ \n`,'  . . .` `' '. . .  `.' \n `,'    .__.--.__.    `.'\n  `,'                `.'\n   `,'-`;::....::;' -`.'\n    `    ''::::``    '";
-            ConsoleKeyInfo keyInfo;
             int versionMajor = 0;
             int versionMinor = 1;
             Console.ForegroundColor = ConsoleColor.Green;
@@ -23,7 +22,7 @@ namespace Neco.Server
             Console.WriteLine(logo + "\n\n");
             string[] cmds = Enum.GetNames(typeof(Commands));
             string cmd = "";
-            while (cmd != "exit" && keyInfo != ConsoleKey.C)
+            while (cmd != "exit" )
             {
                 cmd = Console.ReadLine();
                 if(cmd.Equals(Commands.Help.ToString(), StringComparison.InvariantCultureIgnoreCase))
