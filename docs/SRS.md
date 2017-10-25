@@ -9,13 +9,13 @@ characteristics of this project will be specified. This includes design and arch
 these criteria as well.
 
 ### 1.2 Scope
-This software specification applies to the whole "NeCo" application. The app allows users to chat with strangers in their near environment to meet new people, which are at the same spot as the user. It establishes user- and systemcreated chatrooms amon users in close environments. 
+This software specification applies to the whole "NeCo" application. The app allows users to chat with strangers in their near environment to meet new people, which are at the same spot as the user. It establishes user- and systemcreated chatrooms among users in close environments. 
 
 
 ### 1.3 Definitions, Acronyms and Abbreviations
 In this section definitions and explanations of acronyms and abbreviations are listed to help the reader to understand these.
 
-- **Android** This is a mobile operating system developed by Google for primarily use on smartphones and tablets.
+- **Android** This is a mobile operating system developed by Google which is primarily used on smartphones and tablets.
 - **UC** Use Case
 - **UCD** Use Case Diagram
 - **OUCD** Overall Use Case Diagram
@@ -36,8 +36,8 @@ the technical realization of this project.
 ## 2. Overall Description
 ### 2.1 Vision
 Our idea is to develop a Xamarin App for chatting with strangers around you.
-The basic idea behind NeCo is to use localization technologies to create chatrooms with people around you, similar to the popular app “Jodel”.  The difference is that you chat with random people in your local area, to meet, to party, or just to have fun.
-For security reasons we’ll use latest encryption technology like RSA&AES-Encryption. Ideas for future features could be a friend list to keep in contact.
+The basic idea behind NeCo is to use geolocalization technologies to create chatrooms with people around you, similar to the popular app “Jodel”.  The difference is that you chat with random people in your local area, to meet, to party, or just to have fun.
+For security reasons we’ll use latest encryption technology like RSA & AES encryption. Ideas for future features could be a friend list to keep in contact.
 
 People using our App can chat with strangers in their near environment. 
 
@@ -53,24 +53,24 @@ The app provides the user with the possibility to chat with another person.
 The user is able to share files with the chatroom.
 
 #### 3.1.3 Chat with people nearby
-The app enables the user to chat with people in his near environment. This is provided through localization within the functionality of the smartphone.
+The app allows the user to chat with people in his near environment. This is provided through geolocalization within the functionality of the smartphone.
 
 #### 3.1.4 Chat encrypted
-The app provides an encypted chat, where messages get encrypted with RSA&AES-Encryption.
+The app provides an encypted chat, where messages get encrypted with RSA and AES.
 
 #### 3.1.5 Moderated Chat
-The app provides naming a moderator, who is able to kick or ban users, delete messages.
+The app provides naming a moderator, who is able to kick or ban users and delete messages.
 
 #### 3.1.6 Manage Profile
 The user is able to change his/her nickname and profile picture within the app. Also managing a friendlist by adding and deleting friends is possible.
 
 #### 3.1.7 Pointsystem
-The app provides a reward system where the user gets points for joining an chatroom or using the app.
+The app provides a reward system where the user gets points for joining a chatroom or using the app.
 
 
 ### 3.2 Usability
 #### 3.2.1 Smartphone user
-The user should know how to use Android as an mobile operating system and how to install and use an mobile application on it. We will provide a installation guide.
+The user should know how to use Android as a mobile operating system and how to install and use a mobile application on it. We will provide a installation guide.
 
 ### 3.3 Reliability
 #### 3.3.1 Server availability
@@ -79,14 +79,14 @@ Our own server should ensure a 95% up-time.
 Our server is co-hosted at the DHBW so we must rely on their service.
 
 ### 3.4 Performance
-The sending of the messages and files files from one User to another must not guarantee real-time data transfer, because the message and files will not be displayed and watched live. Nevertheless the transfer should not take longer than 5 seconds to ensure fast respond times.
+The sending of the messages and files from one user to another must not guarantee real-time data transfer, because the message and files will not be displayed and watched live. Nevertheless the transfer should not take longer than 5 seconds to ensure fast response times.
 
 ### 3.5 Supportability
 #### 3.5.1 Language support
 We will use the following languages, which will also be well supported in the future:
 
 - C#
-- Android
+- XML
 
 ### 3.6 Design Constraints
 
@@ -94,7 +94,7 @@ We will use the following languages, which will also be well supported in the fu
 Our Android application should implement the MVC pattern.
 
 ### 3.7 On-line User Documentation and Help System Requirements
-The whole application will be built with an intuitive design, so there shouldn’t be a need for the user to ask us or the program for help. However we will write our own blog, on which users can find information and ask us questions.
+The whole application will be built with an intuitive design, so there shouldn’t be a need for the user to ask us or the program for help. However, we will write our own blog on which users can find information and ask us questions.
 
 ### 3.8 Purchased Components
 (n/a)
