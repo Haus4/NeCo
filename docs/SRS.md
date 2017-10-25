@@ -89,7 +89,6 @@ We will use the following languages, which will also be well supported in the fu
 - Android
 
 ### 3.6 Design Constraints
-All information about the architectural design of our application stack can be found in our [software architecture document][sad]. In the following subchapters you can read about some generall important decisions.
 
 #### 3.6.1 MVC architecture
 Our Android application should implement the MVC pattern.
@@ -102,6 +101,8 @@ The whole application will be built with an intuitive design, so there shouldnâ€
 
 ### 3.9 Interfaces
 #### 3.9.1 User Interfaces
+(tbd) 
+
 Please consult the different use case descriptions for UI mockups (screenshots) and UI functionality descriptions:
 
 - [UC1: Chat][uc chat]
@@ -116,23 +117,23 @@ Please consult the different use case descriptions for UI mockups (screenshots) 
 - [UC10: Kick/Ban user][uc kick user]
 - [UC11: Delete message][uc delete message]
 
-#### 3.10.2 Hardware Interfaces
-(n/a)
+#### 3.9.2 Hardware Interfaces
+(tbd)
 
-#### 3.10.3 Software Interfaces
-(n/a)
+#### 3.9.3 Software Interfaces
+(tbd)
 
-#### 3.10.4 Communications Interfaces
-(n/a)
+#### 3.9.4 Communications Interfaces
+(tbd)
 
-### 3.11 Licensing Requirement
+### 3.10 Licensing Requirement
+(tbd)
 
+### 3.11 Legal, Copyright and other Notices
+(tbd)
 
-### 3.12 Legal, Copyright and other Notices
-(n/a)
-
-### 3.13 Applicable Standards
-
+### 3.12 Applicable Standards
+(tbd)
 
 ## 4. Supporting Information
 ### 4.1 Appendices
