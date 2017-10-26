@@ -160,16 +160,25 @@ You can find any internal linked sources in the chapter References (go to the to
 [uc kick user]: <link einfügen> "Use Case 10: Kick/Ban an user"
 [uc delete message]: <link einfügen> "Use Case 11: Delete a message"
 
+-->
 
 [blog]: https://necoproject.wordpress.com/ "Neco Blog"
 [github]: https://github.com/Haus4/NeCo "Sourcecode hosted at Github"
+
+<!--
+
 [presentation]: <link einfügen> "Final project presentation"
 [installation guide]: <link einfügen> "Android App Installation Guide"
 
+-->
+
 <!-- Picture-Link definitions: -->
 [OUCD]: https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg "Overall Use Case Diagram"
+
+<!--
 
 [deployment diagram]: <link einfügen> "Deployment diagram, shows all modules and the relations between them"
 [ci lifecycle]: <link einfügen> "Continuous Integration process"
 
 -->
+
