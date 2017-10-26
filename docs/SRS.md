@@ -173,7 +173,7 @@ You can find any internal linked sources in the chapter References (go to the to
 -->
 
 <!-- Picture-Link definitions: -->
-[OUCD]: https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg "Overall Use Case Diagram"
+[OUCD]: https://github.com/Haus4/NeCo/raw/master/docs/img/UseCaseDiagramm.jpg "Overall Use Case Diagram"
 
 <!--
 
