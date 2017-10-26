@@ -103,6 +103,8 @@ The whole application will be built with an intuitive design, so there shouldn�
 #### 3.9.1 User Interfaces
 (tbd) 
 
+<!--
+
 Please consult the different use case descriptions for UI mockups (screenshots) and UI functionality descriptions:
 
 - [UC1: Chat][uc chat]
@@ -116,6 +118,8 @@ Please consult the different use case descriptions for UI mockups (screenshots) 
 - [UC9: Name moderator][uc name moderator]
 - [UC10: Kick/Ban user][uc kick user]
 - [UC11: Delete message][uc delete message]
+
+-->
 
 #### 3.9.2 Hardware Interfaces
 (tbd)
@@ -142,6 +146,7 @@ You can find any internal linked sources in the chapter References (go to the to
 
 
 [Overall Use Case Diagram (OUCD)]: https://github.com/Haus4/NeCo/blob/master/docs/UseCaseDiagramm.jpg "Link to Github"
+<!--
 
 [uc chat]: <link einfügen> "Use Case 1: Chat with another User"
 [uc local chat]: <link einfügen> "Use Case 2: Chat with another user nearby"
@@ -166,3 +171,5 @@ You can find any internal linked sources in the chapter References (go to the to
 
 [deployment diagram]: <link einfügen> "Deployment diagram, shows all modules and the relations between them"
 [ci lifecycle]: <link einfügen> "Continuous Integration process"
+
+-->
