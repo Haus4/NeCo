@@ -145,7 +145,7 @@ You can find any internal linked sources in the chapter References (go to the to
 
 
 
-[Overall Use Case Diagram (OUCD)]: https://github.com/Haus4/NeCo/blob/master/docs/UseCaseDiagramm.jpg "Link to Github"
+[Overall Use Case Diagram (OUCD)]: https://github.com/Haus4/NeCo/blob/master/docs/img/UseCaseDiagramm.jpg "Link to Github"
 <!--
 
 [uc chat]: <link einfügen> "Use Case 1: Chat with another User"
