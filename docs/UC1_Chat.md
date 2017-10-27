@@ -73,7 +73,7 @@ All function point calculation tables are also located in one spreadsheet. Pleas
 
 [screenshot]: https://github.com/Haus4/NeCo/raw/master/docs/img/UC1_Chat_Mockup.png "Chat Mockup"
 
-[ucd]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC1_Chat_UCD_f.jpg "Feature description in Gherkin"
+[ucd]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC1_Chat_UCD.png "Feature description in Gherkin"
 <!--
 [gherkin file]: <link> ".feature file"
 
