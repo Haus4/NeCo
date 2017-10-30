@@ -44,7 +44,8 @@ The keys must have been exchanged before chating.
 The user should have already opened the NeCo Application on his smartphone and navigated to the main page.
 
 ### 4.4 GPS initialized
-The global positioning system of the device is initialized and running.
+The global positioning system of the device is initialized and running. 
+The app should have the right to request the users location.
 
 ## 5. Postconditions
 (n/a)
