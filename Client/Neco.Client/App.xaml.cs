@@ -13,7 +13,7 @@ namespace Neco.Client
 		{
 			InitializeComponent();
 
-			MainPage = new Neco.Client.MainPage();
+			MainPage = new NavigationPage(new Neco.Client.MainPage());
 		}
 
 		protected override void OnStart ()

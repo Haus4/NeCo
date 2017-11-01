@@ -12,6 +12,11 @@ namespace Neco.Client
 		public MainPage()
 		{
 			InitializeComponent();
-		}
+
+            this.chatButton.Clicked += async (sender, args) =>
+            {
+                await Navigation.PushAsync(new Chat());
+            };
+        }
 	}
 }
