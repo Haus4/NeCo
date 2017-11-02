@@ -40,7 +40,7 @@ The chat messages are signed with a PGP-Key, which is generated upon opening the
 ### 4.2 User key is exchanged
 The keys must have been exchanged before chating.
 
-### 4.3 User on the main page
+### 4.3 User is on the main page
 The user should have already opened the NeCo Application on his smartphone and navigated to the main page.
 
 ### 4.4 GPS initialized
