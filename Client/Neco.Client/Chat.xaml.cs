@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -10,15 +11,38 @@ namespace Neco.Client
 {
     public class ChatMessage
     {
-        public string user { get; set; }
-        public string message { get; set; }
-        public string time { get; set; }
+        public virtual string user { get; set; }
+        public virtual string message { get; set; }
+        public virtual string time { get; set; }
+        public virtual string color
+        {
+            get
+            {
+                return "#00000000";
+            }
+        }
+    }
+
+    // TODO: Use a DataTemplateSelector for changed colors
+    public class ForeignChatMessage : ChatMessage
+    {
+
+        public override string color
+        {
+            get
+            {
+                return "#40865FC5";
+            }
+        }
     }
 
     public partial class Chat : ContentPage
     {
         private ObservableCollection<ChatMessage> messages;
         private bool preserveFocus = false;
+
+        private Thread thread;
+        private bool terminate = false;
 
         public Chat()
         {
@@ -36,9 +60,9 @@ namespace Neco.Client
             // https://forums.xamarin.com/discussion/56523/entry-cell-loses-focus-on-button-press-in-android-but-not-ios-work-around
             textArea.Unfocused += (object sender, FocusEventArgs e) =>
             {
-                if(preserveFocus)
+                if (preserveFocus)
                 {
-                   textArea.Focus();
+                    textArea.Focus();
                 }
 
                 preserveFocus = false;
@@ -46,9 +70,9 @@ namespace Neco.Client
 
             textArea.Focused += delegate
             {
-               preserveFocus = false;
+                preserveFocus = false;
             };
- 
+
             sendButton.Pressed += (object sender, EventArgs e) =>
             {
                 preserveFocus = textArea.IsFocused;
@@ -69,6 +93,37 @@ namespace Neco.Client
             {
                 SubmitMessage();
             };
+
+            thread = new Thread(new ThreadStart(() =>
+            {
+                Thread.Sleep(3000);
+
+                while (!terminate)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        PushMessage(new ForeignChatMessage
+                        {
+                            user = "Dr. Axel Stoll",
+                            message = "Die Sonne ist kalt!",
+                            time = DateTime.Now.ToShortTimeString()
+                        });
+                    });
+
+                    for(int i = 0; i < 50 && !terminate; ++i)
+                        Thread.Sleep(100);
+                }
+            }));
+            thread.Start();
+        }
+
+        protected override void OnDisappearing()
+        {
+            terminate = true;
+            if (thread != null && thread.IsAlive)
+            {
+                thread.Join();
+            }
         }
 
         private void SubmitMessage()
@@ -77,7 +132,7 @@ namespace Neco.Client
             String msg = textArea.Text.Trim();
             if (msg.Length <= 0) return;
 
-            messages.Add(new ChatMessage
+            PushMessage(new ChatMessage
             {
                 user = "You",
                 message = msg,
@@ -85,6 +140,11 @@ namespace Neco.Client
             });
 
             textArea.Text = String.Empty;
+        }
+
+        private void PushMessage(ChatMessage message)
+        {
+            messages.Add(message);
             messageList.ScrollTo(messages.LastOrDefault(), ScrollToPosition.Start, false);
         }
     }

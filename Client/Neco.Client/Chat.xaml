@@ -15,8 +15,9 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout Orientation="Vertical"
-                                         Margin="8"
-                                         VerticalOptions="FillAndExpand">
+                                         Padding="8"
+                                         VerticalOptions="FillAndExpand"
+                                         BackgroundColor="{Binding color}">
                                 <StackLayout Orientation="Horizontal"
                                              HorizontalOptions="FillAndExpand">
                                     <Label Text="{Binding user}" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
