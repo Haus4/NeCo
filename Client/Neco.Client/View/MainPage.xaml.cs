@@ -15,7 +15,8 @@ namespace Neco.Client
 
             chatButton.Clicked += async (sender, args) =>
             {
-                await Navigation.PushAsync(new Chat());
+                ChatSession session = new ChatSession();
+                await Navigation.PushAsync(session.View);
             };
         }
 	}

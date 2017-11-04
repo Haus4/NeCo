@@ -4,3 +4,4 @@
 /packages/
 /**/packages/
 *.csproj.user
+*.bak

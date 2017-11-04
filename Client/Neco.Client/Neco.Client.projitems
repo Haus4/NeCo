@@ -9,29 +9,38 @@
     <Import_RootNamespace>Neco.Client</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ChatSession.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Chat.xaml.cs">
-      <SubType>Code</SubType>
+    <Compile Include="$(MSBuildThisFileDirectory)View\Chat.xaml.cs">
+      <DependentUpon>Chat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Controller\ChatController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ChatMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\ChatMessageTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)App.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Chat.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Chat.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Controller\" />
+    <Folder Include="$(MSBuildThisFileDirectory)View\" />
   </ItemGroup>
 </Project>
