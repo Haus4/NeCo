@@ -9,6 +9,8 @@
     <Import_RootNamespace>Neco.Client</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Core\NotifiableContentPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\NotifyingNavigationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\ChatSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
