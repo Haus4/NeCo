@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:Neco.Client"
              x:Class="Neco.Client.Chat">
     <ContentPage.Content>
-        <StackLayout >
+        <StackLayout
+            Spacing="0">
             <ListView
                 VerticalOptions="FillAndExpand"
                 x:Name="messageList"
