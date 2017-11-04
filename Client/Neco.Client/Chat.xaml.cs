@@ -12,6 +12,7 @@ namespace Neco.Client
     {
         public string user { get; set; }
         public string message { get; set; }
+        public string time { get; set; }
     }
 
     public partial class Chat : ContentPage
@@ -80,6 +81,7 @@ namespace Neco.Client
             {
                 user = "You",
                 message = msg,
+                time = DateTime.Now.ToShortTimeString()
             });
 
             textArea.Text = String.Empty;
