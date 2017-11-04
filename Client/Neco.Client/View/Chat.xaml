@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Neco.Client"
+             x:Class="Neco.Client.Chat">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="foreignMessageTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Vertical"
+                                         Padding="8"
+                                         VerticalOptions="FillAndExpand"
+                                         BackgroundColor="#40865FC5">
+                        <Label Text="{Binding User}" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="{Binding Message}"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ownMessageTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Vertical"
+                                         Padding="8"
+                                         VerticalOptions="FillAndExpand">
+                        <Label Text="{Binding User}" FontAttributes="Bold"/>
+                        <Label Text="{Binding Message}" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            <local:ChatMessageTemplateSelector x:Key="chatMessageTemplateSelector"
+                        OwnMessageTemplate="{StaticResource ownMessageTemplate}"
+                        ForeignMessageTemplate="{StaticResource foreignMessageTemplate}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout
+            Spacing="0">
+            <ListView
+                VerticalOptions="FillAndExpand"
+                x:Name="messageList"
+                HasUnevenRows="True"
+                SeparatorVisibility="None"
+                ItemTemplate="{StaticResource chatMessageTemplateSelector}">
+            </ListView>
+            <StackLayout
+                Orientation="Horizontal"
+                BackgroundColor="#F2F2F2"
+                Padding="10">
+                <Entry
+                    x:Name="textArea"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Your message"
+                    Keyboard="Chat" />
+                <Button
+                    Text="Send"
+                    x:Name="sendButton"
+                    VerticalOptions="EndAndExpand" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
