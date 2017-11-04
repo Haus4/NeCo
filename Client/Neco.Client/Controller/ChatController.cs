@@ -37,7 +37,7 @@ namespace Neco.Client
         public void Close()
         {
             testThreadTerminate = true;
-            if(messageTestThread.IsAlive)
+            if (messageTestThread.IsAlive)
             {
                 messageTestThread.Join();
             }

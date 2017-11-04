@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace Neco.Client
 {
-    public partial class Chat : ContentPage
+    public partial class Chat : NotifiableContentPage
     {
         private ChatController controller;
         private bool preserveFocus = false;
@@ -18,7 +18,7 @@ namespace Neco.Client
             DoXamarinWorkaround();
         }
 
-        protected override void OnDisappearing()
+        public override void OnPopped()
         {
             controller.Close();
         }
