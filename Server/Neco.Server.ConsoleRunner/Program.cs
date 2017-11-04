@@ -3,13 +3,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Neco.Server.Infrastructure;
 
-namespace Neco.Server
+namespace Neco.Server.ConsoleRunner
 {
     class Program
     {
         enum Commands { Help, Exit };
         static void Main(string[] args)
+        {
+            initConsole();
+            var container = Bootstrap.Run();
+            string[] cmds = Enum.GetNames(typeof(Commands));
+            string cmd = "";
+            while (!cmd.Equals(Commands.Exit.ToString(), StringComparison.InvariantCultureIgnoreCase))
+            {
+                if (cmd.Equals(Commands.Help.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Console.WriteLine("Available commands: " + string.Join(", ", cmds));
+                }
+                else
+                {
+                    Console.WriteLine("Unrecognized command...");
+                    Console.WriteLine("Enter 'help' to see all visible commands");
+                }
+                cmd = Console.ReadLine();
+            }
+        }
+
+        private static void initConsole()
         {
             Console.Title = "NeCo Server";
             string annotation = "(c) 2017 NeCo. All rights reserved.";
@@ -18,25 +40,8 @@ namespace Neco.Server
             int versionMinor = 1;
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("--------NECO SERVER v" + versionMajor + "." + versionMinor + "--------");
-            Console.WriteLine(annotation+"\n\n");
+            Console.WriteLine(annotation + "\n\n");
             Console.WriteLine(logo + "\n\n");
-            string[] cmds = Enum.GetNames(typeof(Commands));
-            string cmd = "";
-            while (cmd != "exit" )
-            {
-                cmd = Console.ReadLine();
-                if(cmd.Equals(Commands.Help.ToString(), StringComparison.InvariantCultureIgnoreCase))
-                {
-                    Console.WriteLine("Available commands: " + string.Join(", ", cmds));
-                } else if(cmd.Equals(Commands.Exit.ToString(), StringComparison.InvariantCultureIgnoreCase))
-                {
-                    break;
-                } else
-                {
-                    Console.WriteLine("Unrecognized command...");
-                    Console.WriteLine("Enter 'help' to see all visible commands");
-                }
-            }
         }
     }
 }

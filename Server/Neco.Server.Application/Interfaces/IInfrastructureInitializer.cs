@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neco.Server.Infrastructure
+namespace Neco.Server.Application.Interfaces
 {
-    public class Class1
+    public interface IInfrastructureInitializer
     {
+        void Init();
     }
 }
