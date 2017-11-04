@@ -17,7 +17,11 @@
                             <StackLayout Orientation="Vertical"
                                          Margin="8"
                                          VerticalOptions="FillAndExpand">
-                                <Label Text="{Binding user}" FontAttributes="Bold" />
+                                <StackLayout Orientation="Horizontal"
+                                             HorizontalOptions="FillAndExpand">
+                                    <Label Text="{Binding user}" FontAttributes="Bold" HorizontalOptions="StartAndExpand"/>
+                                    <Label Text="{Binding time}" HorizontalOptions="EndAndExpand"/>
+                                </StackLayout>
                                 <Label Text="{Binding message}"/>
                             </StackLayout>
                         </ViewCell>
