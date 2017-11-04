@@ -13,7 +13,9 @@ namespace Neco.Client
 		{
 			InitializeComponent();
 
-            this.chatButton.Clicked += async (sender, args) =>
+            Title = "NeCo";
+
+            chatButton.Clicked += async (sender, args) =>
             {
                 await Navigation.PushAsync(new Chat());
             };

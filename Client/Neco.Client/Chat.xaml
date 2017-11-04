@@ -4,13 +4,40 @@
              xmlns:local="clr-namespace:Neco.Client"
              x:Class="Neco.Client.Chat">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="This is a chat!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Editor x:Name="textArea"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout >
+            <ListView
+                VerticalOptions="FillAndExpand"
+                x:Name="messageList"
+                HasUnevenRows="True"
+                SeparatorVisibility="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical"
+                                         Margin="8"
+                                         VerticalOptions="FillAndExpand">
+                                <Label Text="{Binding user}" FontAttributes="Bold" />
+                                <Label Text="{Binding message}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackLayout
+                Orientation="Horizontal"
+                BackgroundColor="#F2F2F2"
+                Padding="10">
+                <Entry
+                    x:Name="textArea"
+                    HorizontalOptions="FillAndExpand"
+                    Placeholder="Your message"
+                    Keyboard="Chat" />
+                <Button
+                    Text="Send"
+                    x:Name="sendButton"
+                    VerticalOptions="EndAndExpand" />
+            </StackLayout>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

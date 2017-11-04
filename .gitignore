@@ -3,3 +3,4 @@
 /**/bin/
 /packages/
 /**/packages/
+*.csproj.user

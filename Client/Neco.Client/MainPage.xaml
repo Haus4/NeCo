@@ -5,10 +5,7 @@
              x:Class="Neco.Client.MainPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to the NeCo App!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-            <Button Text="Start chatting!"
+            <Button Text="Start chatting"
                     VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" x:Name="chatButton" />
         </StackLayout>
