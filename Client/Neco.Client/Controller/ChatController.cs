@@ -52,6 +52,8 @@ namespace Neco.Client
                 Message = message,
                 IsForeign = false
             });
+
+            App.Instance.Connector.Send("TEST " + message);
         }
 
         private void PushForeignMessage(String user, String message)
