@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
 using System.Text;
+using Xamarin.Forms;
 
 namespace Neco.Client.Network
 {
@@ -16,15 +17,25 @@ namespace Neco.Client.Network
             int port = Convert.ToInt32(host.Substring(separator + 1));
             String server = host.Substring(0, separator);
 
-            client = new TcpClient(server, port);
+            client = new TcpClient();
+            if (!client.ConnectAsync(server, port).Wait(2000))
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DependencyService.Get<IMessage>().ShowToast("Unable to connect to backend");
+                });
+            }
         }
 
         public void Send(String data)
         {
             Byte[] bytes = Encoding.ASCII.GetBytes(data);
 
-            NetworkStream stream = client.GetStream();
-            stream.Write(bytes, 0, bytes.Length);
+            if (client.Connected)
+            {
+                NetworkStream stream = client.GetStream();
+                stream.Write(bytes, 0, bytes.Length);
+            }
         }
 
         public void Receive()
