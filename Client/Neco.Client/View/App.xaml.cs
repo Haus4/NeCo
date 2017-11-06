@@ -11,7 +11,7 @@ namespace Neco.Client
             InitializeComponent();
 
             backendConnector = new Network.BackendConnector("192.168.0.214:9000");
-            backendConnector.Send("TEST user: xnp");
+            backendConnector.Send("TEST user:xnp\r\n");
             MainPage = new NotifyingNavigationPage(new MainPage());
         }
 
