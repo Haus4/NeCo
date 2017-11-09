@@ -24,7 +24,7 @@ namespace Neco.Client
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        PushForeignMessage("Dr. Axel Stoll", "Die Sonne ist kalt!");
+                        PushForeignMessage("EatDat***445", "Good evening Twitter");
                     });
 
                     for (int i = 0; i < 50 && !testThreadTerminate; ++i)
