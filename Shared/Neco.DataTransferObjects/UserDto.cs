@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neco.DataTransferObjects
 {
-    public class Class1
+    public class UserDto : BaseDto
     {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
