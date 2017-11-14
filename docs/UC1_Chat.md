@@ -14,12 +14,12 @@ The app provides the user with the possibility to chat with another person.
 ## 2. Flow of Events
 
 ### 2.1 Basic Flow
-<!-- ![][basic flow] -->
+
 ![][ucd]
 
-<!--
+
 The `.feature`-file can be found [here][gherkin file].
--->
+
 ### 2.2 Alternative Flow
 (n/a)
 
@@ -74,9 +74,9 @@ All function point calculation tables are also located in one spreadsheet. Pleas
 [screenshot]: https://github.com/Haus4/NeCo/raw/master/docs/img/UC1_Chat_Mockup.png "Chat Mockup"
 
 [ucd]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC1_Chat_UCD.jpg "Feature description in Gherkin"
-<!--
-[gherkin file]: <link> ".feature file"
 
+[gherkin file]: https://github.com/Haus4/NeCo/blob/develop/docs/UC1.feature ".feature file"
+<!--
 [fp calculation]: <link> "FP calculation"
 [fpc spreadsheet]:<link> "Function point calculation spreadsheet"
 
