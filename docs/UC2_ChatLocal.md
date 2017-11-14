@@ -1,7 +1,7 @@
 # NeCo - Use-Case Specification: Geo-localized Chat
 
 ## 1. Use-Case Name
-Local Chat
+Chat local
 
 ### 1.1 Brief Description
 The app provides the user with the possibility to chat with another around you person.
