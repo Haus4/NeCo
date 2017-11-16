@@ -10,32 +10,31 @@ using SuperSocket.SocketBase.Protocol;
 
 namespace Neco.Server.Infrastructure
 {
-    public class NecoReceiveFilter : FixedHeaderReceiveFilter<StringRequestInfo>
+    public class NecoReceiveFilter : FixedHeaderReceiveFilter<BinaryRequestInfo>
     {
 
         public NecoReceiveFilter() : base(8) { }
 
         protected override int GetBodyLengthFromHeader(byte[] header, int offset, int length)
         {
-            var nameBytesCount = 4;
+            //nameBytesCount = 4;
             var bytes = new[]
                 {
-                    header[offset + nameBytesCount],
-                    header[offset + nameBytesCount + 1],
-                    header[offset + nameBytesCount + 2],
-                    header[offset + nameBytesCount + 3]
+                    header[offset + 4],
+                    header[offset + 5],
+                    header[offset + 6],
+                    header[offset + 7]
                 };
             var parsedLength = BitConverter.ToInt32(bytes, 0);
             return parsedLength;
         }
 
-        protected override StringRequestInfo ResolveRequestInfo(ArraySegment<byte> header, byte[] bodyBuffer, int offset, int length)
+        protected override BinaryRequestInfo ResolveRequestInfo(ArraySegment<byte> header, byte[] bodyBuffer, int offset, int length)
         {
             var headerArr = header.Array.Skip(header.Offset).Take(4).ToArray();
-            var headerStr = System.Text.Encoding.Default.GetString(headerArr);
+            var commandId = BitConverter.ToInt32(headerArr, 0) + "";
             var bodyArr = bodyBuffer.CloneRange(offset, length);
-            var bodyStr = System.Text.Encoding.Default.GetString(bodyArr);
-            return new StringRequestInfo(headerStr, bodyStr, null);
+            return new BinaryRequestInfo(commandId, bodyArr);
         }
     }
 }

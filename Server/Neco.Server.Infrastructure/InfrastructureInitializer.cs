@@ -38,10 +38,4 @@ namespace Neco.Server.Infrastructure
             var setuped = _necoSocketServer.Setup(rootConfig,serverConfig);
             var started = _necoSocketServer.Start();
         }
-
-        public async void Kill()
-        {
-            _necoSocketServer.Stop();
-        }
-        }
 }
