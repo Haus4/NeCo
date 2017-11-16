@@ -1,23 +1,22 @@
-Feature: Chat encrypted
-	In Order to chat with other users encrypted
+Feature: Share Files
+	In Order to share files with other users
 	as a user
-	I want to have the possibility to chat with other users encrypted
+	I want to have the possibility to share files with other users
 
-@uc3chat
-Scenario: Send encrypted message
+@uc4chat
+Scenario: Send files
 	Given Two users are on the chat page of the app
-	And I have entered a chat message
+	And I have choosen a file to share
 	When I press the send button
-	Then the message should get encrypted
-	And the result should be a message on the other users screen
-	And the message should be sent encrypted
+	Then the result should be a file on the other users screen
+	
 
-Scenario: Receive encrypted message
+Scenario: Receive files
 	Given Two users are on the chat page of the app
-	When another user has send a chat message to me
-	Then the encrypted message should get dencrypted
-	And the result should be a message on the my screen
-	And the message should be sent encrypted
+	And another user has choosen a file to share
+	When another user has pressed the send button
+	Then the result should be a file on my screen
+
 
 Scenario: Session connect failed
 	Given I have no connection to the internet
