@@ -8,7 +8,7 @@ using SuperSocket.SocketBase.Protocol;
 
 namespace Neco.Server.Infrastructure
 {
-    public class TEST : CommandBase<NecoSession, StringRequestInfo>
+    public class TEST : CommandBase<NecoSession, BinaryRequestInfo>
     {
         private String user = "NO_NAME_GIVEN";
 

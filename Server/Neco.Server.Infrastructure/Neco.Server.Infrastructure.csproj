@@ -72,6 +72,7 @@
     <Compile Include="CommandHandler.cs" />
     <Compile Include="InfrastructureModule.cs" />
     <Compile Include="InfrastructureInitializer.cs" />
+    <Compile Include="NecoCommandBase.cs" />
     <Compile Include="NecoReceiveFilter.cs" />
     <Compile Include="NecoSession.cs" />
     <Compile Include="SocketServer.cs" />
