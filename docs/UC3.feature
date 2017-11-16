@@ -1,22 +1,23 @@
-Feature: Chat local
-	In Order to chat with other users nearby
+Feature: Chat encrypted
+	In Order to chat with other users encrypted
 	as a user
-	I want to have the possibility to chat with other users within a certain distance
+	I want to have the possibility to chat with other users encrypted
 
-@uc2chat
-Scenario: Send message
+@uc3chat
+Scenario: Send encrypted message
 	Given Two users are on the chat page of the app
-	And I am within a certain distance to the other user
 	And I have entered a chat message
 	When I press the send button
-	Then the result should be a message on the other users screen
+	Then the message should get encrypted
+	And the result should be a message on the other users screen
+	And the message should be sent encrypted
 
-Scenario: Receive message
+Scenario: Receive encrypted message
 	Given Two users are on the chat page of the app
-	And I am within a certain distance to the other user
 	When another user has send a chat message to me
-	And the user is within a certain distance to me
-	Then the result should be a message on the my screen
+	Then the encrypted message should get dencrypted
+	And the result should be a message on the my screen
+	And the message should be sent encrypted
 
 Scenario: Session connect failed
 	Given I have no connection to the internet
