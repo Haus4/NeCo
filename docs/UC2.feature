@@ -1,4 +1,4 @@
-Feature: 
+Feature: Chat local
 	In Order to chat with other users nearby
 	as a user
 	I want to have the possibility to chat with other users within a certain distance
@@ -23,4 +23,5 @@ Scenario: Session connect failed
 	And the server has an error
 	When I try to connect to the server
 	Then the result should be an error message on my screen according to the error
+	
 	
