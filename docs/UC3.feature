@@ -1,7 +1,7 @@
 Feature: Chat encrypted
 	In Order to chat with other users encrypted
 	as a user
-	I want to have the possibility to chat with other users encrypted
+	I want to have the possibility to chat with another users encrypted
 
 @uc3chat
 Scenario: Send encrypted message
