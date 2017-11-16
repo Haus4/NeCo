@@ -31,7 +31,6 @@ The Android-App and the Xamarin-Backend should transfer their data with the Tran
 ### 3.1. Use encryption library: Signal Protocol
 The client uses the encryption library to encrypt the message.
 
-
 ## 4. Preconditions
 
 ### 4.1 User key is generated
