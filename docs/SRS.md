@@ -49,23 +49,24 @@ The following picture shows the overall use case diagram of our software:
 #### 3.1.1 Chat
 The app provides the user with the possibility to chat with another person.
 
-#### 3.1.2 Share files
-The user is able to share files with the chatroom.
-
-#### 3.1.3 Chat with people nearby
+#### 3.1.2 Chat with people nearby
 The app allows the user to chat with people in his near environment. This is provided through geolocalization within the functionality of the smartphone.
 
-#### 3.1.4 Chat encrypted
+#### 3.1.3 Chat encrypted
 The app provides an encypted chat, where messages get encrypted with RSA and AES.
 
-#### 3.1.5 Moderated Chat
+#### 3.1.4 Share files
+The user is able to share files with the chatroom.
+
+#### 3.1.5 Get Points
+The app provides a reward system where the user gets points for joining a chatroom or using the app.
+
+#### 3.1.6 Moderated Chat
 The app provides naming a moderator, who is able to kick or ban users and delete messages.
 
-#### 3.1.6 Manage Profile
+#### 3.1.7 Manage Profile
 The user is able to change his/her nickname and profile picture within the app. Also managing a friendlist by adding and deleting friends is possible.
 
-#### 3.1.7 Pointsystem
-The app provides a reward system where the user gets points for joining a chatroom or using the app.
 
 
 ### 3.2 Usability
@@ -103,17 +104,18 @@ The whole application will be built with an intuitive design, so there shouldn�
 #### 3.9.1 User Interfaces
 (tbd) 
 
-<!--
-
 Please consult the different use case descriptions for UI mockups (screenshots) and UI functionality descriptions:
 
+
 - [UC1: Chat][uc chat]
-- [UC3: Local Chat][uc local chat]
-- [UC2: Share files][uc share files]
-- [UC4: Encrypted chat][uc encrypted chat]
-- [UC5: Manage profile][uc manage profile]
-- [UC6: Manage friendlist][uc manage friendlist]
-- [UC7: Get Points][uc get points]
+- [UC2: Local Chat][uc local chat]
+- [UC3: Encrypted chat][uc chat encrypted]
+- [UC4: Share files][uc share files]
+- [UC5: Get Points][uc get points]
+
+<!--
+- [UC6: Manage profile][uc manage profile]
+- [UC7: Manage friendlist][uc manage friendlist]
 - [UC8: Manage chatrooms][uc manage chatrooms]
 - [UC9: Name moderator][uc name moderator]
 - [UC10: Kick/Ban user][uc kick user]
@@ -146,12 +148,15 @@ You can find any internal linked sources in the chapter References (go to the to
 
 
 [Overall Use Case Diagram (OUCD)]: https://github.com/Haus4/NeCo/blob/master/docs/img/UseCaseDiagramm.jpg "Link to Github"
-<!--
 
-[uc chat]: <link einfügen> "Use Case 1: Chat with another User"
-[uc local chat]: <link einfügen> "Use Case 2: Chat with another user nearby"
+
+[uc chat]: https://github.com/Haus4/NeCo/blob/develop/docs/UC1.feature "Use Case 1: Chat with another User"
+[uc local chat]: https://github.com/Haus4/NeCo/blob/develop/docs/UC2.feature "Use Case 2: Chat with another user nearby"
+[uc chat encrypted]: https://github.com/Haus4/NeCo/blob/develop/docs/UC3.feature "Use Case 3: Chat encrypted"
+
+
+<!--
 [uc share files]: <link einfügen> "Use Case 3: Share files with another User"
-[uc encrypted chat]: <link einfügen> "Use Case 4: Chat encrypted"
 [uc manage profile]: <link einfügen> "Use Case 5: Manage profile informations"
 [uc manage friendlist]: <link einfügen> "Use Case 6: Manage friends in friendlist"
 [uc get points]: <link einfügen> "Use Case 7: Get Points for using the app"
