@@ -74,11 +74,11 @@ All function point calculation tables are also located in one spreadsheet. Pleas
 <!-- Link definitions: -->
 [basic flow]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC1_Chat_UCD "Use Case Diagram: Chat"
 
-[screenshot]: https://github.com/Haus4/NeCo/raw/master/docs/img/UC1_Chat_Mockup.png "Chat Mockup"
+[screenshot]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC4_ShareFiles_Mockup.png "Chat Mockup"
 
-[ucd]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC3_ChatEncrypted.jpg "Feature description in Gherkin"
+[ucd]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC4_ShareFiles.jpg "Feature description in Gherkin"
 
-[gherkin file]: https://github.com/Haus4/NeCo/blob/develop/docs/UC3.feature ".feature file"
+[gherkin file]: https://github.com/Haus4/NeCo/blob/develop/docs/UC4.feature ".feature file"
 <!--
 [fp calculation]: <link> "FP calculation"
 [fpc spreadsheet]:<link> "Function point calculation spreadsheet"
