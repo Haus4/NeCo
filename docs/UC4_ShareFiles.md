@@ -1,10 +1,10 @@
-# NeCo - Use-Case Specification: Chat Encrypted
+# NeCo - Use-Case Specification: Share Files
 
 ## 1. Use-Case Name
-Chat Encrypted
+Share Files
 
 ### 1.1 Brief Description
-The app provides the user with the possibility to chat encrypted with another person.
+The app provides the user with the possibility to share files with another person.
 
 ### 1.2 Screenshot Mockup
 
