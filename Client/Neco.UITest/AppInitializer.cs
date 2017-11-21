@@ -14,9 +14,14 @@ namespace Neco.UITest
             {
                 return ConfigureApp
                     .Android
-  .ApkFile("../../../Neco.Client.Android/bin/Release/de.dhbw.neco.client-Signed.apk")
-.EnableLocalScreenshots()
-.StartApp();
+#if DEBUG
+                    .ApkFile("../../../Neco.Client.Android/bin/Debug/de.dhbw.neco.client-Signed.apk")
+#else
+                    .ApkFile("../../../Neco.Client.Android/bin/Release/de.dhbw.neco.client-Signed.apk")
+#endif
+                    .EnableLocalScreenshots()
+                    .PreferIdeSettings()
+                    .StartApp();
             }
 
             return ConfigureApp
@@ -25,4 +30,3 @@ namespace Neco.UITest
         }
     }
 }
-

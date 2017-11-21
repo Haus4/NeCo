@@ -12,12 +12,9 @@ namespace Neco.UITest.steps
     {
         protected readonly IApp app;
 
-        public StepsBase()
+        public StepsBase(Platform platform)
         {
-            app = AppInitializer.StartApp(Platform.Android);
-            FeatureContext.Current.Add("App", app);
-
-            app = FeatureContext.Current.Get<IApp>("App");
+            app = AppInitializer.StartApp(platform);
         }
     }
 }
