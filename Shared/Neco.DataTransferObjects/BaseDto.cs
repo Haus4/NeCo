@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neco.Server.Application
+namespace Neco.DataTransferObjects
 {
-    public class Class1
+    public class BaseDto
     {
     }
 }

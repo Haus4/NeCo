@@ -1,10 +1,10 @@
-# NeCo - Use-Case Specification: Geo-localized Chat
+# NeCo - Use-Case Specification: Share Files
 
 ## 1. Use-Case Name
-Local Chat
+Share Files
 
 ### 1.1 Brief Description
-The app provides the user with the possibility to chat with another around you person.
+The app provides the user with the possibility to share files with another person.
 
 ### 1.2 Screenshot Mockup
 
@@ -14,12 +14,12 @@ The app provides the user with the possibility to chat with another around you p
 ## 2. Flow of Events
 
 ### 2.1 Basic Flow
-<!-- ![][basic flow] -->
+
 ![][ucd]
 
-<!--
+
 The `.feature`-file can be found [here][gherkin file].
--->
+
 ### 2.2 Alternative Flow
 (n/a)
 
@@ -28,8 +28,8 @@ The `.feature`-file can be found [here][gherkin file].
 ### 3.1 Use chat protocol: TCP
 The Android-App and the Xamarin-Backend should transfer their data with the Transmission Control Protocol (TCP). 
 
-### 3.2 Geo-localization
-The device running the app requires to have a GPS chip installed.
+### 3.1. Use encryption library: Signal Protocol
+The client uses the encryption library to encrypt the message.
 
 
 ## 4. Preconditions
@@ -43,9 +43,6 @@ The keys must have been exchanged before chating.
 ### 4.3 User is on the main page
 The user should have already opened the NeCo Application on his smartphone and navigated to the main page.
 
-### 4.4 GPS initialized
-The global positioning system of the device is initialized and running. 
-The app should have the right to request the users location.
 
 ## 5. Postconditions
 (n/a)
@@ -75,14 +72,14 @@ All function point calculation tables are also located in one spreadsheet. Pleas
 -->
 
 <!-- Link definitions: -->
-[basic flow]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC2_LocalChat_UCD "Use Case Diagram: Local Chat"
+[basic flow]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC1_Chat_UCD "Use Case Diagram: Chat"
 
-[screenshot]: https://github.com/Haus4/NeCo/raw/master/docs/img/UC2_LocalChat_Mockup.png "Chat Mockup"
+[screenshot]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC4_ShareFiles_Mockup.png "Chat Mockup"
 
-[ucd]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC2_LocalChat_UCD.jpg "Feature description in Gherkin"
+[ucd]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC4_ShareFiles.jpg "Feature description in Gherkin"
+
+[gherkin file]: https://github.com/Haus4/NeCo/blob/develop/docs/UC4.feature ".feature file"
 <!--
-[gherkin file]: <link> ".feature file"
-
 [fp calculation]: <link> "FP calculation"
 [fpc spreadsheet]:<link> "Function point calculation spreadsheet"
 
