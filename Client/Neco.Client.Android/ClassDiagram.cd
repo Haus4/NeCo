@@ -1,108 +1,129 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Neco.Client.ChatController" Collapsed="true">
-    <Position X="7.75" Y="0.5" Width="1.5" />
+  <Class Name="Neco.Client.ChatController">
+    <Position X="4.75" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAIACAACAAAAQAAAAAAAAAAAAAACAAAA=</HashCode>
-      <FileName>..\Neco.Client\Controller\ChatController.cs</FileName>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\Controller\ChatController.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="sessionModel" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="Neco.Client.NotifiableContentPage" Collapsed="true">
-    <Position X="1.75" Y="0.5" Width="1.5" />
+  <Class Name="Neco.Client.NotifiableContentPage">
+    <Position X="7.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>..\Neco.Client\Core\NotifiableContentPage.cs</FileName>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\Core\NotifiableContentPage.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Neco.Client.NotifyingNavigationPage" Collapsed="true">
-    <Position X="6" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>..\Neco.Client\Core\NotifyingNavigationPage.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Neco.Client.ChatMessage" Collapsed="true">
-    <Position X="9.5" Y="0.5" Width="1.5" />
+  <Class Name="Neco.Client.ChatMessage">
+    <Position X="1.75" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABABAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAIAAAAQA=</HashCode>
-      <FileName>..\Neco.Client\Model\ChatMessage.cs</FileName>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\Model\ChatMessage.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Neco.Client.ChatSession" Collapsed="true">
-    <Position X="6" Y="1.5" Width="1.5" />
+  <Class Name="Neco.Client.ChatSession">
+    <Position X="4.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAAAAAAAAAgQAABAAAAAAAAAQAAQAA=</HashCode>
-      <FileName>..\Neco.Client\Model\ChatSession.cs</FileName>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\Model\ChatSession.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="View" />
+      <Property Name="Controller" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="messageList" />
+    </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Neco.Client.App" Collapsed="true">
-    <Position X="4.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAABAAAAgAEAAAAAAAAAAQgAAAQAAAAAAAAAA=</HashCode>
-      <FileName>..\Neco.Client\View\App.xaml.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Neco.Client.Chat" Collapsed="true">
-    <Position X="1.75" Y="2" Width="1.5" />
+  <Class Name="Neco.Client.Chat">
+    <Position X="7.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABwAAAAEAAAAACAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
-      <FileName>..\Neco.Client\View\Chat.xaml.cs</FileName>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\View\Chat.xaml.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Neco.Client.ChatMessageTemplateSelector" Collapsed="true">
-    <Position X="4.25" Y="1.5" Width="1.5" />
+    <Position X="13.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAEAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>..\Neco.Client\View\ChatMessageTemplateSelector.cs</FileName>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\View\ChatMessageTemplateSelector.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Neco.Client.MainPage" Collapsed="true">
-    <Position X="9.5" Y="1.5" Width="1.5" />
+  <Class Name="Neco.Client.MainPage">
+    <Position X="1.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>..\Neco.Client\View\MainPage.xaml.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\View\MainPage.xaml.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="session" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="Neco.Client.Network.BackendConnector" Collapsed="true">
-    <Position X="6" Y="0.5" Width="1.5" />
+  <Class Name="Neco.Client.Network.BackendConnector">
+    <Position X="7.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAQAAAABAAAAAA=</HashCode>
-      <FileName>..\Neco.Client\Network\BackendConnector.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAEABAAAAAAAAAAAQAAAABAAAAAA=</HashCode>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\Network\BackendConnector.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="messageHandler" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="Neco.Client.Droid.MainActivity" Collapsed="true">
-    <Position X="7.75" Y="1.5" Width="1.5" />
+  <Class Name="Neco.Client.Droid.MainActivity">
+    <Position X="2.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>MainActivity.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="app" />
+    </ShowAsAssociation>
   </Class>
-  <Class Name="Neco.Client.Droid.MessageAndroid" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="4.25" Y="2.5" Width="1.5" />
+  <Class Name="Neco.Client.Droid.MessageAndroid" BaseTypeListCollapsed="true">
+    <Position X="10.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>MessageAndroid.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.156" Collapsed="true" />
   </Class>
-  <Class Name="Neco.Client.Droid.Resource" Collapsed="true">
-    <Position X="7.75" Y="2.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Neco.Client.Droid.StartActivity" Collapsed="true">
-    <Position X="9.5" Y="2.5" Width="1.5" />
+  <Class Name="Neco.Client.Droid.StartActivity">
+    <Position X="0.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>StartActivity.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Neco.Client.IMessage" Collapsed="true">
-    <Position X="4.25" Y="3.75" Width="1.5" />
+  <Class Name="Neco.Client.App">
+    <Position X="4.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAABAAAAgAEAAAAAAAAAAQgAAAQAIAAAAAAAA=</HashCode>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\View\App.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="backendConnector" />
+      <Field Name="mainPage" />
+      <Field Name="notifyingNavigationPage" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Neco.Client.NotifyingNavigationPage">
+    <Position X="4.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\Core\NotifyingNavigationPage.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="lastPage" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="Neco.Client.IMessage">
+    <Position X="10.75" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
-      <FileName>..\Neco.Client\Core\IMessage.cs</FileName>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\Core\IMessage.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
