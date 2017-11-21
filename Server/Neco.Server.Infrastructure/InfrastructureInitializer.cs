@@ -35,7 +35,8 @@ namespace Neco.Server.Infrastructure
                 LogBasicSessionActivity = false,
                 LogCommand = false,
             };
-            var setuped = _necoSocketServer.Setup(rootConfig,serverConfig);
+            var setuped = _necoSocketServer.Setup(rootConfig, serverConfig);
             var started = _necoSocketServer.Start();
         }
+    }
 }

@@ -12,7 +12,7 @@ namespace Neco.Server.ConsoleRunner
         enum Commands { Help, Exit };
         static void Main(string[] args)
         {
-            initConsole();
+            InitConsole();
             var container = Bootstrap.Run();
             string[] cmds = Enum.GetNames(typeof(Commands));
             string cmd = "";
@@ -31,7 +31,7 @@ namespace Neco.Server.ConsoleRunner
             }
         }
 
-        private static void initConsole()
+        private static void InitConsole()
         {
             Console.Title = "NeCo Server";
             string annotation = "(c) 2017 NeCo. All rights reserved.";

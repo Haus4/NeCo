@@ -74,12 +74,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagramB.cd" />
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Neco.DataTransferObjects\Neco.DataTransferObjects.csproj">
+      <Project>{bd51606f-3261-4741-ab2d-4e9aca23472b}</Project>
+      <Name>Neco.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Neco.Infrastructure.Protocol\Neco.Infrastructure.Protocol.csproj">
+      <Project>{0ebe8b32-e671-4bc6-bc22-e2c8ccdb30a4}</Project>
+      <Name>Neco.Infrastructure.Protocol</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neco.Server.Application\Neco.Server.Application.csproj">
       <Project>{56a8eefd-659f-444c-86df-30f8404f25c5}</Project>
       <Name>Neco.Server.Application</Name>

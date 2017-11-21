@@ -12,6 +12,7 @@ namespace Neco.Server.ConsoleRunner
 {
     public static class Bootstrap
     {
+        private IInfrastructureInitializer infrastructureInitilizer;
         private static bool _isRunning = false;
 
         public static IContainer Run()

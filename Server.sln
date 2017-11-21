@@ -31,6 +31,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neco.Infrastructure.Protoco
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neco.DataTransferObjects", "Shared\Neco.DataTransferObjects\Neco.DataTransferObjects.csproj", "{BD51606F-3261-4741-AB2D-4E9ACA23472B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libsignal-protocol-pcl", "libsignal-protocol-pcl", "{DF556A26-D9C3-41B0-865C-0FD5F8852D08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "signal-protocol-pcl", "libsignal-protocol-pcl\signal-protocol-pcl\signal-protocol-pcl.csproj", "{28969CF5-0CEC-4B94-B5CC-BDF648A66E70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,10 @@ Global
 		{BD51606F-3261-4741-AB2D-4E9ACA23472B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD51606F-3261-4741-AB2D-4E9ACA23472B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD51606F-3261-4741-AB2D-4E9ACA23472B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28969CF5-0CEC-4B94-B5CC-BDF648A66E70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28969CF5-0CEC-4B94-B5CC-BDF648A66E70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28969CF5-0CEC-4B94-B5CC-BDF648A66E70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28969CF5-0CEC-4B94-B5CC-BDF648A66E70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +92,7 @@ Global
 		{275F3410-40DA-403F-89AF-EC91821C6799} = {A36387E8-17D9-4E5A-9206-7D6C6B4608A6}
 		{0EBE8B32-E671-4BC6-BC22-E2C8CCDB30A4} = {76A33C6C-3C78-40BD-82E2-6F5B36FA2C68}
 		{BD51606F-3261-4741-AB2D-4E9ACA23472B} = {76A33C6C-3C78-40BD-82E2-6F5B36FA2C68}
+		{28969CF5-0CEC-4B94-B5CC-BDF648A66E70} = {DF556A26-D9C3-41B0-865C-0FD5F8852D08}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C41E5B6E-5976-4E1A-A968-2EBE847DC0EF}

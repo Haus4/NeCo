@@ -69,7 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandHandler.cs" />
+    <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="InfrastructureModule.cs" />
     <Compile Include="InfrastructureInitializer.cs" />
     <Compile Include="NecoCommandBase.cs" />
@@ -81,11 +81,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="ClassDiagramC.cd" />
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Neco.Infrastructure.Protocol\Neco.Infrastructure.Protocol.csproj">
+      <Project>{0ebe8b32-e671-4bc6-bc22-e2c8ccdb30a4}</Project>
+      <Name>Neco.Infrastructure.Protocol</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neco.Server.Application\Neco.Server.Application.csproj">
       <Project>{56a8eefd-659f-444c-86df-30f8404f25c5}</Project>
       <Name>Neco.Server.Application</Name>

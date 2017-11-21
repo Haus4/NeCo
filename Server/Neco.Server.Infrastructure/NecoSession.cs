@@ -8,7 +8,7 @@ using SuperSocket.SocketBase.Protocol;
 
 namespace Neco.Server.Infrastructure
 {
-    public class NecoSession : AppSession<NecoSession, StringRequestInfo>
+    public class NecoSession : AppSession<NecoSession, BinaryRequestInfo>
     {
         protected override void OnSessionStarted()
         {
