@@ -31,7 +31,7 @@ namespace Neco.Client
                         Thread.Sleep(100);
                 }
             }));
-            messageTestThread.Start();
+            //messageTestThread.Start();
         }
 
         public void Close()

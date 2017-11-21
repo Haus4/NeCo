@@ -24,7 +24,7 @@
                                          Padding="8"
                                          VerticalOptions="FillAndExpand">
                         <Label Text="{Binding User}" FontAttributes="Bold"/>
-                        <Label Text="{Binding Message}" />
+                        <Label Text="{Binding Message}" AutomationId="message" />
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
@@ -40,6 +40,7 @@
             <ListView
                 VerticalOptions="FillAndExpand"
                 x:Name="messageList"
+                AutomationId="messageList"
                 HasUnevenRows="True"
                 SeparatorVisibility="None"
                 ItemTemplate="{StaticResource chatMessageTemplateSelector}">
@@ -50,12 +51,14 @@
                 Padding="10">
                 <Entry
                     x:Name="textArea"
+                    AutomationId="textArea"
                     HorizontalOptions="FillAndExpand"
                     Placeholder="Your message"
                     Keyboard="Chat" />
                 <Button
                     Text="Send"
                     x:Name="sendButton"
+                    AutomationId="sendButton"
                     VerticalOptions="EndAndExpand" />
             </StackLayout>
         </StackLayout>
