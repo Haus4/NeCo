@@ -18,7 +18,7 @@ namespace Neco.UITest.steps
 
         }*/
 
-        public ChatSteps() : base(Platform.Android)
+        public ChatSteps() : base(Platform.Android) // Force android ui test. 
         {
 
         }
@@ -30,13 +30,13 @@ namespace Neco.UITest.steps
         }
 
         [Given(@"I have entered a chat message"), Scope(Tag = "uc1chat")]
-        public void EnterChatMessage()
+        public void GivenIHaveEnteredAChatMessage()
         {
            app.EnterText(c => c.Marked("textArea"), "a chat message");
         }
 
         [When(@"I press the send button"), Scope(Tag = "uc1chat")]
-        public void PressSendButton()
+        public void WhenIPressTheSendButton()
         {
             app.Tap(c => c.Marked("sendButton"));
         }

@@ -1,18 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace Neco.Client
+namespace Neco.Client.ViewModel
 {
-    public class ChatSession
+    public class ChatSession : ViewModelBase
     {
         private ObservableCollection<ChatMessage> messageList;
 
         private Chat chatView;
-        private ChatController chatController;
+        private Model.ChatModel chatController;
 
         public ChatSession()
         {
             messageList = new ObservableCollection<ChatMessage>();
-            chatController = new ChatController(this);
+            chatController = new Model.ChatModel(this);
             chatView = new Chat(this);
         }
 
@@ -32,7 +32,7 @@ namespace Neco.Client
             }
         }
 
-        public ChatController Controller
+        public Model.ChatModel Controller
         {
             get
             {

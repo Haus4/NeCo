@@ -2,16 +2,16 @@
 using System.Threading;
 using Xamarin.Forms;
 
-namespace Neco.Client
+namespace Neco.Client.Model
 {
-    public class ChatController
+    public class ChatModel
     {
-        private ChatSession sessionModel;
+        private ViewModel.ChatSession sessionModel;
 
         private bool testThreadTerminate;
         private Thread messageTestThread;
 
-        public ChatController(ChatSession model)
+        public ChatModel(ViewModel.ChatSession model)
         {
             sessionModel = model;
 
@@ -45,7 +45,7 @@ namespace Neco.Client
 
         public void PushMessage(String message)
         {
-            sessionModel.Messages.Add(new ChatMessage
+            sessionModel.Messages.Add(new ViewModel.ChatMessage
             {
                 User = "You",
                 Time = DateTime.Now,
@@ -58,7 +58,7 @@ namespace Neco.Client
 
         private void PushForeignMessage(String user, String message)
         {
-            sessionModel.Messages.Add(new ChatMessage
+            sessionModel.Messages.Add(new ViewModel.ChatMessage
             {
                 User = user,
                 Time = DateTime.Now,

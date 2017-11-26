@@ -9,7 +9,7 @@ namespace Neco.Client
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            return (item as ChatMessage).IsForeign ? ForeignMessageTemplate : OwnMessageTemplate;
+            return (item as ViewModel.ChatMessage).IsForeign ? ForeignMessageTemplate : OwnMessageTemplate;
         }
     }
 }

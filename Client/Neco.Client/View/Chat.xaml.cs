@@ -8,10 +8,10 @@ namespace Neco.Client
 {
     public partial class Chat : NotifiableContentPage
     {
-        private ChatController controller;
+        private Model.ChatModel controller;
         private bool preserveFocus = false;
 
-        public Chat(ChatSession model)
+        public Chat(ViewModel.ChatSession model)
         {
             InitializeComponent();
             SetupComponents(model);
@@ -23,10 +23,10 @@ namespace Neco.Client
             controller.Close();
         }
 
-        private void SetupComponents(ChatSession model)
+        private void SetupComponents(ViewModel.ChatSession viewModel)
         {
-            controller = model.Controller;
-            messageList.ItemsSource = model.Messages;
+            controller = viewModel.Controller;
+            messageList.ItemsSource = viewModel.Messages;
 
             Appearing += delegate
             {
@@ -49,11 +49,11 @@ namespace Neco.Client
                 SubmitMessage();
             };
 
-            model.Messages.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) =>
+            viewModel.Messages.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) =>
             {
                 if (e.NewItems.Count > 0)
                 {
-                    messageList.ScrollTo((sender as ObservableCollection<ChatMessage>).LastOrDefault(), ScrollToPosition.Start, false);
+                    messageList.ScrollTo((sender as ObservableCollection<ViewModel.ChatMessage>).LastOrDefault(), ScrollToPosition.Start, false);
                 }
             };
         }
