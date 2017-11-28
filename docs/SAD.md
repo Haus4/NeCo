@@ -37,7 +37,7 @@ n/a
 ### 1.5 Overview
 The architectural details will be described in the following sections. This includes the class diagrams which gives an overview about the whole project.
 ## 2. Architectural Representation
-n/a
+![mvvm]
 ## 3. Architectural Goals and Constraints
 n/a
 ## 4. Use-Case View
@@ -69,3 +69,5 @@ n/a
 
 
 [Class Diagram]: https://github.com/Haus4/NeCo/raw/develop/docs/img/ClassDiagram.png "Overall Use Case Diagram"
+
+[mvvm]: https://github.com/Haus4/NeCo/raw/develop/docs/img/mvvm.png "Model-View-Viewmodel"
