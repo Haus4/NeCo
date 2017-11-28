@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package Neco.Proto;
+
+message Session
+{
+	bytes publicKey = 1;
+	bytes signature = 2;
+	double lat = 3;
+	double lon = 4;
+}
+
+message Message
+{
+	bytes signature = 1;
+	bytes data = 2;
+}

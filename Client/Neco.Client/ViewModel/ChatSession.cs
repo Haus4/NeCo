@@ -7,12 +7,12 @@ namespace Neco.Client.ViewModel
         private ObservableCollection<ChatMessage> messageList;
 
         private Chat chatView;
-        private Model.ChatModel chatController;
+        private Model.ChatModel chatModel;
 
         public ChatSession()
         {
             messageList = new ObservableCollection<ChatMessage>();
-            chatController = new Model.ChatModel(this);
+            chatModel = new Model.ChatModel(this);
             chatView = new Chat(this);
         }
 
@@ -32,11 +32,11 @@ namespace Neco.Client.ViewModel
             }
         }
 
-        public Model.ChatModel Controller
+        public Model.ChatModel Model
         {
             get
             {
-                return chatController;
+                return chatModel;
             }
         }
     }

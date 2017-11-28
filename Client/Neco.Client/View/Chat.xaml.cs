@@ -8,7 +8,7 @@ namespace Neco.Client
 {
     public partial class Chat : NotifiableContentPage
     {
-        private Model.ChatModel controller;
+        private Model.ChatModel model;
         private bool preserveFocus = false;
 
         public Chat(ViewModel.ChatSession model)
@@ -20,12 +20,12 @@ namespace Neco.Client
 
         public override void OnPopped()
         {
-            controller.Close();
+            model.Close();
         }
 
         private void SetupComponents(ViewModel.ChatSession viewModel)
         {
-            controller = viewModel.Controller;
+            model = viewModel.Model;
             messageList.ItemsSource = viewModel.Messages;
 
             Appearing += delegate
@@ -91,7 +91,7 @@ namespace Neco.Client
             String msg = textArea.Text.Trim();
             if (msg.Length <= 0) return;
 
-            controller.PushMessage(msg);
+            model.PushMessage(msg);
             textArea.Text = String.Empty;
         }
     }
