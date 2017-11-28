@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Neco.Server.Infrastructure;
 
-namespace Neco.Server.ConsoleRunner
+namespace Neco.Server
 {
     class Program
     {
@@ -13,7 +13,7 @@ namespace Neco.Server.ConsoleRunner
         static void Main(string[] args)
         {
             InitConsole();
-            var container = Bootstrap.Run();
+            new InfrastructureInitializer(new Settings()).Init();
             string[] cmds = Enum.GetNames(typeof(Commands));
             string cmd = "";
             while (!cmd.Equals(Commands.Exit.ToString(), StringComparison.InvariantCultureIgnoreCase))
