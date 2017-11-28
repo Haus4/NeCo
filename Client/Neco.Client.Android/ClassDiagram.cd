@@ -8,7 +8,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Neco.Client.NotifyingNavigationPage">
-    <Position X="9.75" Y="4" Width="1.5" />
+    <Position X="10" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAIAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\Core\NotifyingNavigationPage.cs</FileName>
@@ -30,15 +30,15 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Neco.Client.Chat">
-    <Position X="14.75" Y="8.75" Width="1.5" />
+    <Position X="14.75" Y="9" Width="1.5" />
     <InheritanceLine Type="Neco.Client.NotifiableContentPage" FixedToPoint="true">
       <Path>
         <Point X="13.75" Y="6.175" />
-        <Point X="13.75" Y="8.375" />
-        <Point X="15.042" Y="8.375" Type="JumpStart" />
-        <Point X="15.208" Y="8.375" Type="JumpEnd" />
-        <Point X="15.562" Y="8.375" />
-        <Point X="15.562" Y="8.75" />
+        <Point X="13.75" Y="8.625" />
+        <Point X="15.042" Y="8.625" Type="JumpStart" />
+        <Point X="15.208" Y="8.625" Type="JumpEnd" />
+        <Point X="15.562" Y="8.625" />
+        <Point X="15.562" Y="9" />
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
@@ -50,7 +50,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Neco.Client.MainPage">
-    <Position X="12.5" Y="9.25" Width="1.5" />
+    <Position X="12.5" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\View\MainPage.xaml.cs</FileName>
@@ -60,7 +60,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Neco.Client.Model.ChatModel">
-    <Position X="8" Y="10" Width="1.5" />
+    <Position X="8" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAIACAACAAAAQAAAAAAAAAAAAAACAAAA=</HashCode>
       <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\Model\ChatModel.cs</FileName>
@@ -77,14 +77,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Neco.Client.ViewModel.ChatMessage">
-    <Position X="1.25" Y="7.5" Width="1.5" />
+    <Position X="1.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABABAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAIIAAASA=</HashCode>
       <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\ViewModel\ChatMessage.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Neco.Client.ViewModel.ChatSession">
-    <Position X="4.25" Y="7.5" Width="1.5" />
+    <Position X="4.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAACAAAgQAABAAAAAAgAAQAAAAA=</HashCode>
       <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\ViewModel\ChatSession.cs</FileName>
@@ -100,7 +100,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Neco.Client.ViewModel.ViewModelBase">
-    <Position X="2.75" Y="5" Width="1.5" />
+    <Position X="2.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgCEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\ViewModel\ViewModelBase.cs</FileName>
@@ -118,7 +118,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Neco.Client.Droid.MessageAndroid" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="16.5" Y="4.5" Width="1.5" />
+    <Position X="14.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>MessageAndroid.cs</FileName>
@@ -133,7 +133,7 @@
     </TypeIdentifier>
   </Class>
   <Interface Name="Neco.Client.IMessage">
-    <Position X="16.5" Y="3.25" Width="1.5" />
+    <Position X="14.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\Core\IMessage.cs</FileName>
