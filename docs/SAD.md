@@ -42,7 +42,7 @@ It allows us to decouple the UI (View) from the Business Logic (Model/ViewModel)
 
 ![mvvm]
 ## 3. Architectural Goals and Constraints
-n/a
+As we use Xamarin we don't have any MVC tool.
 ## 4. Use-Case View
 ### 4.1 Use-Case Realizations
 n/a
@@ -57,7 +57,7 @@ The class diagram; containing all Data Access Objects, Models and Controllers th
 ## 6. Process View
 n/a
 ## 7. Deployment View
-n/a
+![client/server]
 ## 8. Implementation View
 ### 8.1 Overview
 n/a
@@ -74,3 +74,5 @@ n/a
 [Class Diagram]: https://github.com/Haus4/NeCo/raw/develop/docs/img/ClassDiagram_mvvm.png "Class Diagram with MVVM"
 
 [mvvm]: https://github.com/Haus4/NeCo/raw/develop/docs/img/mvvm.png "Model-View-Viewmodel"
+
+[client/server]: https://github.com/Haus4/NeCo/raw/develop/docs/img/Client_Server_Architecture.jpg "Client-Server-Architecture"
