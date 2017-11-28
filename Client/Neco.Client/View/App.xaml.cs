@@ -1,4 +1,4 @@
-﻿using Xamarin.Forms;
+using Xamarin.Forms;
 
 namespace Neco.Client
 {
@@ -6,13 +6,19 @@ namespace Neco.Client
     {
         private Network.BackendConnector backendConnector;
 
+        private MainPage mainPage;
+        private NotifyingNavigationPage notifyingNavigationPage;
+
         public App()
         {
             InitializeComponent();
 
             backendConnector = new Network.BackendConnector("192.168.0.214:9000");
             backendConnector.Send("TEST user:xnp\r\n");
-            MainPage = new NotifyingNavigationPage(new MainPage());
+
+            mainPage = new MainPage();
+            notifyingNavigationPage = new NotifyingNavigationPage(mainPage);
+            MainPage = notifyingNavigationPage;
         }
 
         public Network.BackendConnector Connector

@@ -1,10 +1,10 @@
-# NeCo - Use-Case Specification: Chat
+# NeCo - Use-Case Specification: Geo-localized Chat
 
 ## 1. Use-Case Name
-Chat
+Chat local
 
 ### 1.1 Brief Description
-The app provides the user with the possibility to chat with another person.
+The app provides the user with the possibility to chat with another around you person.
 
 ### 1.2 Screenshot Mockup
 
@@ -14,7 +14,7 @@ The app provides the user with the possibility to chat with another person.
 ## 2. Flow of Events
 
 ### 2.1 Basic Flow
-
+<!-- ![][basic flow] -->
 ![][ucd]
 
 
@@ -28,6 +28,9 @@ The `.feature`-file can be found [here][gherkin file].
 ### 3.1 Use chat protocol: TCP
 The Android-App and the Xamarin-Backend should transfer their data with the Transmission Control Protocol (TCP). 
 
+### 3.2 Geo-localization
+The device running the app requires to have a GPS chip installed.
+
 
 ## 4. Preconditions
 
@@ -40,6 +43,9 @@ The keys must have been exchanged before chating.
 ### 4.3 User is on the main page
 The user should have already opened the NeCo Application on his smartphone and navigated to the main page.
 
+### 4.4 GPS initialized
+The global positioning system of the device is initialized and running. 
+The app should have the right to request the users location.
 
 ## 5. Postconditions
 (n/a)
@@ -69,13 +75,13 @@ All function point calculation tables are also located in one spreadsheet. Pleas
 -->
 
 <!-- Link definitions: -->
-[basic flow]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC1_Chat_UCD "Use Case Diagram: Chat"
+[basic flow]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC2_LocalChat_UCD "Use Case Diagram: Local Chat"
 
-[screenshot]: https://github.com/Haus4/NeCo/raw/master/docs/img/UC1_Chat_Mockup.png "Chat Mockup"
+[screenshot]: https://github.com/Haus4/NeCo/raw/master/docs/img/UC2_LocalChat_Mockup.png "Chat Mockup"
 
-[ucd]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC1_Chat_UCD.jpg "Feature description in Gherkin"
+[ucd]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC2_LocalChat_UCD.jpg "Feature description in Gherkin"
 
-[gherkin file]: https://github.com/Haus4/NeCo/blob/develop/docs/UC1.feature ".feature file"
+[gherkin file]: https://github.com/Haus4/NeCo/blob/develop/docs/UC2.feature ".feature file"
 <!--
 [fp calculation]: <link> "FP calculation"
 [fpc spreadsheet]:<link> "Function point calculation spreadsheet"

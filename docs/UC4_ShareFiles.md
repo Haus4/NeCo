@@ -1,10 +1,10 @@
-# NeCo - Use-Case Specification: Chat
+# NeCo - Use-Case Specification: Share Files
 
 ## 1. Use-Case Name
-Chat
+Share Files
 
 ### 1.1 Brief Description
-The app provides the user with the possibility to chat with another person.
+The app provides the user with the possibility to share files with another person.
 
 ### 1.2 Screenshot Mockup
 
@@ -27,6 +27,9 @@ The `.feature`-file can be found [here][gherkin file].
 ## 3. Special Requirements
 ### 3.1 Use chat protocol: TCP
 The Android-App and the Xamarin-Backend should transfer their data with the Transmission Control Protocol (TCP). 
+
+### 3.1. Use encryption library: Signal Protocol
+The client uses the encryption library to encrypt the message.
 
 
 ## 4. Preconditions
@@ -71,11 +74,11 @@ All function point calculation tables are also located in one spreadsheet. Pleas
 <!-- Link definitions: -->
 [basic flow]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC1_Chat_UCD "Use Case Diagram: Chat"
 
-[screenshot]: https://github.com/Haus4/NeCo/raw/master/docs/img/UC1_Chat_Mockup.png "Chat Mockup"
+[screenshot]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC4_ShareFiles_Mockup.png "Chat Mockup"
 
-[ucd]: https://github.com/Haus4/NeCo/blob/master/docs/img/UC1_Chat_UCD.jpg "Feature description in Gherkin"
+[ucd]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC4_ShareFiles.jpg "Feature description in Gherkin"
 
-[gherkin file]: https://github.com/Haus4/NeCo/blob/develop/docs/UC1.feature ".feature file"
+[gherkin file]: https://github.com/Haus4/NeCo/blob/develop/docs/UC4.feature ".feature file"
 <!--
 [fp calculation]: <link> "FP calculation"
 [fpc spreadsheet]:<link> "Function point calculation spreadsheet"

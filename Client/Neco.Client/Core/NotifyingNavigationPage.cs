@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
@@ -7,6 +7,8 @@ namespace Neco.Client
 {
     public class NotifyingNavigationPage : NavigationPage
     {
+        private NotifiableContentPage lastPage;
+
         public NotifyingNavigationPage() : base()
         {
             SetupEvents();
@@ -23,7 +25,8 @@ namespace Neco.Client
             {
                 if(e.Page is NotifiableContentPage)
                 {
-                    (e.Page as NotifiableContentPage).OnPopped();
+                    lastPage = (e.Page as NotifiableContentPage);
+                    lastPage.OnPopped();
                 }
             };
         }
