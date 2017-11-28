@@ -37,6 +37,9 @@ n/a
 ### 1.5 Overview
 The architectural details will be described in the following sections. This includes the class diagrams which gives an overview about the whole project.
 ## 2. Architectural Representation
+As we develop a Chross-Plattform mobile ab MVVM is the pattern of choice.
+It allows us to decouple the UI (View) from the Business Logic (Model/ViewModel).
+
 ![mvvm]
 ## 3. Architectural Goals and Constraints
 n/a
@@ -68,6 +71,6 @@ n/a
 n/a
 
 
-[Class Diagram]: https://github.com/Haus4/NeCo/raw/develop/docs/img/ClassDiagram.png "Overall Use Case Diagram"
+[Class Diagram]: https://github.com/Haus4/NeCo/raw/develop/docs/img/ClassDiagram_mvvm.png "Class Diagram with MVVM"
 
 [mvvm]: https://github.com/Haus4/NeCo/raw/develop/docs/img/mvvm.png "Model-View-Viewmodel"
