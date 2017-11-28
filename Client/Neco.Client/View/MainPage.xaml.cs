@@ -1,3 +1,4 @@
+using Android.Preferences;
 using Xamarin.Forms;
 
 namespace Neco.Client
@@ -13,7 +14,10 @@ namespace Neco.Client
             chatButton.Clicked += async (sender, args) =>
             {
                 session = new ViewModel.ChatSession();
-                await Navigation.PushAsync(session.View);
+                if (session.Available)
+                {
+                    await Navigation.PushAsync(session.View);
+                }
             };
         }
     }

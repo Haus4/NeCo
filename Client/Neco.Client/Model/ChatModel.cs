@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Google.ProtocolBuffers;
+using System;
+using System.Text;
 using System.Threading;
 using Xamarin.Forms;
 
@@ -53,7 +55,15 @@ namespace Neco.Client.Model
                 IsForeign = false
             });
 
-            App.Instance.Connector.Send("TEST " + message + "\r\n");
+            byte[] messageBytes = Encoding.ASCII.GetBytes(message);
+            byte[] signature = new byte[1];
+
+            Proto.Message msg = Proto.Message.CreateBuilder()
+                .SetData(ByteString.CopyFrom(messageBytes))
+                .SetSignature(ByteString.CopyFrom(signature))
+                .BuildPartial();
+
+            App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Message, msg.ToByteArray());
         }
 
         private void PushForeignMessage(String user, String message)

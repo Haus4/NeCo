@@ -8,13 +8,17 @@ namespace Neco.Client
 
         private MainPage mainPage;
         private NotifyingNavigationPage notifyingNavigationPage;
+        private object context;
+        private string key;
 
-        public App()
+        public App(object _context)
         {
             InitializeComponent();
 
+            context = _context;
+            key = DependencyService.Get<IAuthStore>().GetKey(context);
+
             backendConnector = new Network.BackendConnector("192.168.0.214:9000");
-            backendConnector.Send("TEST user:xnp\r\n");
 
             mainPage = new MainPage();
             notifyingNavigationPage = new NotifyingNavigationPage(mainPage);

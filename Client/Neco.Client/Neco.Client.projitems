@@ -9,6 +9,7 @@
     <Import_RootNamespace>Neco.Client</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Core\IAuthStore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\NotifiableContentPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\NotifyingNavigationPage.cs" />

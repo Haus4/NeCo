@@ -4,6 +4,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using Android.Preferences;
 
 namespace Neco.Client.Droid
 {
@@ -20,7 +21,7 @@ namespace Neco.Client.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            app = new App();
+            app = new App(this);
             LoadApplication(app);
 
             App.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);

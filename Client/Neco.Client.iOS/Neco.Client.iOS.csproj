@@ -134,6 +134,16 @@
     </Reference>
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Neco.DataTransferObjects\Neco.DataTransferObjects.csproj">
+      <Project>{5df05250-6aea-4a85-85cc-4a3247ed841e}</Project>
+      <Name>Neco.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Shared\Neco.Infrastructure.Protocol\Neco.Infrastructure.Protocol.csproj">
+      <Project>{0ebe8b32-e671-4bc6-bc22-e2c8ccdb30a4}</Project>
+      <Name>Neco.Infrastructure.Protocol</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\Neco.Client\Neco.Client.projitems" Label="Shared" Condition="Exists('..\Neco.Client\Neco.Client.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
