@@ -34,7 +34,11 @@ namespace Neco.Server.Infrastructure
             var headerArr = header.Array.Skip(header.Offset).Take(4).ToArray();
             var commandId = BitConverter.ToInt32(headerArr, 0) + "";
             var bodyArr = bodyBuffer.CloneRange(offset, length);
+<<<<<<< Updated upstream
             return new BinaryRequestInfo(commandId, bodyArr);
+=======
+            return new BinaryRequestInfo(headerStr, bodyArr);
+>>>>>>> Stashed changes
         }
     }
 }

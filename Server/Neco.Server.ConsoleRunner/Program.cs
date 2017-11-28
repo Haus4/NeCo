@@ -5,15 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using Neco.Server.Infrastructure;
 
-namespace Neco.Server.ConsoleRunner
+namespace Neco.Server
 {
     class Program
     {
         enum Commands { Help, Exit };
         static void Main(string[] args)
         {
-            initConsole();
-            var container = Bootstrap.Run();
+            InitConsole();
+            new InfrastructureInitializer(new Settings()).Init();
             string[] cmds = Enum.GetNames(typeof(Commands));
             string cmd = "";
             while (!cmd.Equals(Commands.Exit.ToString(), StringComparison.InvariantCultureIgnoreCase))
@@ -31,7 +31,7 @@ namespace Neco.Server.ConsoleRunner
             }
         }
 
-        private static void initConsole()
+        private static void InitConsole()
         {
             Console.Title = "NeCo Server";
             string annotation = "(c) 2017 NeCo. All rights reserved.";
