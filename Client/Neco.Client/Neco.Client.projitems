@@ -12,16 +12,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\IMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\NotifiableContentPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\NotifyingNavigationPage.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Model\ChatSession.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ChatSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\BackendConnector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\Chat.xaml.cs">
       <DependentUpon>Chat.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Controller\ChatController.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Model\ChatMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\ChatModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ChatMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\ChatMessageTemplateSelector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -44,7 +45,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Controller\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Model\" />
     <Folder Include="$(MSBuildThisFileDirectory)View\" />
   </ItemGroup>
 </Project>

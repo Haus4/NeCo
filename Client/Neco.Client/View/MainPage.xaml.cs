@@ -4,7 +4,7 @@ namespace Neco.Client
 {
     public partial class MainPage : ContentPage
     {
-        private ChatSession session;
+        private ViewModel.ChatSession session;
 
         public MainPage()
         {
@@ -12,7 +12,7 @@ namespace Neco.Client
 
             chatButton.Clicked += async (sender, args) =>
             {
-                session = new ChatSession();
+                session = new ViewModel.ChatSession();
                 await Navigation.PushAsync(session.View);
             };
         }

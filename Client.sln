@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Neco.Client", "Client\Neco.Client\Neco.Client.shproj", "{1E4DDEF1-FEE7-4B8A-A564-5ED8934F43FE}"
 EndProject
@@ -12,6 +12,20 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neco.DataTransferObjects", "Shared\Neco.DataTransferObjects\Neco.DataTransferObjects.csproj", "{5DF05250-6AEA-4A85-85CC-4A3247ED841E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{2C3FE348-857B-4E66-8150-B825471EDEED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{4B26DFDE-1F76-4EF6-8F55-9D4DFB6E9343}"
+	ProjectSection(SolutionItems) = preProject
+		docs\UC1.feature = docs\UC1.feature
+		docs\UC1_Chat.md = docs\UC1_Chat.md
+		docs\UC2.feature = docs\UC2.feature
+		docs\UC2_ChatLocal.md = docs\UC2_ChatLocal.md
+		docs\UC3.feature = docs\UC3.feature
+		docs\UC3_ChatEncrypted.md = docs\UC3_ChatEncrypted.md
+		docs\UC4.feature = docs\UC4.feature
+		docs\UC4_ShareFiles.md = docs\UC4_ShareFiles.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neco.UITest", "Client\Neco.UITest\Neco.UITest.csproj", "{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -114,6 +128,30 @@ Global
 		{5DF05250-6AEA-4A85-85CC-4A3247ED841E}.Release|iPhone.Build.0 = Release|Any CPU
 		{5DF05250-6AEA-4A85-85CC-4A3247ED841E}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{5DF05250-6AEA-4A85-85CC-4A3247ED841E}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.AppStore|iPhoneSimulator.Build.0 = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Release|iPhone.Build.0 = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9035DCBC-D85C-4C3E-90CE-EDF559B21D56}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
