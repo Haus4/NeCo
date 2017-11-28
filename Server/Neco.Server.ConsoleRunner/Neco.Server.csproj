@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F3408001-1077-4CEF-971C-4F23BEE2030B}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Server</RootNamespace>
-    <AssemblyName>Server</AssemblyName>
+    <RootNamespace>Neco.Server</RootNamespace>
+    <AssemblyName>Neco.Server</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -68,24 +68,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrap.cs" />
+    <Compile Include="Application\AccountService.cs" />
+    <Compile Include="Application\ChatService.cs" />
+    <Compile Include="Infrastructure\Commands\CommandHandler.cs" />
+    <Compile Include="Infrastructure\InfrastructureInitializer.cs" />
+    <Compile Include="Infrastructure\NecoCommandBase.cs" />
+    <Compile Include="Infrastructure\NecoReceiveFilter.cs" />
+    <Compile Include="Infrastructure\NecoSession.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Infrastructure\SocketServer.cs" />
+    <Compile Include="ServiceLocator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ClassDiagram.cd" />
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Neco.Server.Application\Neco.Server.Application.csproj">
-      <Project>{56a8eefd-659f-444c-86df-30f8404f25c5}</Project>
-      <Name>Neco.Server.Application</Name>
+    <ProjectReference Include="..\..\Shared\Neco.DataTransferObjects\Neco.DataTransferObjects.csproj">
+      <Project>{bd51606f-3261-4741-ab2d-4e9aca23472b}</Project>
+      <Name>Neco.DataTransferObjects</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Neco.Server.Infrastructure\Neco.Server.Infrastructure.csproj">
-      <Project>{50243f49-08b6-416a-b822-6037dbe2e442}</Project>
-      <Name>Neco.Server.Infrastructure</Name>
+    <ProjectReference Include="..\..\Shared\Neco.Infrastructure.Protocol\Neco.Infrastructure.Protocol.csproj">
+      <Project>{0ebe8b32-e671-4bc6-bc22-e2c8ccdb30a4}</Project>
+      <Name>Neco.Infrastructure.Protocol</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

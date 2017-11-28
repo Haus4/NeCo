@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neco.DataTransferObjects
+namespace Neco.Server.Application
 {
-    public class BaseDto
+    public class AccountService
     {
     }
 }

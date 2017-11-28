@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Neco.Server.Application.Interfaces;
 using SuperSocket.SocketBase;
 using SuperSocket.SocketEngine;
 using SuperSocket.SocketBase.Config;
 
 namespace Neco.Server.Infrastructure
 {
-    public class InfrastructureInitializer : IInfrastructureInitializer
+    public class InfrastructureInitializer
     {
-        private readonly ISettings _settings;
+        private readonly Settings _settings;
         private readonly SocketServer _necoSocketServer;
-        public InfrastructureInitializer(ISettings settings, SocketServer socketServer)
+        public InfrastructureInitializer(Settings settings)
         {
             _settings = settings;
-            _necoSocketServer = socketServer;
+            _necoSocketServer = new SocketServer();
         }
 
         public async void Init()

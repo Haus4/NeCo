@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neco.BeaCon.Infrastructure
+namespace Neco.Server.Application
 {
-    public class Class1
+    class ChatService
     {
     }
 }

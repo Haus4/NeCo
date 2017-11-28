@@ -58,14 +58,14 @@ The app provides an encypted chat, where messages get encrypted with RSA and AES
 #### 3.1.4 Share files
 The user is able to share files with the chatroom.
 
-#### 3.1.5 Get Points
-The app provides a reward system where the user gets points for joining a chatroom or using the app.
+#### 3.1.5 Manage Profile
+The user is able to change his/her nickname and profile picture within the app. Also managing a friendlist by adding and deleting friends is possible.
 
 #### 3.1.6 Moderated Chat
 The app provides naming a moderator, who is able to kick or ban users and delete messages.
 
-#### 3.1.7 Manage Profile
-The user is able to change his/her nickname and profile picture within the app. Also managing a friendlist by adding and deleting friends is possible.
+#### 3.1.7 Get Points
+The app provides a reward system where the user gets points for joining a chatroom or using the app.
 
 
 
