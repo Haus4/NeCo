@@ -9,7 +9,7 @@ using SuperSocket.SocketBase.Protocol;
 
 namespace Neco.Server.Infrastructure
 {
-    public class SocketServer : AppServer<NecoSession, BinaryRequestInfo>
+    public class SocketServer : AppServer<ClientSession, BinaryRequestInfo>
     {
 
         protected override bool Setup(IRootConfig rootConfig, IServerConfig config)
@@ -28,19 +28,19 @@ namespace Neco.Server.Infrastructure
             base.OnStopped();
         }
 
-        protected override void ExecuteCommand(NecoSession session, BinaryRequestInfo requestInfo)
+        protected override void ExecuteCommand(ClientSession session, BinaryRequestInfo requestInfo)
         {
             Console.WriteLine("Command invoked.");
             base.ExecuteCommand(session, requestInfo);
         }
 
-        protected override void OnNewSessionConnected(NecoSession session)
+        protected override void OnNewSessionConnected(ClientSession session)
         {
             Console.WriteLine("New session connected.");
             base.OnNewSessionConnected(session);
         }
 
-        protected override void OnSessionClosed(NecoSession session, CloseReason reason)
+        protected override void OnSessionClosed(ClientSession session, CloseReason reason)
         {
             Console.WriteLine("Session closed.");
             base.OnSessionClosed(session, reason);

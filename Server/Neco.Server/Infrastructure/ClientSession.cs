@@ -8,8 +8,9 @@ using SuperSocket.SocketBase.Protocol;
 
 namespace Neco.Server.Infrastructure
 {
-    public class NecoSession : AppSession<NecoSession, BinaryRequestInfo>
+    public class ClientSession : AppSession<ClientSession, BinaryRequestInfo>
     {
+        public bool HasChat { get; private set; }
         protected override void OnSessionStarted()
         {
             base.Send("Welcome to Neco Chat!");

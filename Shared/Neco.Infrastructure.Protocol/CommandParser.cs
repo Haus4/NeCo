@@ -26,7 +26,7 @@ namespace Neco.Infrastructure.Protocol
             return result.ToArray();
         }
         
-        public CommandTypes ParseCommandName(byte[] bytes)
+        public CommandTypes ParseCommandType(byte[] bytes)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace Neco.Infrastructure.Protocol
             return parsedLength;
         }
 
-        private IEnumerable<byte> CommandNameToBytes(CommandTypes name)
+        private IEnumerable<byte> CommandTypeToBytes(CommandTypes name)
         {
             var bytes = new List<byte>(BitConverter.GetBytes((int) name));
             if (bytes.Count > NameBytesCount)
