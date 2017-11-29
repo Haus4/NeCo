@@ -9,7 +9,7 @@ using SuperSocket.SocketBase.Protocol;
 
 namespace Neco.Server.Infrastructure
 {
-    public abstract class NecoCommandBase : CommandBase<NecoSession, BinaryRequestInfo>
+    public abstract class NecoCommandBase : CommandBase<ClientSession, BinaryRequestInfo>
     {
 
         /// <summary>
@@ -25,14 +25,14 @@ namespace Neco.Server.Infrastructure
         /// <summary>
         /// Command handler
         /// </summary>
-        public abstract void ExecuteExternalCommand(NecoSession session, byte[] data);
+        public abstract void ExecuteExternalCommand(ClientSession session, byte[] data);
 
         public override string Name
         {
             get { return CommandType.ToString(); }
         }
 
-        public sealed override void ExecuteCommand(NecoSession session, BinaryRequestInfo requestInfo)
+        public sealed override void ExecuteCommand(ClientSession session, BinaryRequestInfo requestInfo)
         {
             /*if (RequiresAdminAccess)
             {

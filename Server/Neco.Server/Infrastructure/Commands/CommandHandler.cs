@@ -13,7 +13,7 @@ namespace Neco.Server.Infrastructure.Commands
     {
         private String user = "NO_NAME_GIVEN";
 
-        public override void ExecuteExternalCommand(NecoSession session, byte[] data)
+        public override void ExecuteExternalCommand(ClientSession session, byte[] data)
         {
             String body = data.ToString();
             if (body.StartsWith("user:"))

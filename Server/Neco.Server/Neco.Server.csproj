@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{50243F49-08B6-416A-B822-6037DBE2E442}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neco.Server.Infrastructure</RootNamespace>
-    <AssemblyName>Neco.Server.Infrastructure</AssemblyName>
+    <ProjectGuid>{F3408001-1077-4CEF-971C-4F23BEE2030B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Neco.Server</RootNamespace>
+    <AssemblyName>Neco.Server</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,9 +37,6 @@
     </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="protobuf-net, Version=2.3.2.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\protobuf-net.2.3.2\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="SuperSocket.Common, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.Common.dll</HintPath>
@@ -69,31 +68,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CommandHandler.cs" />
-    <Compile Include="InfrastructureModule.cs" />
-    <Compile Include="InfrastructureInitializer.cs" />
-    <Compile Include="NecoCommandBase.cs" />
-    <Compile Include="NecoReceiveFilter.cs" />
-    <Compile Include="NecoSession.cs" />
-    <Compile Include="SocketServer.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Application\AccountService.cs" />
+    <Compile Include="Application\ChatService.cs" />
+    <Compile Include="Infrastructure\ChatSession.cs" />
+    <Compile Include="Infrastructure\Commands\CommandHandler.cs" />
+    <Compile Include="Infrastructure\InfrastructureInitializer.cs" />
+    <Compile Include="Infrastructure\NecoCommandBase.cs" />
+    <Compile Include="Infrastructure\NecoReceiveFilter.cs" />
+    <Compile Include="Infrastructure\ClientSession.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Infrastructure\SocketServer.cs" />
+    <Compile Include="ServiceLocator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="ClassDiagramC.cd" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ClassDiagram.cd" />
     <None Include="Config\log4net.config" />
     <None Include="Config\log4net.unix.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Neco.DataTransferObjects\Neco.DataTransferObjects.csproj">
+      <Project>{bd51606f-3261-4741-ab2d-4e9aca23472b}</Project>
+      <Name>Neco.DataTransferObjects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Shared\Neco.Infrastructure.Protocol\Neco.Infrastructure.Protocol.csproj">
       <Project>{0ebe8b32-e671-4bc6-bc22-e2c8ccdb30a4}</Project>
       <Name>Neco.Infrastructure.Protocol</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neco.Server.Application\Neco.Server.Application.csproj">
-      <Project>{56a8eefd-659f-444c-86df-30f8404f25c5}</Project>
-      <Name>Neco.Server.Application</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
