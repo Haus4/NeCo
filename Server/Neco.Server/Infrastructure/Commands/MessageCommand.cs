@@ -9,26 +9,22 @@ using Neco.Infrastructure.Protocol;
 
 namespace Neco.Server.Infrastructure.Commands
 {
-    public class CommandHandler : NecoCommandBase
+    public class ChatCommand : NecoCommandBase
     {
         private String user = "NO_NAME_GIVEN";
 
         public override void ExecuteExternalCommand(ClientSession session, byte[] data)
         {
-            String body = data.ToString();
-            if (body.StartsWith("user:"))
+            ChatSession ses = ChatSessionManager.GetSession();
+            if(ses != null)
             {
-                user = body.Split(':')[1];
-                session.Send(" Hello " + user + Environment.NewLine);
-            } else
-            {
-                session.Send(" Message recieved from " + user + Environment.NewLine);
+                ses.SendToSpecificMember(session.LocalEndPoint, data, 0, data.Length);
             }
         }
 
         protected override CommandTypes CommandType
         {
-            get { return CommandTypes.Request; }
+            get { return CommandTypes.Message; }
         }
     }
 }

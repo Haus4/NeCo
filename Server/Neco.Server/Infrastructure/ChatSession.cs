@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,23 @@ namespace Neco.Server.Infrastructure
         public void JoinSession(ClientSession _sessionMember)
         {
             sessionMember = _sessionMember;
+        }
+
+        public void SendToSpecificMember(IPEndPoint endPoint, byte[] data, int offset, int length)
+        {
+            if(endPoint == sessionCreator.LocalEndPoint)
+            {
+                sessionCreator.Send(data, offset, length);
+            } else
+            {
+                sessionMember.Send(data, offset, length);
+            }
+        }
+
+        public void SendEachMember(byte[] data, int offset, int length)
+        {
+            sessionCreator.Send(data, offset, length);
+            sessionMember.Send(data, offset, length);
         }
 
         public void CloseSession()

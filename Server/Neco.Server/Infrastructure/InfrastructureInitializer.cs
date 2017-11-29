@@ -12,15 +12,15 @@ namespace Neco.Server.Infrastructure
     public class InfrastructureInitializer
     {
         private readonly Settings _settings;
-        private readonly SocketServer _necoSocketServer;
+        private SocketServer _necoSocketServer;
         public InfrastructureInitializer(Settings settings)
         {
             _settings = settings;
-            _necoSocketServer = new SocketServer();
         }
 
-        public async void Init()
+        public void Init()
         {
+            _necoSocketServer = new SocketServer();
             var rootConfig = new RootConfig();
             var serverConfig = new ServerConfig
             {

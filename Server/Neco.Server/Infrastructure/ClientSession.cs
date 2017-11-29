@@ -13,12 +13,12 @@ namespace Neco.Server.Infrastructure
         public bool HasChat { get; private set; }
         protected override void OnSessionStarted()
         {
-            base.Send("Welcome to Neco Chat!");
+            //base.Send("Welcome to Neco Chat!");
         }
 
         protected override void HandleException(Exception e)
         {
-            base.Send("Application error: {0}", e.Message);
+            //base.Send("Application error: {0}", e.Message);
         }
 
         protected override void OnSessionClosed(CloseReason reason)
