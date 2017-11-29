@@ -16,9 +16,9 @@ namespace Neco.Client
             InitializeComponent();
 
             context = _context;
-            key = DependencyService.Get<IAuthStore>().GetKey(context);
+            LoadKey();
 
-            backendConnector = new Network.BackendConnector("192.168.0.214:9000");
+            backendConnector = new Network.BackendConnector("192.168.0.234:9000");
 
             mainPage = new MainPage();
             notifyingNavigationPage = new NotifyingNavigationPage(mainPage);
@@ -38,6 +38,18 @@ namespace Neco.Client
             get
             {
                 return Current as App;
+            }
+        }
+
+        private void LoadKey()
+        {
+            IDataStore dataStore = DependencyService.Get<IDataStore>();
+
+            key = dataStore.GetString(context, "key");
+            if(key == null)
+            {
+                key = "blub"; // TODO: Generate ECC key using ed25519
+                dataStore.SetString(context, "key", key);
             }
         }
 
