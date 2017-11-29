@@ -34,6 +34,22 @@ namespace Neco.Client.Model
                 }
             }));
             //messageTestThread.Start();
+
+            App.Instance.Connector.Receive(Infrastructure.Protocol.CommandTypes.Message, (data) =>
+            {
+                try
+                {
+                    Neco.Proto.Message message = Neco.Proto.Message.ParseFrom(data);
+                    if (message != null)
+                    {
+                        PushForeignMessage("User", Encoding.ASCII.GetString(message.Data.ToByteArray()));
+                    }
+                }
+                catch(Exception)
+                {
+
+                }
+            });
         }
 
         public void Close()
