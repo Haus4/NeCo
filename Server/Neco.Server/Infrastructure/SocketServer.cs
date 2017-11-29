@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 using SuperSocket.SocketBase;
 using SuperSocket.SocketBase.Config;
 using SuperSocket.SocketBase.Protocol;
+using System.Collections;
 
 namespace Neco.Server.Infrastructure
 {
     public class SocketServer : AppServer<ClientSession, BinaryRequestInfo>
     {
+        public SocketServer()
+            : base(new DefaultReceiveFilterFactory<NecoReceiveFilter, BinaryRequestInfo>()) { }
 
         protected override bool Setup(IRootConfig rootConfig, IServerConfig config)
         {
             Console.WriteLine("setting up");
             return base.Setup(rootConfig, config);
-        }
-
-        protected override void OnStartup()
-        {
-            base.OnStartup();
         }
 
         protected override void OnStopped()

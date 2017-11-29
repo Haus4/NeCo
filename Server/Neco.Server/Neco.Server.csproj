@@ -35,6 +35,12 @@
     <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Autofac.4.6.2\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Google.ProtocolBuffers, Version=2.4.1.555, Culture=neutral, PublicKeyToken=55f7125234beb589, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Google.ProtocolBuffers.2.4.1.555\lib\net40\Google.ProtocolBuffers.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.ProtocolBuffers.Serialization, Version=2.4.1.555, Culture=neutral, PublicKeyToken=55f7125234beb589, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Google.ProtocolBuffers.2.4.1.555\lib\net40\Google.ProtocolBuffers.Serialization.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -71,7 +77,9 @@
     <Compile Include="Application\AccountService.cs" />
     <Compile Include="Application\ChatService.cs" />
     <Compile Include="Infrastructure\ChatSession.cs" />
-    <Compile Include="Infrastructure\Commands\CommandHandler.cs" />
+    <Compile Include="Infrastructure\ChatSessionManager.cs" />
+    <Compile Include="Infrastructure\Commands\ChatCommand.cs" />
+    <Compile Include="Infrastructure\Commands\SessionCommand.cs" />
     <Compile Include="Infrastructure\InfrastructureInitializer.cs" />
     <Compile Include="Infrastructure\NecoCommandBase.cs" />
     <Compile Include="Infrastructure\NecoReceiveFilter.cs" />
