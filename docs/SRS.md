@@ -27,7 +27,7 @@ In this section definitions and explanations of acronyms and abbreviations are l
 |			Title									|	Date		|
 |---------------------------------------------------|---------------|
 | [NeCo Blog](http:/necoproject.wordpress.com/) | 19.10.2017 |
-| [Ouverall Use Case Diagramm (OUCD)](https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg)| 19.10.2017 |
+| [Ouverall Use Case Diagramm (OUCD)](https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/UseCaseDiagramm.jpg)| 19.10.2017 |
 
 ### 1.5 Overview
 The following chapters are about our vision and perspective, the software requirements, the demands we have, licensing and
@@ -178,7 +178,7 @@ You can find any internal linked sources in the chapter References (go to the to
 -->
 
 <!-- Picture-Link definitions: -->
-[OUCD]: https://github.com/Haus4/NeCo/raw/master/docs/img/UseCaseDiagramm.jpg "Overall Use Case Diagram"
+[OUCD]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/UseCaseDiagramm.jpg "Overall Use Case Diagram"
 
 <!--
 
