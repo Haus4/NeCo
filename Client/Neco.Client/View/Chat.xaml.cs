@@ -15,7 +15,6 @@ namespace Neco.Client
         {
             InitializeComponent();
             SetupComponents(model);
-            DoXamarinWorkaround();
         }
 
         public override void OnPopped()
@@ -53,34 +52,8 @@ namespace Neco.Client
             {
                 if (e.NewItems.Count > 0)
                 {
-                    messageList.ScrollTo((sender as ObservableCollection<ViewModel.ChatMessage>).LastOrDefault(), ScrollToPosition.Start, false);
+                    messageList.ScrollTo(viewModel.Messages.LastOrDefault(), ScrollToPosition.Start, true);
                 }
-            };
-        }
-
-        private void DoXamarinWorkaround()
-        {
-            // This is a quick workaround for a Xamarin bug
-            // https://forums.xamarin.com/discussion/56523/entry-cell-loses-focus-on-button-press-in-android-but-not-ios-work-around
-            // TODO: Check if this can be fixed by providing a custom Entry renderer
-            textArea.Unfocused += (object sender, FocusEventArgs e) =>
-            {
-                if (preserveFocus)
-                {
-                    textArea.Focus();
-                }
-
-                preserveFocus = false;
-            };
-
-            textArea.Focused += delegate
-            {
-                preserveFocus = false;
-            };
-
-            sendButton.Pressed += (object sender, EventArgs e) =>
-            {
-                preserveFocus = textArea.IsFocused;
             };
         }
 
