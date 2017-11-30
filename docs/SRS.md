@@ -15,12 +15,14 @@ This software specification applies to the whole "NeCo" application. The app all
 ### 1.3 Definitions, Acronyms and Abbreviations
 In this section definitions and explanations of acronyms and abbreviations are listed to help the reader to understand these.
 
-- **Android** This is a mobile operating system developed by Google which is primarily used on smartphones and tablets.
-- **UC** Use Case
-- **UCD** Use Case Diagram
-- **OUCD** Overall Use Case Diagram
-- **SAD** Software Architecture Document
-- **RFC** Request for Comments
+|			Abbreviation									|	Explanation		|
+|---------------------------------------------------|---------------|
+**Android**| This is a mobile operating system developed by Google which is primarily used on smartphones and tablets.|
+**UC**| Use Case|
+**UCD** |Use Case Diagram|
+**OUCD** |Overall Use Case Diagram|
+**SAD** |Software Architecture Document|
+**RFC**| Request for Comments|
 
 
 ### 1.4 References
@@ -46,25 +48,31 @@ The following picture shows the overall use case diagram of our software:
 
 ## 3. Specific Requirements
 ### 3.1 Functionality - Android App
-#### 3.1.1 Chat
-The app provides the user with the possibility to chat with another person.
+#### 3.1.1 Send message
+The app provides the user with the possibility to send messages to another person nearby. This is provided through geolocalization within the functionality of the smartphone.
 
-#### 3.1.2 Chat with people nearby
-The app allows the user to chat with people in his near environment. This is provided through geolocalization within the functionality of the smartphone.
+#### 3.1.2 Receive message
+The app provides the user with the possibility to receive messages from another person nearby. This is provided through geolocalization within the functionality of the smartphone. 
 
-#### 3.1.3 Chat encrypted
+#### 3.1.3 Create identiy
+The server creates an identity for the user, by generating a private key for each user.
+
+#### 3.1.4 Manage session
+The server manages sessions and refers users according to their private key to a session. Users within the same session receive the same messages.
+
+#### 3.1.5 Relay messages
+The server receives messages of all users an relays them according to the session the user is in.
+
+#### 3.1.6 Chat encrypted
 The app provides an encypted chat, where messages get encrypted with RSA and AES.
 
-#### 3.1.4 Share files
+#### 3.1.7 Share files
 The user is able to share files with the chatroom.
 
-#### 3.1.5 Manage Profile
-The user is able to change his/her nickname and profile picture within the app. Also managing a friendlist by adding and deleting friends is possible.
-
-#### 3.1.6 Moderated Chat
+#### 3.1.8 Moderated Chat
 The app provides naming a moderator, who is able to kick or ban users and delete messages.
 
-#### 3.1.7 Get Points
+#### 3.1.9 Get Points
 The app provides a reward system where the user gets points for joining a chatroom or using the app.
 
 
