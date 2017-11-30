@@ -31,7 +31,10 @@ This document provides a quick architectural overview of the system. It is inten
 This document describes the architecture of the NeCo Project.
 
 ### 1.3 Definitions, Acronyms and Abbreviations
-n/a
+|			Abbreviation									|	Explanation		|
+|---------------------------------------------------|---------------|
+| MVVM | Model-View-ViewModel-Architecture |
+
 ### 1.4 References
 n/a
 ### 1.5 Overview
