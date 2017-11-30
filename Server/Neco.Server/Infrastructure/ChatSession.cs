@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neco.Infrastructure.Protocol;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -30,12 +31,22 @@ namespace Neco.Server.Infrastructure
 
         public void SendToSpecificMember(IPEndPoint endPoint, byte[] data, int offset, int length)
         {
-            if(endPoint == sessionCreator.LocalEndPoint)
+            byte[] newValues = new byte[length + 8];
+            byte[] _length = BitConverter.GetBytes(length + 8);
+            byte[] type = BitConverter.GetBytes((int)CommandTypes.Message);
+            Array.Copy(data, offset, newValues, 8, length);
+            Array.Copy(type, 0, newValues, 4, type.Length);
+            Array.Copy(_length, 0, newValues, 0, _length.Length);
+            if (sessionMember != null)
             {
-                sessionCreator.Send(data, offset, length);
-            } else
-            {
-                sessionMember.Send(data, offset, length);
+                if (endPoint == sessionMember.RemoteEndPoint)
+                {
+                    sessionCreator.Send(newValues, 0, newValues.Length);
+                }
+                else
+                {
+                    sessionMember.Send(newValues, 0, newValues.Length);
+                }
             }
         }
 

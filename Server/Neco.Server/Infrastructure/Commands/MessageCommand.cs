@@ -9,7 +9,7 @@ using Neco.Infrastructure.Protocol;
 
 namespace Neco.Server.Infrastructure.Commands
 {
-    public class ChatCommand : NecoCommandBase
+    public class MessageCommand : NecoCommandBase
     {
         private String user = "NO_NAME_GIVEN";
 
@@ -18,7 +18,7 @@ namespace Neco.Server.Infrastructure.Commands
             ChatSession ses = ChatSessionManager.GetSession();
             if(ses != null)
             {
-                ses.SendToSpecificMember(session.LocalEndPoint, data, 0, data.Length);
+                ses.SendToSpecificMember(session.RemoteEndPoint, data, 0, data.Length);
             }
         }
 
