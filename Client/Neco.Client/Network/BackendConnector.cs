@@ -16,11 +16,6 @@ namespace Neco.Client.Network
         private Thread receiveThread;
         private Dictionary<CommandTypes, Action<Byte[]>> handlers;
 
-        // Experimental fallback
-        private UdpClient fallbackClient;
-        private string target;
-        private int tPort;
-
         public BackendConnector(String host)
         {
             handlers = new Dictionary<CommandTypes, Action<Byte[]>>();
@@ -48,7 +43,6 @@ namespace Neco.Client.Network
         public void Stop()
         {
             client?.Close();
-            fallbackClient?.Close();
             receiveThread?.Join();
         }
 
@@ -64,25 +58,21 @@ namespace Neco.Client.Network
             {
                 NetworkStream stream = client.GetStream();
                 stream.Write(outData, 0, outData.Length);
-            }
-            else if(fallbackClient != null)
-            {
-                fallbackClient.Send(outData, outData.Length, target, tPort);
+                stream.Flush();
             }
         }
 
         private void Runner(String server, int port)
         {
             client = new TcpClient();
-            if (true || !client.ConnectAsync(server, port).Wait(2000))
+            if (!client.ConnectAsync(server, port).Wait(2000))
             {
-                /*Device.BeginInvokeOnMainThread(() =>
+                Device.BeginInvokeOnMainThread(() =>
                 {
                     messageHandler.ShowToast("Unable to connect to backend");
-                });*/
+                });
 
                 client = null;
-                FallbackRunner(server, port);
                 return;
             }
 
@@ -100,27 +90,6 @@ namespace Neco.Client.Network
                     Thread.Sleep(10);
                 }
             }
-        }
-
-        public void FallbackRunner(String server, int port)
-        {
-            target = server;
-            tPort = port;
-
-            fallbackClient = new UdpClient(port);
-            fallbackClient.BeginReceive(DataReceived, fallbackClient);
-        }
-
-        private void DataReceived(IAsyncResult ar)
-        {
-            UdpClient c = (UdpClient)ar.AsyncState;
-            IPEndPoint receivedIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-            Byte[] receivedBytes = c.EndReceive(ar, ref receivedIpEndPoint);
-
-            HandleData(receivedBytes);
-
-            // Restart listening for udp data packages
-            c.BeginReceive(DataReceived, ar.AsyncState);
         }
 
         private void HandleData(byte[] bytes)
