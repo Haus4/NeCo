@@ -8,14 +8,14 @@ The app provides the user with the possibility to receive a message from another
 
 ### 1.2 Screenshot Mockup
 
-![][mockup]
+![mockup]
 
 
 ## 2. Flow of Events
 
 ### 2.1 Basic Flow
 
-![][basic flow]
+![basic flow]
 
 
 The `.feature`-file can be found [here][feature].
@@ -58,9 +58,9 @@ The app should have the right to request the users location.
 (n/a)
 
 <!-- Link definitions: -->
-[basic flow]: https://github.com/Haus4/NeCo/tree/develop/docs/img/UC1_ReceiveMessage_UCD.jpg "Basic Flow: Receive Message"
+[basic flow]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC2_ReceiveMessage.jpg "Basic Flow: Receive Message"
 
-[mockup]: https://github.com/Haus4/NeCo/raw/master/docs/img/UC1_2_3_Mockup.png "Chat Mockup"
+[mockup]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC1_2_3_Mockup.png "Chat Mockup"
 
 [feature]: https://github.com/Haus4/NeCo/tree/develop/docs/UC2.feature "Feature description"
 
