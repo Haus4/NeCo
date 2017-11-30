@@ -20,7 +20,7 @@ namespace Neco.Infrastructure.Protocol
         public byte[] ToBytes(CommandTypes name, byte[] data)
         {
             var result = new List<byte>(data.Length + LengthBytesCount + NameBytesCount); //just an optimization
-            result.AddRange(CommandNameToBytes(name));
+            result.AddRange(CommandTypeToBytes(name));
             result.AddRange(BitConverter.GetBytes(data.Length));
             result.AddRange(data);
             return result.ToArray();

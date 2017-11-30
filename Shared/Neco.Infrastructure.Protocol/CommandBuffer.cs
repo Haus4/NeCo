@@ -44,7 +44,7 @@ namespace Neco.Infrastructure.Protocol
 
                     var expLengthBytes = CutSubsequence(bytesToCopy, CommandParser.NameBytesCount, CommandParser.LengthBytesCount);
                     var expLengthInt = BitConverter.ToInt32(CutSubsequence(expLengthBytes, 0, CommandParser.LengthBytesCount), 0);
-                    var commandName = _commandParser.ParseCommandName(CutSubsequence(bytesToCopy, 0, CommandParser.NameBytesCount));
+                    var commandName = _commandParser.ParseCommandType(CutSubsequence(bytesToCopy, 0, CommandParser.NameBytesCount));
 
                     if (commandName == CommandTypes.Unknown)
                     {
