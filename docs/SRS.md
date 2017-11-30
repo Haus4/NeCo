@@ -115,11 +115,11 @@ The whole application will be built with an intuitive design, so there shouldnâ€
 Please consult the different use case descriptions for UI mockups (screenshots) and UI functionality descriptions:
 
 
-- [UC1: Chat][uc chat]
-- [UC2: Local Chat][uc local chat]
-- [UC3: Encrypted chat][uc chat encrypted]
-- [UC4: Share files][uc share files]
-- [UC5: Get Points][uc get points]
+- [UC1: Send Message][uc sendmessage]
+- [UC2: Receive Message][uc receivemessage]
+- [UC3: Create Identity][uc create identity]
+- [UC4: Manage Session][uc manage session]
+- [UC5: Relay Message][uc relay message]
 
 <!--
 - [UC6: Manage profile][uc manage profile]
@@ -155,13 +155,16 @@ You can find any internal linked sources in the chapter References (go to the to
 
 
 
-[Overall Use Case Diagram (OUCD)]: https://github.com/Haus4/NeCo/blob/master/docs/img/UseCaseDiagramm.jpg "Link to Github"
 
+[uc sendmessage]: https://github.com/Haus4/NeCo/blob/develop/docs/UC1_SendMessage.md "Use Case 1: Send a message"
 
-[uc chat]: https://github.com/Haus4/NeCo/blob/develop/docs/UC1.feature "Use Case 1: Chat with another User"
-[uc local chat]: https://github.com/Haus4/NeCo/blob/develop/docs/UC2.feature "Use Case 2: Chat with another user nearby"
-[uc chat encrypted]: https://github.com/Haus4/NeCo/blob/develop/docs/UC3.feature "Use Case 3: Chat encrypted"
+[uc receivemessage]: https://github.com/Haus4/NeCo/blob/develop/docs/UC2_Receive.md "Use Case 2: Receive a message"
 
+[uc create identity]: https://github.com/Haus4/NeCo/blob/develop/docs/UC3_CreateIdentity.md "Use Case 3: Create a user identity"
+
+[uc manage session]:https://github.com/Haus4/NeCo/blob/develop/docs/UC4_ManageSession.md "Use Case 4: Manage Session"
+
+[uc relay message]:https://github.com/Haus4/NeCo/blob/develop/docs/UC5_RelayMessage.md "Use Case 5: Relay message"
 
 <!--
 [uc share files]: <link einfÃ¼gen> "Use Case 3: Share files with another User"
