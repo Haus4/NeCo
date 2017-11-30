@@ -25,5 +25,13 @@ namespace Neco.Server.Infrastructure
             }
             return null;
         }
+
+        public static void JoinSession(ClientSession ses)
+        {
+            foreach (ChatSession sess in chatSessions)
+            {
+                sess.JoinSession(ses);
+            }
+        }
     }
 }

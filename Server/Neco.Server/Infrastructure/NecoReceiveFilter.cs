@@ -20,7 +20,7 @@ namespace Neco.Server.Infrastructure
         {
             var bytes = header.Skip(offset).Take(4).ToArray();
             var parsedLength = BitConverter.ToInt32(bytes, 0);
-            return parsedLength;
+            return parsedLength-length;
         }
 
         protected override BinaryRequestInfo ResolveRequestInfo(ArraySegment<byte> header, byte[] bodyBuffer, int offset, int length)

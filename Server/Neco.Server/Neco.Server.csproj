@@ -78,7 +78,7 @@
     <Compile Include="Application\ChatService.cs" />
     <Compile Include="Infrastructure\ChatSession.cs" />
     <Compile Include="Infrastructure\ChatSessionManager.cs" />
-    <Compile Include="Infrastructure\Commands\ChatCommand.cs" />
+    <Compile Include="Infrastructure\Commands\MessageCommand.cs" />
     <Compile Include="Infrastructure\Commands\SessionCommand.cs" />
     <Compile Include="Infrastructure\InfrastructureInitializer.cs" />
     <Compile Include="Infrastructure\NecoCommandBase.cs" />

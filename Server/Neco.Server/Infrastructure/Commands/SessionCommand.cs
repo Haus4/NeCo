@@ -18,6 +18,9 @@ namespace Neco.Server.Infrastructure.Commands
             {
                 ChatSessionManager.CreateSession(new ChatSession(session,1));
                 hasSession = true;
+            } else
+            {
+                ChatSessionManager.JoinSession(session);
             }
         }
 
