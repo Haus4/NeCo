@@ -15,7 +15,7 @@ The app provides the server with the possibility to create a identity for each u
 
 ### 2.1 Basic Flow
 
-![][basic flow]
+![basic flow]
 
 
 ### 2.2 Alternative Flow
@@ -54,5 +54,5 @@ The user should have already opened the NeCo Application on his smartphone and n
 
 <!-- Link definitions: -->
 
-[basic flow]: https://github.com/Haus4/NeCo/tree/develop/docs/img/UC3_CreateIdentity_UCD.jpg "Create Identity"
+[basic flow]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC3_CreateIdentity.jpg "Create Identity Basic Flow"
 
