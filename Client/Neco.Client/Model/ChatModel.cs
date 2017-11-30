@@ -8,14 +8,14 @@ namespace Neco.Client.Model
 {
     public class ChatModel
     {
-        private ViewModel.ChatSession sessionModel;
+        private ViewModel.ChatSession sessionViewmodel;
 
         private bool testThreadTerminate;
         private Thread messageTestThread;
 
         public ChatModel(ViewModel.ChatSession model)
         {
-            sessionModel = model;
+            sessionViewmodel = model;
 
             testThreadTerminate = false;
             /*messageTestThread = new Thread(new ThreadStart(() =>
@@ -63,7 +63,7 @@ namespace Neco.Client.Model
 
         public void PushMessage(String message)
         {
-            sessionModel.Messages.Add(new ViewModel.ChatMessage
+            sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
             {
                 User = "You",
                 Time = DateTime.Now,
@@ -84,7 +84,7 @@ namespace Neco.Client.Model
 
         private void PushForeignMessage(String user, String message)
         {
-            sessionModel.Messages.Add(new ViewModel.ChatMessage
+            sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
             {
                 User = user,
                 Time = DateTime.Now,
