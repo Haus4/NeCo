@@ -139,6 +139,11 @@ namespace Neco.Client.Network
 
         public void Receive(CommandTypes type, Action<Byte[]> handler)
         {
+            if(handlers.ContainsKey(type))
+            {
+                handlers.Remove(type);
+            }
+
             handlers.Add(type, handler);
         }
     }

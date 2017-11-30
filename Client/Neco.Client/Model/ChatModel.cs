@@ -18,7 +18,7 @@ namespace Neco.Client.Model
             sessionModel = model;
 
             testThreadTerminate = false;
-            messageTestThread = new Thread(new ThreadStart(() =>
+            /*messageTestThread = new Thread(new ThreadStart(() =>
             {
                 Thread.Sleep(3000);
 
@@ -32,7 +32,7 @@ namespace Neco.Client.Model
                     for (int i = 0; i < 50 && !testThreadTerminate; ++i)
                         Thread.Sleep(100);
                 }
-            }));
+            }));*/
             //messageTestThread.Start();
 
             App.Instance.Connector.Receive(Infrastructure.Protocol.CommandTypes.Message, (data) =>
@@ -55,7 +55,7 @@ namespace Neco.Client.Model
         public void Close()
         {
             testThreadTerminate = true;
-            if (messageTestThread.IsAlive)
+            if (messageTestThread != null && messageTestThread.IsAlive)
             {
                 messageTestThread.Join();
             }
