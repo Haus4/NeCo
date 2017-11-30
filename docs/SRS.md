@@ -158,7 +158,7 @@ You can find any internal linked sources in the chapter References (go to the to
 
 [uc sendmessage]: https://github.com/Haus4/NeCo/blob/develop/docs/UC1_SendMessage.md "Use Case 1: Send a message"
 
-[uc receivemessage]: https://github.com/Haus4/NeCo/blob/develop/docs/UC2_Receive.md "Use Case 2: Receive a message"
+[uc receivemessage]: https://github.com/Haus4/NeCo/blob/develop/docs/UC2_ReceiveMessage.md "Use Case 2: Receive a message"
 
 [uc create identity]: https://github.com/Haus4/NeCo/blob/develop/docs/UC3_CreateIdentity.md "Use Case 3: Create a user identity"
 
