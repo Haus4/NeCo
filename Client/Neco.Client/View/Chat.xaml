@@ -23,8 +23,8 @@
                     <StackLayout Orientation="Vertical"
                                          Padding="8"
                                          VerticalOptions="FillAndExpand">
-                        <Label Text="{Binding User}" FontAttributes="Bold"/>
-                        <Label Text="{Binding Message}" AutomationId="message" />
+                        <Label Text="{Binding User}" FontAttributes="Bold" HorizontalOptions="EndAndExpand"/>
+                        <Label Text="{Binding Message}" AutomationId="message" HorizontalOptions="EndAndExpand" />
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>

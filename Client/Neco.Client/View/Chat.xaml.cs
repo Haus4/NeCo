@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Neco.Client
@@ -52,7 +53,11 @@ namespace Neco.Client
             {
                 if (e.NewItems.Count > 0)
                 {
-                    messageList.ScrollTo(viewModel.Messages.LastOrDefault(), ScrollToPosition.Start, true);
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        //ForceLayout();
+                        messageList.ScrollTo(viewModel.Messages.LastOrDefault(), ScrollToPosition.Start, true);
+                    });
                 }
             };
         }

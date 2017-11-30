@@ -42,7 +42,7 @@ namespace Neco.Client.Model
                     Neco.Proto.Message message = Neco.Proto.Message.ParseFrom(data);
                     if (message != null)
                     {
-                        PushForeignMessage("User", Encoding.ASCII.GetString(message.Data.ToByteArray()));
+                        PushForeignMessage("User", Encoding.UTF8.GetString(message.Data.ToByteArray()));
                     }
                 }
                 catch(Exception)
@@ -71,7 +71,7 @@ namespace Neco.Client.Model
                 IsForeign = false
             });
 
-            byte[] messageBytes = Encoding.ASCII.GetBytes(message);
+            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
             byte[] signature = new byte[1];
 
             Proto.Message msg = Proto.Message.CreateBuilder()

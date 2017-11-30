@@ -14,10 +14,12 @@ namespace Neco.Client.Network
         private TcpClient client;
         private IMessage messageHandler;
         private Thread receiveThread;
+        private Queue<byte> dataQueue;
         private Dictionary<CommandTypes, Action<Byte[]>> handlers;
 
         public BackendConnector(String host)
         {
+            dataQueue = new Queue<byte>();
             handlers = new Dictionary<CommandTypes, Action<Byte[]>>();
             messageHandler = DependencyService.Get<IMessage>();
 
@@ -42,23 +44,40 @@ namespace Neco.Client.Network
 
         public void Stop()
         {
+            client?.GetStream()?.Close();
             client?.Close();
             receiveThread?.Join();
         }
 
         public void Send(CommandTypes type, byte[] data)
         {
-            byte[] outData = new byte[data.Length + 8];
-            Array.Copy(data, 0, outData, 8, data.Length);
-            Array.Copy(BitConverter.GetBytes(outData.Length), 0, outData, 0, 4);
-            Array.Copy(BitConverter.GetBytes((int)type), 0, outData, 4, 4);
-           
-
             if (client != null && client.Connected)
             {
-                NetworkStream stream = client.GetStream();
-                stream.Write(outData, 0, outData.Length);
-                stream.Flush();
+                byte[] outData = new byte[data.Length + 8];
+                Array.Copy(data, 0, outData, 8, data.Length);
+                Array.Copy(BitConverter.GetBytes(outData.Length), 0, outData, 0, 4);
+                Array.Copy(BitConverter.GetBytes((int)type), 0, outData, 4, 4);
+
+                SendData(outData);
+            }
+        }
+
+        private async void SendData(byte[] bytes)
+        {
+            if (client != null && client.Connected)
+            {
+                try
+                {
+                    NetworkStream stream = client.GetStream();
+                    await stream.WriteAsync(bytes, 0, bytes.Length);
+                    stream.Flush();
+                } catch(Exception)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        messageHandler.ShowToast("Failed to send message");
+                    });
+                }
             }
         }
 
@@ -80,19 +99,50 @@ namespace Neco.Client.Network
             byte[] bytes = new byte[client.ReceiveBufferSize];
             while (client.Connected && stream != null && stream.CanRead)
             {
+                HandleData();
+
                 if (stream.DataAvailable)
                 {
-                    stream.Read(bytes, 0, (int)bytes.Length);
-                    HandleData(bytes);
+                    try
+                    {
+                        int length = stream.Read(bytes, 0, (int)bytes.Length);
+                        for (int i = 0; i < length; ++i) dataQueue.Enqueue(bytes[i]);
+                    }
+                    catch(Exception)
+                    {
+
+                    }
                 }
                 else
                 {
-                    Thread.Sleep(10);
+                    Thread.Sleep(50);
                 }
             }
         }
 
-        private void HandleData(byte[] bytes)
+        private void HandleData()
+        {
+            while(dataQueue.Count > 4)
+            {
+                int length = BitConverter.ToInt32(dataQueue.ToArray(), 0);
+                if(length <= dataQueue.Count)
+                {
+                    byte[] data = new byte[length];
+                    for(int i = 0; i < length; ++i)
+                    {
+                        data[i] = dataQueue.Dequeue();
+                    }
+
+                    DispatchData(data);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        private void DispatchData(byte[] bytes)
         {
             int length = Math.Min(BitConverter.ToInt32(bytes, 0), bytes.Length) - 8;
             CommandTypes type = (CommandTypes)BitConverter.ToInt32(bytes, 4);

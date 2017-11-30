@@ -18,7 +18,7 @@ namespace Neco.Client
             context = _context;
             LoadKey();
 
-            backendConnector = new Network.BackendConnector("neco.it.dh-karlsruhe.de:9000");
+            backendConnector = new Network.BackendConnector(/*"neco.it.dh-karlsruhe.de:9000"*/"172.16.53.251:9000");
 
             mainPage = new MainPage();
             notifyingNavigationPage = new NotifyingNavigationPage(mainPage);
