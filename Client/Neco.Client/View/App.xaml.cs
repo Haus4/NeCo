@@ -1,3 +1,6 @@
+using Plugin.Geolocator;
+using Plugin.Geolocator.Abstractions;
+using System;
 using Xamarin.Forms;
 
 namespace Neco.Client
@@ -11,11 +14,18 @@ namespace Neco.Client
         private object context;
         private string key;
 
+        private Position position;
+        private IGeolocator locator;
+
         public App(object _context)
         {
             InitializeComponent();
 
             context = _context;
+            locator = CrossGeolocator.Current;
+            locator.PositionChanged += PositionChanged;
+            locator.StartListeningAsync(TimeSpan.FromSeconds(10), 100);
+
             LoadKey();
 
             backendConnector = new Network.BackendConnector(/*"neco.it.dh-karlsruhe.de:9000"*/"172.16.53.251:9000");
@@ -30,6 +40,14 @@ namespace Neco.Client
             get
             {
                 return backendConnector;
+            }
+        }
+
+        public Position Position
+        {
+            get
+            {
+                return position;
             }
         }
 
@@ -51,6 +69,11 @@ namespace Neco.Client
                 key = "blub"; // TODO: Generate ECC key using ed25519
                 dataStore.SetString(context, "key", key);
             }
+        }
+
+        private void PositionChanged(object obj, PositionEventArgs e)
+        {
+            position = e.Position;
         }
 
         protected override void OnStart()

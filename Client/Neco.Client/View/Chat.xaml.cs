@@ -20,7 +20,7 @@ namespace Neco.Client
 
         public override void OnPopped()
         {
-            model.Close();
+            
         }
 
         private void SetupComponents(ViewModel.ChatSession viewModel)
