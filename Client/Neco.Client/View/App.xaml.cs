@@ -17,6 +17,8 @@ namespace Neco.Client
         private Position position;
         private IGeolocator locator;
 
+        private Action<Position> positionNotifier;
+
         public App(object _context)
         {
             InitializeComponent();
@@ -74,6 +76,12 @@ namespace Neco.Client
         private void PositionChanged(object obj, PositionEventArgs e)
         {
             position = e.Position;
+            if (positionNotifier != null) positionNotifier(position);
+        }
+
+        public void OnPositionChanged(Action<Position> callback)
+        {
+            positionNotifier = callback;
         }
 
         protected override void OnStart()

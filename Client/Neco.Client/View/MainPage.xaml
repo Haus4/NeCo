@@ -8,7 +8,7 @@
         <StackLayout>
             <Button Text="Start chatting"
                     VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" x:Name="chatButton" AutomationId="chatButton"/>
+                HorizontalOptions="CenterAndExpand" x:Name="chatButton" AutomationId="chatButton" IsEnabled="False"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

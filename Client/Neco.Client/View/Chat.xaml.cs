@@ -10,7 +10,6 @@ namespace Neco.Client
     public partial class Chat : NotifiableContentPage
     {
         private Model.ChatModel model;
-        private bool preserveFocus = false;
 
         public Chat(ViewModel.ChatSession model)
         {

@@ -11,6 +11,10 @@ namespace Neco.Client
         {
             InitializeComponent();
 
+            chatButton.IsEnabled = App.Instance.Position != null && App.Instance.Connector.Connected;
+            App.Instance.OnPositionChanged((position) => chatButton.IsEnabled = App.Instance.Connector.Connected);
+            App.Instance.Connector.OnConnect(() => chatButton.IsEnabled = App.Instance.Position != null);
+
             chatButton.Clicked += async (sender, args) =>
             {
                 session = new ViewModel.ChatSession();

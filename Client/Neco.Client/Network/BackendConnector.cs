@@ -17,6 +17,8 @@ namespace Neco.Client.Network
         private Queue<byte> dataQueue;
         private Dictionary<CommandTypes, Action<Byte[]>> handlers;
 
+        private Action connectCallback;
+
         public BackendConnector(String host)
         {
             dataQueue = new Queue<byte>();
@@ -41,6 +43,10 @@ namespace Neco.Client.Network
             }
         }
 
+        public void OnConnect(Action callback)
+        {
+            connectCallback = callback;
+        }
 
         public void Stop()
         {
@@ -94,6 +100,8 @@ namespace Neco.Client.Network
                 client = null;
                 return;
             }
+
+            if (connectCallback != null) connectCallback();
 
             NetworkStream stream = client.GetStream();
             byte[] bytes = new byte[client.ReceiveBufferSize];
