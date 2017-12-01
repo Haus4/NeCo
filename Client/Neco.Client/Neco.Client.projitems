@@ -19,8 +19,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)View\Chat.xaml.cs">
-      <DependentUpon>Chat.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)View\ChatPage.xaml.cs">
+      <DependentUpon>ChatPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Model\ChatModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ChatMessage.cs" />
@@ -40,7 +40,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\Chat.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\ChatPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

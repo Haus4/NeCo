@@ -7,14 +7,14 @@ namespace Neco.Client.ViewModel
     {
         private ObservableCollection<ChatMessage> messageList;
 
-        private Chat chatView;
+        private ChatPage chatView;
         private Model.ChatModel chatModel;
 
         public ChatSession()
         {
             messageList = new ObservableCollection<ChatMessage>();
             chatModel = new Model.ChatModel(this);
-            chatView = new Chat(this);
+            chatView = new ChatPage(this);
 
             byte[] publicKey = new byte[1];
             byte[] signature = new byte[1];
@@ -49,7 +49,7 @@ namespace Neco.Client.ViewModel
             }
         }
 
-        public Chat View
+        public ChatPage View
         {
             get
             {

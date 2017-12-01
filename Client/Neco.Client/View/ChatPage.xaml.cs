@@ -7,11 +7,11 @@ using Xamarin.Forms;
 
 namespace Neco.Client
 {
-    public partial class Chat : NotifiableContentPage
+    public partial class ChatPage : NotifiableContentPage
     {
         private Model.ChatModel model;
 
-        public Chat(ViewModel.ChatSession model)
+        public ChatPage(ViewModel.ChatSession model)
         {
             InitializeComponent();
             SetupComponents(model);

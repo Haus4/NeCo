@@ -38,7 +38,7 @@
       <Field Name="notifyingNavigationPage" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="Neco.Client.Chat">
+  <Class Name="Neco.Client.ChatPage">
     <Position X="12.75" Y="8.5" Width="1.5" />
     <InheritanceLine Type="Neco.Client.NotifiableContentPage" FixedToPoint="true">
       <Path>
@@ -50,7 +50,7 @@
     </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAABwAAAAAAAAAACAAAAAAAAAEAAAAAAAAIAAA=</HashCode>
-      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\View\Chat.xaml.cs</FileName>
+      <FileName>C:\Users\mauri\Documents\Projects\NeCo\Client\Neco.Client\View\ChatPage.xaml.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="model" />

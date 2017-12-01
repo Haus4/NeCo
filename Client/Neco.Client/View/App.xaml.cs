@@ -28,6 +28,14 @@ namespace Neco.Client
             locator.PositionChanged += PositionChanged;
             locator.StartListeningAsync(TimeSpan.FromSeconds(10), 100);
 
+            if (!locator.IsGeolocationEnabled || !locator.IsGeolocationAvailable)
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    DependencyService.Get<IMessage>().ShowToast("Unable to detect location!");
+                });
+            }
+
             LoadKey();
 
             backendConnector = new Network.BackendConnector(/*"neco.it.dh-karlsruhe.de:9000"*/"172.16.53.251:9000");
