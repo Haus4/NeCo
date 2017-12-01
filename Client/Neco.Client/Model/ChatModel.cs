@@ -21,7 +21,7 @@ namespace Neco.Client.Model
                     Neco.Proto.Message message = Neco.Proto.Message.ParseFrom(data);
                     if (message != null)
                     {
-                        PushForeignMessage("User", Encoding.UTF8.GetString(message.Data.ToByteArray()));
+                        PushForeignMessage(Encoding.UTF8.GetString(message.Data.ToByteArray()));
                     }
                 }
                 catch(Exception)
@@ -35,7 +35,6 @@ namespace Neco.Client.Model
         {
             sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
             {
-                User = "You",
                 Time = DateTime.Now,
                 Message = message,
                 IsForeign = false
@@ -52,11 +51,10 @@ namespace Neco.Client.Model
             App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Message, msg.ToByteArray());
         }
 
-        private void PushForeignMessage(String user, String message)
+        private void PushForeignMessage(String message)
         {
             sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
             {
-                User = user,
                 Time = DateTime.Now,
                 Message = message,
                 IsForeign = true

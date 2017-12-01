@@ -1,4 +1,5 @@
 using Android.Preferences;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Neco.Client
@@ -23,6 +24,24 @@ namespace Neco.Client
                     await Navigation.PushAsync(session.View);
                 }
             };
+
+            Task.Run(async () =>
+            {
+                while (true)
+                {
+                    
+                    await Task.Delay(2000);
+                }
+            });
+        }
+
+        protected override void OnAppearing()
+        {
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                await Task.Delay(200);
+                await logo.ScaleTo(0.6, 1000, Easing.BounceOut);
+            });
         }
     }
 }

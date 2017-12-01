@@ -4,16 +4,10 @@ namespace Neco.Client.ViewModel
 {
     public class ChatMessage : ViewModelBase
     {
-        private string user;
         private string message;
         private DateTime time;
         private bool isForeign;
 
-        public string User
-        {
-            get { return user; }
-            set { SetProperty(ref user, value); }
-        }
         public string Message
         {
             get { return message; }
