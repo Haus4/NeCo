@@ -11,13 +11,11 @@ namespace Neco.Server.Infrastructure.Commands
 {
     public class SessionCommand : NecoCommandBase
     {
-        private bool hasSession = false;
         public override void ExecuteExternalCommand(ClientSession session, byte[] data)
         {
-            if (hasSession == false)
+            if (ChatSessionManager.IsSessionAvailable())
             {
                 ChatSessionManager.CreateSession(new ChatSession(session,1));
-                hasSession = true;
             } else
             {
                 ChatSessionManager.JoinSession(session);

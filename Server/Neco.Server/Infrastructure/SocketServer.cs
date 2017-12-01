@@ -7,17 +7,18 @@ using SuperSocket.SocketBase;
 using SuperSocket.SocketBase.Config;
 using SuperSocket.SocketBase.Protocol;
 using System.Collections;
+using log4net;
 
 namespace Neco.Server.Infrastructure
 {
     public class SocketServer : AppServer<ClientSession, BinaryRequestInfo>
     {
+        protected static readonly ILog log = LogManager.GetLogger(typeof(SocketServer));
         public SocketServer()
             : base(new DefaultReceiveFilterFactory<NecoReceiveFilter, BinaryRequestInfo>()) { }
 
         protected override bool Setup(IRootConfig rootConfig, IServerConfig config)
         {
-            Console.WriteLine("setting up");
             return base.Setup(rootConfig, config);
         }
 
@@ -28,19 +29,19 @@ namespace Neco.Server.Infrastructure
 
         protected override void ExecuteCommand(ClientSession session, BinaryRequestInfo requestInfo)
         {
-            Console.WriteLine("Command invoked.");
+            log.Info("["+ session.RemoteEndPoint + "] Command invoked: " + requestInfo.Key);
             base.ExecuteCommand(session, requestInfo);
         }
 
         protected override void OnNewSessionConnected(ClientSession session)
         {
-            Console.WriteLine("New session connected.");
+            log.Info("[" + session.RemoteEndPoint + "] New session connected.");
             base.OnNewSessionConnected(session);
         }
 
         protected override void OnSessionClosed(ClientSession session, CloseReason reason)
         {
-            Console.WriteLine("Session closed.");
+            log.Info("[" + session.RemoteEndPoint + "] Session closed.");
             base.OnSessionClosed(session, reason);
         }
     }
