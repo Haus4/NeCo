@@ -1,4 +1,5 @@
-﻿using Neco.Infrastructure.Protocol;
+﻿using Google.ProtocolBuffers;
+using Neco.Infrastructure.Protocol;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,12 @@ namespace Neco.Server.Infrastructure
         public void JoinSession(ClientSession _sessionMember)
         {
             sessionMember = _sessionMember;
+            //SendEachMember(_sessionMember.SessionID + " joined your session... say hello 😃");
+        }
+
+        public bool IsCreator(String sessId)
+        {
+            return sessId == sessionCreator.SessionID;
         }
 
         public void SendToSpecificMember(IPEndPoint endPoint, byte[] data, int offset, int length)
@@ -48,6 +55,24 @@ namespace Neco.Server.Infrastructure
                     sessionMember.Send(newValues, 0, newValues.Length);
                 }
             }
+        }
+        
+        public void SendEachMember(string message)
+        {
+            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+            byte[] signature = new byte[1];
+            Neco.Proto.Message msg = Neco.Proto.Message.CreateBuilder()
+                .SetData(ByteString.CopyFrom(messageBytes))
+                .SetSignature(ByteString.CopyFrom(signature))
+                .BuildPartial();
+            byte[] data = msg.ToByteArray();
+
+            byte[] outData = new byte[data.Length + 8];
+            Array.Copy(data, 0, outData, 8, data.Length);
+            Array.Copy(BitConverter.GetBytes(outData.Length), 0, outData, 0, 4);
+            Array.Copy(BitConverter.GetBytes((int)CommandTypes.Message), 0, outData, 4, 4);
+
+            SendEachMember(outData, 0, outData.Length);
         }
 
         public void SendEachMember(byte[] data, int offset, int length)

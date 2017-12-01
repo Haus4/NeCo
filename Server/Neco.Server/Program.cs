@@ -12,12 +12,14 @@ namespace Neco.Server
         enum Commands { Help, Exit };
         static void Main(string[] args)
         {
+            log4net.Config.XmlConfigurator.Configure();
             InitConsole();
             new InfrastructureInitializer(new Settings()).Init();
             string[] cmds = Enum.GetNames(typeof(Commands));
             string cmd = "";
             while (!cmd.Equals(Commands.Exit.ToString(), StringComparison.InvariantCultureIgnoreCase))
             {
+                cmd = Console.ReadLine();
                 if (cmd.Equals(Commands.Help.ToString(), StringComparison.InvariantCultureIgnoreCase))
                 {
                     Console.WriteLine("Available commands: " + string.Join(", ", cmds));
@@ -27,7 +29,6 @@ namespace Neco.Server
                     Console.WriteLine("Unrecognized command...");
                     Console.WriteLine("Enter 'help' to see all visible commands");
                 }
-                cmd = Console.ReadLine();
             }
         }
 

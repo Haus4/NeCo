@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neco.Server.Application
 {
-    class ChatService
+    public class ChatService
     {
     }
 }
