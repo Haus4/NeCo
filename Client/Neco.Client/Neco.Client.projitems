@@ -49,4 +49,7 @@
     <Folder Include="$(MSBuildThisFileDirectory)Model\" />
     <Folder Include="$(MSBuildThisFileDirectory)View\" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Images\logo.png" />
+  </ItemGroup>
 </Project>

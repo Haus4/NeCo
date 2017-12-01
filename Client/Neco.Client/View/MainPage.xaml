@@ -6,6 +6,7 @@
              Title="NeCo">
     <ContentPage.Content>
         <StackLayout>
+            <Image Source="Images/logo.png" Scale="0.5" />
             <Button Text="Start chatting"
                     VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" x:Name="chatButton" AutomationId="chatButton" IsEnabled="False"/>
