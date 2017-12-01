@@ -136,13 +136,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainActivity.cs" />
-    <Compile Include="DataStoreAndroid.cs" />
+    <Compile Include="Activity\MainActivity.cs" />
+    <Compile Include="Dependency\DataStoreAndroid.cs" />
     <Compile Include="MainApplication.cs" />
-    <Compile Include="MessageAndroid.cs" />
+    <Compile Include="Dependency\MessageAndroid.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StartActivity.cs" />
+    <Compile Include="Activity\StartActivity.cs" />
+    <Compile Include="Renderer\TintableButtonRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
@@ -192,6 +193,9 @@
       <Project>{0ebe8b32-e671-4bc6-bc22-e2c8ccdb30a4}</Project>
       <Name>Neco.Infrastructure.Protocol</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Drawable\logo_shadow.png" />
   </ItemGroup>
   <Import Project="..\Neco.Client\Neco.Client.projitems" Label="Shared" Condition="Exists('..\Neco.Client\Neco.Client.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
