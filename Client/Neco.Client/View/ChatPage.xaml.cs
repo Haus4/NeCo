@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -50,7 +51,23 @@ namespace Neco.Client
 
             viewModel.Messages.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) =>
             {
-                if (e.NewItems.Count > 0)
+                for (int i = e.NewStartingIndex; i < e.NewItems.Count; ++i)
+                {
+                    (e.NewItems[i] as ViewModel.ChatMessage).PropertyChanged += (object s, PropertyChangedEventArgs ev) =>
+                    {
+                        if (ev.PropertyName == "IsForeign") // Trigger a template update
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                // Trigger an update
+                                messageList.ItemsSource = null;
+                                messageList.ItemsSource = viewModel.Messages;
+                            });
+                        }
+                    };
+                }
+
+                if (e.NewItems != null && (e.OldItems == null || e.NewItems.Count > e.OldItems.Count))
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
