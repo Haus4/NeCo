@@ -12,6 +12,8 @@ namespace Neco.Server.Application
     {
         public void Session(ClientSession session, SessionRequest request)
         {
+            if (session.HasChat) session.LeaveChatSession();
+
             if (ChatSessionManager.IsSessionAvailable())
             {
                 var chatSessionId = ChatSessionManager.GetIdForNextOpenSession();
