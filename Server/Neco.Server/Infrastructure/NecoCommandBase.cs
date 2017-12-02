@@ -15,7 +15,7 @@ namespace Neco.Server.Infrastructure
         /// <summary>
         /// Command requires admin rights to be executed
         /// </summary>
-        protected virtual bool RequiresAdminAccess { get { return false; } }
+        //protected virtual bool RequiresAdminAccess { get { return false; } }
 
         /// <summary>
         /// Command name
@@ -56,7 +56,8 @@ namespace Neco.Server.Infrastructure
             }
             catch (Exception exc)
             {
-                //Logger.ErrorException("Command '" + Commands.GetCommandFriendlyName(Name) + "' error!", exc);
+                //TODO: log here?
+                //Console.WriteLine(exc);
             }
         }
     }

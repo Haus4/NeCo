@@ -4,19 +4,13 @@ namespace Neco.Infrastructure.Protocol
 {
     public class CommandBuffer
     {
-        private readonly CommandParser _commandParser;
-        private const int HeaderLength = CommandParser.LengthBytesCount + CommandParser.NameBytesCount;
+        private const int HeaderLength = 8;
         private static readonly object SyncObj = new object();
         private byte[] _currentCommand;
         private int _currentCommandExpectedLength;
         private CommandTypes _currentCommandName = CommandTypes.Unknown;
         private byte[] _headerPartFromPreviousChunk = new byte[0];
-
-        public CommandBuffer(CommandParser commandParser)
-        {
-            _commandParser = commandParser;
-        }
-
+        
         public event Action<Command> CommandAssembled = delegate { };
 
         public void AppendBytes(byte[] bytes)
@@ -42,9 +36,9 @@ namespace Neco.Infrastructure.Protocol
                         return;
                     }
 
-                    var expLengthBytes = CutSubsequence(bytesToCopy, CommandParser.NameBytesCount, CommandParser.LengthBytesCount);
-                    var expLengthInt = BitConverter.ToInt32(CutSubsequence(expLengthBytes, 0, CommandParser.LengthBytesCount), 0);
-                    var commandName = _commandParser.ParseCommandType(CutSubsequence(bytesToCopy, 0, CommandParser.NameBytesCount));
+                    var expLengthBytes = CutSubsequence(bytesToCopy, 4, 4);
+                    var expLengthInt = BitConverter.ToInt32(CutSubsequence(expLengthBytes, 0, 4), 0);
+                    var commandName = CommandParser.ParseCommandType(CutSubsequence(bytesToCopy, 0, 4));
 
                     if (commandName == CommandTypes.Unknown)
                     {

@@ -3,13 +3,8 @@
     public enum CommandTypes
     {
         Unknown = -1,
-        Echo = 0,
-        Ping,
+        Ping = 0,
         Response,
         Request,
-        Data,
-
-        Session,
-        Message
     }
 }
