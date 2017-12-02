@@ -25,7 +25,7 @@ namespace Neco.Server.Infrastructure
 
         protected override void HandleException(Exception e)
         {
-            log.Info("Application error: " + e.Message);
+            log.Error("Application error: " + e.Message);
         }
 
         protected override void OnSessionClosed(CloseReason reason)

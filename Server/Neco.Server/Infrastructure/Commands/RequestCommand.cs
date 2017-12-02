@@ -40,7 +40,7 @@ namespace Neco.Server.Infrastructure.Commands
             }
             catch (Exception exc)
             {
-                Console.WriteLine(exc);
+                log.Error(exc.Message);
                 throw;
             }
         }
@@ -55,7 +55,7 @@ namespace Neco.Server.Infrastructure.Commands
             var request = RequestSerializer.Deserialize<RequestBase>(data);
             var methodAndInstancePair = AppServicesMethods[request.GetType()];
 
-            log.InfoFormat("{0}  {1}  {2}", methodAndInstancePair.Item1.Name, request.GetType().Name, session.SessionID);
+            log.InfoFormat("{0}  {1}", methodAndInstancePair.Item1.Name, request.GetType().Name);
 
             try
             {

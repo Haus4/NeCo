@@ -58,10 +58,7 @@ namespace Neco.Server.Infrastructure
         public static void CloseSession(String SessionId)
         {
             chatSessions.Remove(SessionId);
-            if(chatSessions.Count < 1)
-            {
-                HasSession = false;
-            }
+            if(chatSessions.Count < 1) HasSession = false;
         }
 
         public static String GetIdForNextOpenSession()
@@ -71,13 +68,8 @@ namespace Neco.Server.Infrastructure
 
         public static bool IsSessionAvailable()
         {
-            if (!HasSession)
-            {
-                return false;
-            } else
-            {
-                return chatSessions.Values.Any(value => value.IsOpen == true);
-            }
+            if (!HasSession) return false;
+            else return chatSessions.Values.Any(value => value.IsOpen == true);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Google.ProtocolBuffers;
+using log4net;
 using Neco.Infrastructure.Protocol;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Neco.Server.Infrastructure
         public bool IsOpen { get; private set; }
         public int TotalMembers { get; }
         public int CurrentMembers { get; private set; }
+        protected static readonly ILog log = LogManager.GetLogger(typeof(ChatSession));
 
         public ChatSession(ClientSession _sessionCreator, String _sessionId, int allowedMembers)
         {
@@ -41,9 +43,10 @@ namespace Neco.Server.Infrastructure
                     sessionMember.JoinChatSession(SessionId, i);
                     CurrentMembers++;
                     if (CurrentMembers == TotalMembers) IsOpen = false;
+                    break;
                 } else
                 {
-                    throw new Exception("Client tried to connect to full session...");
+                    log.Error("Client tried to connect to full session... " + CurrentMembers + "/" + TotalMembers + " " + sessionMember.SessionID);
                 }
             }
             //SendEachMember(_sessionMember.SessionID + " joined your session... say hello 😃");
