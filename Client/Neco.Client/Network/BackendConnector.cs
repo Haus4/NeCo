@@ -1,38 +1,36 @@
+using Neco.Client.Core;
 using Neco.Infrastructure.Protocol;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Neco.Client.Network
 {
-    public class BackendConnector
+    public class BackendConnector : Core.StateHandler
     {
         private TcpClient client;
-        private IMessage messageHandler;
         private Thread receiveThread;
         private Queue<byte> dataQueue;
         private Dictionary<CommandTypes, Action<Byte[]>> handlers;
 
-        private Action connectCallback;
+        private string hostname;
+        private int port;
 
         public BackendConnector(String host)
         {
             dataQueue = new Queue<byte>();
             handlers = new Dictionary<CommandTypes, Action<Byte[]>>();
-            messageHandler = DependencyService.Get<IMessage>();
 
             var separator = host.LastIndexOf(':');
             if (separator < 0) throw new ArgumentException();
 
-            int port = Convert.ToInt32(host.Substring(separator + 1));
-            String server = host.Substring(0, separator);
+            port = Convert.ToInt32(host.Substring(separator + 1));
+            hostname = host.Substring(0, separator);
 
-            receiveThread = new Thread(() => Runner(server, port));
-            receiveThread.Start();
+            Connect();
         }
 
         public bool Connected
@@ -43,9 +41,14 @@ namespace Neco.Client.Network
             }
         }
 
-        public void OnConnect(Action callback)
+        public void Connect()
         {
-            connectCallback = callback;
+            if(receiveThread == null ||!receiveThread.IsAlive)
+            {
+                CurrentState = State.Unknown;
+                receiveThread = new Thread(() => Runner());
+                receiveThread.Start();
+            }
         }
 
         public void Stop()
@@ -64,11 +67,11 @@ namespace Neco.Client.Network
                 Array.Copy(BitConverter.GetBytes(outData.Length), 0, outData, 0, 4);
                 Array.Copy(BitConverter.GetBytes((int)type), 0, outData, 4, 4);
 
-                SendData(outData);
+                Task.Run(async () => await SendData(outData));
             }
         }
 
-        private async void SendData(byte[] bytes)
+        private async Task<bool> SendData(byte[] bytes)
         {
             if (client != null && client.Connected)
             {
@@ -77,35 +80,29 @@ namespace Neco.Client.Network
                     NetworkStream stream = client.GetStream();
                     await stream.WriteAsync(bytes, 0, bytes.Length);
                     stream.Flush();
-                } catch(Exception)
-                {
-                    Device.BeginInvokeOnMainThread(() =>
-                    {
-                        messageHandler.ShowToast("Failed to send message");
-                    });
-                }
+
+                    return true;
+                } catch(Exception) {}
             }
+
+            return false;
         }
 
-        private void Runner(String server, int port)
+        private void Runner()
         {
             client = new TcpClient();
-            if (!client.ConnectAsync(server, port).Wait(2000))
+            if (!client.ConnectAsync(hostname, port).Wait(3000))
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    messageHandler.ShowToast("Unable to connect to backend");
-                });
-
                 client = null;
+                CurrentState = State.Error;
                 return;
             }
 
-            if (connectCallback != null) connectCallback();
+            CurrentState = State.Success;
 
             NetworkStream stream = client.GetStream();
             byte[] bytes = new byte[client.ReceiveBufferSize];
-            while (client.Connected && stream != null && stream.CanRead)
+            while (client != null && client.Connected && stream != null && stream.CanRead)
             {
                 HandleData();
 
@@ -126,6 +123,10 @@ namespace Neco.Client.Network
                     Thread.Sleep(50);
                 }
             }
+
+            client = null;
+            dataQueue.Clear();
+            CurrentState = State.Error;
         }
 
         private void HandleData()

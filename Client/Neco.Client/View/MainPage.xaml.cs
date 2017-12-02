@@ -1,6 +1,7 @@
-using Android.Preferences;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Neco.Client.Core;
 
 namespace Neco.Client
 {
@@ -11,28 +12,6 @@ namespace Neco.Client
         public MainPage()
         {
             InitializeComponent();
-
-            chatButton.IsEnabled = App.Instance.Position != null && App.Instance.Connector.Connected;
-            App.Instance.OnPositionChanged((position) => chatButton.IsEnabled = App.Instance.Connector.Connected);
-            App.Instance.Connector.OnConnect(() => chatButton.IsEnabled = App.Instance.Position != null);
-
-            chatButton.Clicked += async (sender, args) =>
-            {
-                session = new ViewModel.ChatSession();
-                if (session.Available)
-                {
-                    await Navigation.PushAsync(session.View);
-                }
-            };
-
-            Task.Run(async () =>
-            {
-                while (true)
-                {
-                    
-                    await Task.Delay(2000);
-                }
-            });
         }
 
         protected override void OnAppearing()
@@ -41,7 +20,82 @@ namespace Neco.Client
             {
                 await Task.Delay(200);
                 await logo.ScaleTo(0.6, 1000, Easing.BounceOut);
+
+                App.Instance.Locator.StateChanged += ((sender, e) => UpdateButtonState());
+                App.Instance.Connector.StateChanged += ((sender, e) => UpdateButtonState());
             });
+        }
+
+        private void UpdateButtonState()
+        {
+            if (App.Instance.Locator.CurrentState != State.Unknown &&
+                App.Instance.Connector.CurrentState != State.Unknown)
+            {
+                if (App.Instance.Locator.CurrentState == State.Error ||
+                    App.Instance.Connector.CurrentState == State.Error)
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        IMessage messageHandler = DependencyService.Get<IMessage>();
+
+                        if (App.Instance.Locator.CurrentState == State.Error)
+                        {
+                            messageHandler.ShowToast("Unable to connect to get location");
+                        }
+
+                        if (App.Instance.Connector.CurrentState == State.Error)
+                        {
+                            messageHandler.ShowToast("Unable to connect to server");
+                        }
+
+                        chatButton.Clicked -= StartSessionHandler;
+                        chatButton.Clicked -= ReconnectHandler;
+                        chatButton.Clicked += ReconnectHandler;
+                        chatButton.Text = "Retry";
+                        chatButton.IsEnabled = true;
+                        spinner.IsRunning = false;
+                    });
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        chatButton.Clicked -= ReconnectHandler;
+                        chatButton.Clicked -= StartSessionHandler;
+                        chatButton.Clicked += StartSessionHandler;
+                        chatButton.Text = "Start chatting";
+                        chatButton.IsEnabled = true;
+                        spinner.IsRunning = false;
+                    });
+                }
+            }
+        }
+
+        private void ReconnectHandler(object sender, EventArgs e)
+        {
+            chatButton.Clicked -= ReconnectHandler;
+            if(App.Instance.Locator.CurrentState == State.Error)
+            {
+                App.Instance.Locator.Listen();
+            }
+
+            if (App.Instance.Connector.CurrentState == State.Error)
+            {
+                App.Instance.Connector.Connect();
+            }
+
+            chatButton.Text = "Connecting";
+            chatButton.IsEnabled = false;
+            spinner.IsRunning = true;
+        }
+
+        private async void StartSessionHandler(object sender, EventArgs e)
+        {
+            session = new ViewModel.ChatSession();
+            if (session.Available)
+            {
+                await Navigation.PushAsync(session.View, true);
+            }
         }
     }
 }

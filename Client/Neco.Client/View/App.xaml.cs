@@ -14,31 +14,18 @@ namespace Neco.Client
         private object context;
         private string key;
 
-        private Position position;
-        private IGeolocator locator;
-
-        private Action<Position> positionNotifier;
+        private Core.GeoLocator locator;
 
         public App(object _context)
         {
             InitializeComponent();
 
             context = _context;
-            locator = CrossGeolocator.Current;
-            locator.PositionChanged += PositionChanged;
-            locator.StartListeningAsync(TimeSpan.FromSeconds(10), 100);
-
-            if (!locator.IsGeolocationEnabled || !locator.IsGeolocationAvailable)
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    DependencyService.Get<IMessage>().ShowToast("Unable to detect location!");
-                });
-            }
+            locator = new Core.GeoLocator();
 
             LoadKey();
 
-            backendConnector = new Network.BackendConnector(/*"neco.it.dh-karlsruhe.de:9000"*/"172.16.53.251:9000");
+            backendConnector = new Network.BackendConnector(/*"neco.it.dh-karlsruhe.de:9000"*/"192.168.0.214:9000");
 
             mainPage = new MainPage();
             notifyingNavigationPage = new NotifyingNavigationPage(mainPage);
@@ -53,11 +40,11 @@ namespace Neco.Client
             }
         }
 
-        public Position Position
+        public Core.GeoLocator Locator
         {
             get
             {
-                return position;
+                return locator;
             }
         }
 
@@ -79,17 +66,6 @@ namespace Neco.Client
                 key = "blub"; // TODO: Generate ECC key using ed25519
                 dataStore.SetString(context, "key", key);
             }
-        }
-
-        private void PositionChanged(object obj, PositionEventArgs e)
-        {
-            position = e.Position;
-            if (positionNotifier != null) positionNotifier(position);
-        }
-
-        public void OnPositionChanged(Action<Position> callback)
-        {
-            positionNotifier = callback;
         }
 
         protected override void OnStart()

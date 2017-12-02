@@ -10,14 +10,17 @@
             <Image Source="Image/logo_shadow.png"
                    Scale="0" 
                    x:Name="logo" />
-            <control:ColoredButton Text="Start chatting"
-                                   VerticalOptions="CenterAndExpand"
-                                   HorizontalOptions="CenterAndExpand"
+            <control:ColoredButton Text="Connecting"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
                                    x:Name="chatButton"
                                    AutomationId="chatButton"
-                                   IsEnabled="False"
                                    Color="#666666"
+                                   IsEnabled="False"
                                    TextColor="#FFFFFF" />
+            <ActivityIndicator Color="#666666"
+                               IsRunning="True"
+                               x:Name="spinner" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -20,11 +20,21 @@ namespace Neco.Client
         {
             InitializeComponent();
             SetupComponents(model);
+
+            App.Instance.Connector.StateChanged += OnBackendStateChanged;
         }
 
         public override void OnPopped()
         {
-            
+            App.Instance.Connector.StateChanged -= OnBackendStateChanged;
+        }
+
+        private void OnBackendStateChanged(object sender, EventArgs e)
+        {
+            if(sender is Network.BackendConnector connector && connector.CurrentState == Core.State.Error)
+            {
+                Device.BeginInvokeOnMainThread(() => App.Instance.MainPage.Navigation.PopAsync(true));
+            }
         }
 
         private void SetupComponents(ViewModel.ChatSession viewModel)

@@ -22,8 +22,8 @@ namespace Neco.Client.ViewModel
             Proto.Session msg = Proto.Session.CreateBuilder()
                 .SetPublicKey(ByteString.CopyFrom(publicKey))
                 .SetSignature(ByteString.CopyFrom(signature))
-                .SetLat(App.Instance.Position.Latitude)
-                .SetLon(App.Instance.Position.Longitude)
+                .SetLat(App.Instance.Locator.Position?.Latitude ?? 0.0)
+                .SetLon(App.Instance.Locator.Position?.Longitude ?? 0.0)
                 .BuildPartial();
 
             App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Session, msg.ToByteArray());
