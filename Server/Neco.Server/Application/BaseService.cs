@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neco.Server.Application
 {
-    public class AccountService : BaseService
+    public class BaseService
     {
     }
 }

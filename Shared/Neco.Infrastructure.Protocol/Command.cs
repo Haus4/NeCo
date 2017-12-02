@@ -2,12 +2,12 @@
 {
     public class Command
     {
-        public CommandTypes Name { get; private set; }
+        public CommandTypes Type { get; private set; }
         public byte[] Data { get; private set; }
 
-        public Command(CommandTypes name, byte[] data)
+        public Command(CommandTypes type, byte[] data)
         {
-            Name = name;
+            Type = type;
             Data = data;
         }
     }

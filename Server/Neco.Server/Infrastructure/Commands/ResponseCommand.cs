@@ -9,22 +9,16 @@ using Neco.Infrastructure.Protocol;
 
 namespace Neco.Server.Infrastructure.Commands
 {
-    public class SessionCommand : NecoCommandBase
+    public class ResponseCommand : NecoCommandBase
     {
         public override void ExecuteExternalCommand(ClientSession session, byte[] data)
         {
-            if (ChatSessionManager.IsSessionAvailable())
-            {
-                ChatSessionManager.CreateSession(new ChatSession(session,1));
-            } else
-            {
-                ChatSessionManager.JoinSession(session);
-            }
+            session.AppendResponse(data);
         }
 
         protected override CommandTypes CommandType
         {
-            get { return CommandTypes.Session; }
+            get { return CommandTypes.Response; }
         }
     }
 }

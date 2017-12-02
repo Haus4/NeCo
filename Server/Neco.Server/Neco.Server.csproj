@@ -44,6 +44,9 @@
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="protobuf-net, Version=2.3.2.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\protobuf-net.2.3.2\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="SuperSocket.Common, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.Common.dll</HintPath>
     </Reference>
@@ -75,15 +78,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application\AccountService.cs" />
+    <Compile Include="Application\BaseService.cs" />
     <Compile Include="Application\ChatService.cs" />
+    <Compile Include="Application\SessionService.cs" />
     <Compile Include="Infrastructure\ChatSession.cs" />
     <Compile Include="Infrastructure\ChatSessionManager.cs" />
-    <Compile Include="Infrastructure\Commands\MessageCommand.cs" />
-    <Compile Include="Infrastructure\Commands\SessionCommand.cs" />
+    <Compile Include="Infrastructure\Commands\RequestCommand.cs" />
+    <Compile Include="Infrastructure\Commands\PingCommand.cs" />
+    <Compile Include="Infrastructure\Commands\ResponseCommand.cs" />
     <Compile Include="Infrastructure\InfrastructureInitializer.cs" />
     <Compile Include="Infrastructure\NecoCommandBase.cs" />
     <Compile Include="Infrastructure\NecoReceiveFilter.cs" />
     <Compile Include="Infrastructure\ClientSession.cs" />
+    <Compile Include="Infrastructure\RequestSerializer.cs" />
+    <Compile Include="Infrastructure\RequestsHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />

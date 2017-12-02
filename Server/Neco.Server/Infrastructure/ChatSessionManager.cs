@@ -10,52 +10,74 @@ namespace Neco.Server.Infrastructure
 {
     public class ChatSessionManager
     {
-        private static ArrayList chatSessions;
-        private static bool HasSession = false;
+        private static Dictionary<String, ChatSession> chatSessions;
+        private static bool HasSession;
         protected static readonly ILog log = LogManager.GetLogger(typeof(ChatSessionManager));
 
-        public static void CreateSession(ChatSession session)
+        static ChatSessionManager()
+        { 
+            HasSession = false;
+            chatSessions = new Dictionary<String, ChatSession>();
+        }
+
+        public static void CreateSession(ClientSession hostSession)
         {
+            ChatSession chatSession = new ChatSession(hostSession, "CHAT"+hostSession.SessionID,2);
             log.Info("Chat Session created");
-            chatSessions = new ArrayList();
-            chatSessions.Add(session);
+            chatSessions.Add(chatSession.SessionId, chatSession);
             HasSession = true;
         }
 
-        public static ChatSession GetSession()
+        public static ChatSession GetSession(String SessionId)
         {
-            foreach(ChatSession ses in chatSessions)
+            ChatSession session;
+            if (chatSessions.TryGetValue(SessionId, out session))
             {
-                return ses;
+                return session;
             }
             return null;
         }
 
-        public static void JoinSession(ClientSession ses)
+        public static void JoinSession(String SessionId, ClientSession ses)
         {
-            foreach (ChatSession sess in chatSessions)
-            {
-                sess.JoinSession(ses);
+            var hostSession = GetSession(SessionId);
+            if(hostSession != null && hostSession.IsOpen != false){
+                hostSession.JoinSession(ses);
             }
         }
 
-        public static void CloseSession(String sessId)
+        public static void LeaveSession(String SessionId, ClientSession ses)
         {
-            if(chatSessions != null){
-                foreach (ChatSession sess in chatSessions)
-                {
-                    if (sess.IsCreator(sessId))
-                    {
-                        chatSessions = new ArrayList();
-                        HasSession = false;
-                    }
-                }
+            var hostSession = GetSession(SessionId);
+            if (hostSession != null && hostSession.IsOpen != false)
+            {
+                hostSession.LeaveSession(ses);
             }
+        }
+
+        public static void CloseSession(String SessionId)
+        {
+            chatSessions.Remove(SessionId);
+            if(chatSessions.Count < 1)
+            {
+                HasSession = false;
+            }
+        }
+
+        public static String GetIdForNextOpenSession()
+        {
+            return chatSessions.Values.First(value => value.IsOpen == true).SessionId;
         }
 
         public static bool IsSessionAvailable()
         {
-            return !HasSession;
+            if (!HasSession)
+            {
+                return false;
+            } else
+            {
+                return chatSessions.Values.Any(value => value.IsOpen == true);
+            }
         }
     }
 }

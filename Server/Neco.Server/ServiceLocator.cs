@@ -3,6 +3,8 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Linq;
 using Autofac;
+using System.Reflection;
+using Neco.Server.Application;
 
 namespace Neco.Server
 {
@@ -11,8 +13,11 @@ namespace Neco.Server
         private static readonly ConcurrentDictionary<object[], WeakReference> Cache = new ConcurrentDictionary<object[], WeakReference>();
         private static ILifetimeScope _currentLifetimeScope = null;
 
-        public static void Init(IContainer container)
+        public static void Init()
         {
+            var builder = new ContainerBuilder();
+            builder.RegisterAssemblyTypes(Assembly.GetAssembly(typeof(BaseService))).AsSelf().SingleInstance();
+            var container = builder.Build();
             Instance = container;
             TryDisposeLifetimeScope();
             _currentLifetimeScope = container.BeginLifetimeScope();
