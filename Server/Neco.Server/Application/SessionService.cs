@@ -10,7 +10,7 @@ namespace Neco.Server.Application
 {
     public class SessionService : BaseService
     {
-        public void OpenChatSession(ClientSession session, SessionRequest request)
+        public void Session(ClientSession session, SessionRequest request)
         {
             if (ChatSessionManager.IsSessionAvailable())
             {

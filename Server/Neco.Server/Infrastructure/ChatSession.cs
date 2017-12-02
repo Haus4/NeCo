@@ -109,6 +109,7 @@ namespace Neco.Server.Infrastructure
         public void CloseSession()
         {
             IsOpen = false;
+            ChatSessionManager.CloseSession(SessionId);
         }
 
     }
