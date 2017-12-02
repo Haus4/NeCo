@@ -15,19 +15,21 @@ This software specification applies to the whole "NeCo" application. The app all
 ### 1.3 Definitions, Acronyms and Abbreviations
 In this section definitions and explanations of acronyms and abbreviations are listed to help the reader to understand these.
 
-- **Android** This is a mobile operating system developed by Google which is primarily used on smartphones and tablets.
-- **UC** Use Case
-- **UCD** Use Case Diagram
-- **OUCD** Overall Use Case Diagram
-- **SAD** Software Architecture Document
-- **RFC** Request for Comments
+|			Abbreviation									|	Explanation		|
+|---------------------------------------------------|---------------|
+**Android**| This is a mobile operating system developed by Google which is primarily used on smartphones and tablets.|
+**UC**| Use Case|
+**UCD** |Use Case Diagram|
+**OUCD** |Overall Use Case Diagram|
+**SAD** |Software Architecture Document|
+**RFC**| Request for Comments|
 
 
 ### 1.4 References
 |			Title									|	Date		|
 |---------------------------------------------------|---------------|
 | [NeCo Blog](http:/necoproject.wordpress.com/) | 19.10.2017 |
-| [Ouverall Use Case Diagramm (OUCD)](https://github.com/Haus4/NeCo/raw/master/docs/UseCaseDiagramm.jpg)| 19.10.2017 |
+| [Ouverall Use Case Diagramm (OUCD)](https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/UseCaseDiagramm.jpg)| 19.10.2017 |
 
 ### 1.5 Overview
 The following chapters are about our vision and perspective, the software requirements, the demands we have, licensing and
@@ -46,25 +48,31 @@ The following picture shows the overall use case diagram of our software:
 
 ## 3. Specific Requirements
 ### 3.1 Functionality - Android App
-#### 3.1.1 Chat
-The app provides the user with the possibility to chat with another person.
+#### 3.1.1 Send message
+The app provides the user with the possibility to send messages to another person nearby. This is provided through geolocalization within the functionality of the smartphone.
 
-#### 3.1.2 Chat with people nearby
-The app allows the user to chat with people in his near environment. This is provided through geolocalization within the functionality of the smartphone.
+#### 3.1.2 Receive message
+The app provides the user with the possibility to receive messages from another person nearby. This is provided through geolocalization within the functionality of the smartphone. 
 
-#### 3.1.3 Chat encrypted
+#### 3.1.3 Create identiy
+The server creates an identity for the user, by generating a private key for each user.
+
+#### 3.1.4 Manage session
+The server manages sessions and refers users according to their private key to a session. Users within the same session receive the same messages.
+
+#### 3.1.5 Relay messages
+The server receives messages of all users an relays them according to the session the user is in.
+
+#### 3.1.6 Chat encrypted
 The app provides an encypted chat, where messages get encrypted with RSA and AES.
 
-#### 3.1.4 Share files
+#### 3.1.7 Share files
 The user is able to share files with the chatroom.
 
-#### 3.1.5 Manage Profile
-The user is able to change his/her nickname and profile picture within the app. Also managing a friendlist by adding and deleting friends is possible.
-
-#### 3.1.6 Moderated Chat
+#### 3.1.8 Moderated Chat
 The app provides naming a moderator, who is able to kick or ban users and delete messages.
 
-#### 3.1.7 Get Points
+#### 3.1.9 Get Points
 The app provides a reward system where the user gets points for joining a chatroom or using the app.
 
 
@@ -107,11 +115,11 @@ The whole application will be built with an intuitive design, so there shouldnâ€
 Please consult the different use case descriptions for UI mockups (screenshots) and UI functionality descriptions:
 
 
-- [UC1: Chat][uc chat]
-- [UC2: Local Chat][uc local chat]
-- [UC3: Encrypted chat][uc chat encrypted]
-- [UC4: Share files][uc share files]
-- [UC5: Get Points][uc get points]
+- [UC1: Send Message][uc sendmessage]
+- [UC2: Receive Message][uc receivemessage]
+- [UC3: Create Identity][uc create identity]
+- [UC4: Manage Session][uc manage session]
+- [UC5: Relay Message][uc relay message]
 
 <!--
 - [UC6: Manage profile][uc manage profile]
@@ -147,13 +155,16 @@ You can find any internal linked sources in the chapter References (go to the to
 
 
 
-[Overall Use Case Diagram (OUCD)]: https://github.com/Haus4/NeCo/blob/master/docs/img/UseCaseDiagramm.jpg "Link to Github"
 
+[uc sendmessage]: https://github.com/Haus4/NeCo/blob/develop/docs/UC1_SendMessage.md "Use Case 1: Send a message"
 
-[uc chat]: https://github.com/Haus4/NeCo/blob/develop/docs/UC1.feature "Use Case 1: Chat with another User"
-[uc local chat]: https://github.com/Haus4/NeCo/blob/develop/docs/UC2.feature "Use Case 2: Chat with another user nearby"
-[uc chat encrypted]: https://github.com/Haus4/NeCo/blob/develop/docs/UC3.feature "Use Case 3: Chat encrypted"
+[uc receivemessage]: https://github.com/Haus4/NeCo/blob/develop/docs/UC2_ReceiveMessage.md "Use Case 2: Receive a message"
 
+[uc create identity]: https://github.com/Haus4/NeCo/blob/develop/docs/UC3_CreateIdentity.md "Use Case 3: Create a user identity"
+
+[uc manage session]:https://github.com/Haus4/NeCo/blob/develop/docs/UC4_ManageSession.md "Use Case 4: Manage Session"
+
+[uc relay message]:https://github.com/Haus4/NeCo/blob/develop/docs/UC5_RelayMessage.md "Use Case 5: Relay message"
 
 <!--
 [uc share files]: <link einfÃ¼gen> "Use Case 3: Share files with another User"
@@ -178,7 +189,7 @@ You can find any internal linked sources in the chapter References (go to the to
 -->
 
 <!-- Picture-Link definitions: -->
-[OUCD]: https://github.com/Haus4/NeCo/raw/master/docs/img/UseCaseDiagramm.jpg "Overall Use Case Diagram"
+[OUCD]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/UseCaseDiagramm.jpg "Overall Use Case Diagram"
 
 <!--
 

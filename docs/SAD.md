@@ -31,18 +31,24 @@ This document provides a quick architectural overview of the system. It is inten
 This document describes the architecture of the NeCo Project.
 
 ### 1.3 Definitions, Acronyms and Abbreviations
-n/a
+|			Abbreviation									|	Explanation		|
+|---------------------------------------------------|---------------|
+| MVVM | Model-View-ViewModel-Architecture |
+
 ### 1.4 References
 n/a
 ### 1.5 Overview
 The architectural details will be described in the following sections. This includes the class diagrams which gives an overview about the whole project.
 ## 2. Architectural Representation
+As we develop a Chross-Plattform mobile ab MVVM is the pattern of choice.
+It allows us to decouple the UI (View) from the Business Logic (Model/ViewModel).
+
 ![mvvm]
 ## 3. Architectural Goals and Constraints
-n/a
+As we use Xamarin we don't have any MVC tool.
 ## 4. Use-Case View
 ### 4.1 Use-Case Realizations
-n/a
+![oucd]
 ## 5. Logical View
 ### 5.1 Overview
 n/a
@@ -54,7 +60,7 @@ The class diagram; containing all Data Access Objects, Models and Controllers th
 ## 6. Process View
 n/a
 ## 7. Deployment View
-n/a
+![client/server]
 ## 8. Implementation View
 ### 8.1 Overview
 n/a
@@ -68,6 +74,10 @@ n/a
 n/a
 
 
-[Class Diagram]: https://github.com/Haus4/NeCo/raw/develop/docs/img/ClassDiagram.png "Overall Use Case Diagram"
+[Class Diagram]: https://github.com/Haus4/NeCo/raw/develop/docs/img/ClassDiagram_mvvm.png "Class Diagram with MVVM"
 
 [mvvm]: https://github.com/Haus4/NeCo/raw/develop/docs/img/mvvm.png "Model-View-Viewmodel"
+
+[client/server]: https://github.com/Haus4/NeCo/raw/develop/docs/img/Client_Server_Architecture.jpg "Client-Server-Architecture"
+
+[oucd]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/UseCaseDiagramm.jpg "Overall Use Case Diagram"
