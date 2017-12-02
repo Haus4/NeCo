@@ -28,6 +28,7 @@ namespace Neco.Server.Infrastructure
             TotalMembers = allowedMembers;
             CurrentMembers = 1;
             sessionMembers = new ClientSession[allowedMembers];
+            _sessionCreator.JoinChatSession(SessionId, 0);
         }
 
         public void JoinSession(ClientSession sessionMember)
@@ -37,11 +38,12 @@ namespace Neco.Server.Infrastructure
                 if(sessionMembers[i] == null)
                 {
                     sessionMembers[i] = sessionMember;
-                    sessionMember.JoinSession(SessionId, i);
+                    sessionMember.JoinChatSession(SessionId, i);
                     CurrentMembers++;
+                    if (CurrentMembers == TotalMembers) IsOpen = false;
                 } else
                 {
-                    throw new Exception("Session is full");
+                    throw new Exception("Client tried to connect to full session...");
                 }
             }
             //SendEachMember(_sessionMember.SessionID + " joined your session... say hello 😃");
@@ -62,7 +64,7 @@ namespace Neco.Server.Infrastructure
                 {
                     foreach (ClientSession ses in sessionMembers)
                     {
-                        ses.Send(cmdBytes, 0, cmdBytes.Length);
+                        if(ses != null) ses.Send(cmdBytes, 0, cmdBytes.Length);
                     }
                 }
                 else
@@ -70,7 +72,10 @@ namespace Neco.Server.Infrastructure
                     sessionCreator.Send(cmdBytes, 0, cmdBytes.Length);
                     foreach (ClientSession ses in sessionMembers)
                     {
-                        if(ses.RemoteEndPoint != endPoint) ses.Send(cmdBytes, 0, cmdBytes.Length);
+                        if (ses != null && ses.RemoteEndPoint != endPoint)
+                        {
+                            ses.Send(cmdBytes, 0, cmdBytes.Length);
+                        }
                     }
                 }
             }
@@ -82,12 +87,11 @@ namespace Neco.Server.Infrastructure
             {
                 sessionCreator = null;
                 CloseSession();
-                ses.LeaveSession();
             } else if(ses.ChatSessionId == SessionId && sessionMembers[ses.ChatMemberId] == ses)
             {
                 sessionMembers[ses.ChatMemberId] = null;
-                ses.LeaveSession();
                 CurrentMembers--;
+                if(CurrentMembers == 0) CloseSession();
             }
         }
 
