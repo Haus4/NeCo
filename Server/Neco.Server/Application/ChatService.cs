@@ -10,7 +10,7 @@ namespace Neco.Server.Application
 {
     public class ChatService : BaseService
     {
-        public void SendMessage(ClientSession session, MessageRequest request)
+        public void Message(ClientSession session, MessageRequest request)
         {
             if (session.HasChat)
             {
