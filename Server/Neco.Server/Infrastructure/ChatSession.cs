@@ -13,21 +13,37 @@ namespace Neco.Server.Infrastructure
     {
 
         private ClientSession sessionCreator;
-        private ClientSession sessionMember = null;
+        private ClientSession[] sessionMembers;
 
-        public int SessionId { get; private set; }
+        public String SessionId { get; private set; }
         public bool IsOpen { get; private set; }
+        public int TotalMembers { get; }
+        public int CurrentMembers { get; private set; }
 
-        public ChatSession(ClientSession _sessionCreator, int _sessionId)
+        public ChatSession(ClientSession _sessionCreator, String _sessionId, int allowedMembers)
         {
             sessionCreator = _sessionCreator;
             SessionId = _sessionId;
             IsOpen = true;
+            TotalMembers = allowedMembers;
+            CurrentMembers = 1;
+            sessionMembers = new ClientSession[allowedMembers];
         }
 
-        public void JoinSession(ClientSession _sessionMember)
+        public void JoinSession(ClientSession sessionMember)
         {
-            sessionMember = _sessionMember;
+            for(var i=0; i<sessionMembers.Length; i++)
+            {
+                if(sessionMembers[i] == null)
+                {
+                    sessionMembers[i] = sessionMember;
+                    sessionMember.JoinSession(SessionId, i);
+                    CurrentMembers++;
+                } else
+                {
+                    throw new Exception("Session is full");
+                }
+            }
             //SendEachMember(_sessionMember.SessionID + " joined your session... say hello 😃");
         }
 
@@ -36,49 +52,58 @@ namespace Neco.Server.Infrastructure
             return sessId == sessionCreator.SessionID;
         }
 
-        public void SendToSpecificMember(IPEndPoint endPoint, byte[] data, int offset, int length)
+        public void SendToSpecificMember(IPEndPoint endPoint, byte[] data)
         {
-            byte[] newValues = new byte[length + 8];
-            byte[] _length = BitConverter.GetBytes(length + 8);
-            byte[] type = BitConverter.GetBytes((int)CommandTypes.Message);
-            Array.Copy(data, offset, newValues, 8, length);
-            Array.Copy(type, 0, newValues, 4, type.Length);
-            Array.Copy(_length, 0, newValues, 0, _length.Length);
-            if (sessionMember != null)
+            Command cmd = new Command(CommandTypes.Request, data);
+            byte[] cmdBytes = CommandParser.ToBytes(cmd);
+            if (sessionMembers.Length > 1)
             {
-                if (endPoint == sessionMember.RemoteEndPoint)
+                if (endPoint == sessionCreator.RemoteEndPoint)
                 {
-                    sessionCreator.Send(newValues, 0, newValues.Length);
+                    foreach (ClientSession ses in sessionMembers)
+                    {
+                        ses.Send(cmdBytes, 0, cmdBytes.Length);
+                    }
                 }
                 else
                 {
-                    sessionMember.Send(newValues, 0, newValues.Length);
+                    sessionCreator.Send(cmdBytes, 0, cmdBytes.Length);
+                    foreach (ClientSession ses in sessionMembers)
+                    {
+                        if(ses.RemoteEndPoint != endPoint) ses.Send(cmdBytes, 0, cmdBytes.Length);
+                    }
                 }
             }
         }
-        
+
+        public void LeaveSession(ClientSession ses)
+        {
+            if(ses.HasChat && ses == sessionCreator)
+            {
+                sessionCreator = null;
+                CloseSession();
+                ses.LeaveSession();
+            } else if(ses.ChatSessionId == SessionId && sessionMembers[ses.ChatMemberId] == ses)
+            {
+                sessionMembers[ses.ChatMemberId] = null;
+                ses.LeaveSession();
+                CurrentMembers--;
+            }
+        }
+
         public void SendEachMember(string message)
         {
-            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
-            byte[] signature = new byte[1];
-            Neco.Proto.Message msg = Neco.Proto.Message.CreateBuilder()
-                .SetData(ByteString.CopyFrom(messageBytes))
-                .SetSignature(ByteString.CopyFrom(signature))
-                .BuildPartial();
-            byte[] data = msg.ToByteArray();
-
-            byte[] outData = new byte[data.Length + 8];
-            Array.Copy(data, 0, outData, 8, data.Length);
-            Array.Copy(BitConverter.GetBytes(outData.Length), 0, outData, 0, 4);
-            Array.Copy(BitConverter.GetBytes((int)CommandTypes.Message), 0, outData, 4, 4);
-
-            SendEachMember(outData, 0, outData.Length);
+            //TODO
+            //SendEachMember(cmdBytes, 0, cmdBytes.Length);
         }
 
         public void SendEachMember(byte[] data, int offset, int length)
         {
             sessionCreator.Send(data, offset, length);
-            sessionMember.Send(data, offset, length);
+            foreach (ClientSession ses in sessionMembers)
+            {
+                ses.Send(data, offset, length);
+            }
         }
 
         public void CloseSession()

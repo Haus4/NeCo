@@ -5,32 +5,32 @@ namespace Neco.Infrastructure.Protocol
 {
     /// <summary>
     /// protocol:
-    /// request name (4) + len(4) + request body
+    /// length (4) + command type (4) + request body
     /// </summary>
-    public class CommandParser
+    public static class CommandParser
     {
-        public const int LengthBytesCount = 4;
-        public const int NameBytesCount = 4;
+        private const int NumLengthBytes = 4;
+        private const int NumTypeBytes = 4;
 
-        public byte[] ToBytes(Command command)
+        public static byte[] ToBytes(Command command)
         {
-            return ToBytes(command.Name, command.Data);
+            return ToBytes(command.Type, command.Data);
         }
 
-        public byte[] ToBytes(CommandTypes name, byte[] data)
+        private static byte[] ToBytes(CommandTypes name, byte[] data)
         {
-            var result = new List<byte>(data.Length + LengthBytesCount + NameBytesCount); //just an optimization
+            var result = new List<byte>(data.Length + NumLengthBytes + NumTypeBytes);
             result.AddRange(CommandTypeToBytes(name));
             result.AddRange(BitConverter.GetBytes(data.Length));
             result.AddRange(data);
             return result.ToArray();
         }
         
-        public CommandTypes ParseCommandType(byte[] bytes)
+        public static CommandTypes ParseCommandType(byte[] bytes)
         {
             try
             {
-                if (bytes.Length != NameBytesCount)
+                if (bytes.Length != NumTypeBytes)
                     throw new ArgumentException();
 
                 var commandIndex = BitConverter.ToInt32(bytes, 0);
@@ -42,26 +42,26 @@ namespace Neco.Infrastructure.Protocol
             }
         }
 
-        public int ParseBodyLength(byte[] header, int offset, int length)
+        public static int ParseBodyLength(byte[] header, int offset, int length)
         {
             var bytes = new[]
                 {
-                    header[offset + NameBytesCount], 
-                    header[offset + NameBytesCount + 1],
-                    header[offset + NameBytesCount + 2],
-                    header[offset + NameBytesCount + 3]
+                    header[offset + NumTypeBytes], 
+                    header[offset + NumTypeBytes + 1],
+                    header[offset + NumTypeBytes + 2],
+                    header[offset + NumTypeBytes + 3]
                 };
             var parsedLength = BitConverter.ToInt32(bytes, 0);
             return parsedLength;
         }
 
-        private IEnumerable<byte> CommandTypeToBytes(CommandTypes name)
+        private static IEnumerable<byte> CommandTypeToBytes(CommandTypes name)
         {
             var bytes = new List<byte>(BitConverter.GetBytes((int) name));
-            if (bytes.Count > NameBytesCount)
+            if (bytes.Count > NumTypeBytes)
                 throw new InvalidOperationException();
             
-            while (bytes.Count < NameBytesCount)
+            while (bytes.Count < NumTypeBytes)
             {
                 bytes.Insert(0, 0);
             }

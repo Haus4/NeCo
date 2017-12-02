@@ -56,7 +56,8 @@ namespace Neco.Server.Infrastructure
             }
             catch (Exception exc)
             {
-                //Logger.ErrorException("Command '" + Commands.GetCommandFriendlyName(Name) + "' error!", exc);
+                //TODO: log here?
+                //Console.WriteLine(exc);
             }
         }
     }

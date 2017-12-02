@@ -12,6 +12,7 @@ namespace Neco.Server
         enum Commands { Help, Exit };
         static void Main(string[] args)
         {
+            ServiceLocator.Init();
             log4net.Config.XmlConfigurator.Configure();
             InitConsole();
             new InfrastructureInitializer(new Settings()).Init();
