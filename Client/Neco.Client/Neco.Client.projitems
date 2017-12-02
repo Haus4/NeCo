@@ -16,6 +16,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\NotifiableContentPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\NotifyingNavigationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\StateHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\RequestSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Network\RequestsHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ChatSession.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\BackendConnector.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelBase.cs" />

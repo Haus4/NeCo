@@ -1,4 +1,5 @@
-﻿using Google.ProtocolBuffers;
+﻿using Neco.Client.Network;
+using Neco.DataTransferObjects;
 using System.Collections.ObjectModel;
 
 namespace Neco.Client.ViewModel
@@ -19,14 +20,14 @@ namespace Neco.Client.ViewModel
             byte[] publicKey = new byte[1];
             byte[] signature = new byte[1];
 
-            Proto.Session msg = Proto.Session.CreateBuilder()
-                .SetPublicKey(ByteString.CopyFrom(publicKey))
-                .SetSignature(ByteString.CopyFrom(signature))
-                .SetLat(App.Instance.Locator.Position?.Latitude ?? 0.0)
-                .SetLon(App.Instance.Locator.Position?.Longitude ?? 0.0)
-                .BuildPartial();
+            SessionRequest request = new SessionRequest {
+                PublicKey = publicKey,
+                Signature = signature,
+                Latitude = App.Instance.Locator.Position?.Latitude ?? 0.0,
+                Longitude = App.Instance.Locator.Position?.Longitude ?? 0.0
+            };
 
-            App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Session, msg.ToByteArray());
+            App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Request, RequestSerializer.Serialize<RequestBase>(request));
         }
 
         public bool Available
