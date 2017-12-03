@@ -1,6 +1,7 @@
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System;
+using System.Text;
 using Xamarin.Forms;
 
 namespace Neco.Client
@@ -12,7 +13,7 @@ namespace Neco.Client
         private MainPage mainPage;
         private NotifyingNavigationPage notifyingNavigationPage;
         private object context;
-        private string key;
+        private libsignal.ecc.ECKeyPair keyPair;
 
         private Core.GeoLocator locator;
 
@@ -60,11 +61,16 @@ namespace Neco.Client
         {
             IDataStore dataStore = DependencyService.Get<IDataStore>();
 
-            key = dataStore.GetString(context, "key");
+            string key = dataStore.GetString(context, "key");
             if(key == null)
             {
-                key = "blub"; // TODO: Generate ECC key using ed25519
-                dataStore.SetString(context, "key", key);
+                keyPair = libsignal.ecc.Curve.generateKeyPair();
+                dataStore.SetString(context, "key", Convert.ToBase64String(keyPair.getPrivateKey().serialize()));
+            }
+            else
+            {
+                byte[] privateKey = Convert.FromBase64String(key);
+                //libsignal.ecc.Curve.
             }
         }
 
