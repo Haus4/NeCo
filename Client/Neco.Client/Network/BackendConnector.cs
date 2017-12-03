@@ -91,9 +91,20 @@ namespace Neco.Client.Network
         private void Runner()
         {
             client = new TcpClient();
-            if (!client.ConnectAsync(hostname, port).Wait(3000))
+            try
+            {
+                if (!client.ConnectAsync(hostname, port).Wait(3000))
+                {
+                    client = null;
+                }
+            }
+            catch (Exception)
             {
                 client = null;
+            }
+
+            if (client == null)
+            {
                 CurrentState = State.Error;
                 return;
             }
