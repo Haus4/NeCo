@@ -74,7 +74,7 @@ namespace Neco.Client
         private void ReconnectHandler(object sender, EventArgs e)
         {
             chatButton.Clicked -= ReconnectHandler;
-            if(App.Instance.Locator.CurrentState == State.Error)
+            if (App.Instance.Locator.CurrentState == State.Error)
             {
                 App.Instance.Locator.Listen();
             }
@@ -92,10 +92,7 @@ namespace Neco.Client
         private async void StartSessionHandler(object sender, EventArgs e)
         {
             session = new ViewModel.ChatSession();
-            if (session.Available)
-            {
-                await Navigation.PushAsync(session.View, true);
-            }
+            await Navigation.PushAsync(session.View, true);
         }
     }
 }

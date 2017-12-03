@@ -5,11 +5,10 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 namespace Neco.Client.Network
 {
-    public class BackendConnector : Core.StateHandler
+    public class BackendConnector : StateHandler
     {
         private TcpClient client;
         private Thread receiveThread;
@@ -95,6 +94,7 @@ namespace Neco.Client.Network
             {
                 if (!client.ConnectAsync(hostname, port).Wait(3000))
                 {
+                    client.Close();
                     client = null;
                 }
             }
@@ -135,6 +135,8 @@ namespace Neco.Client.Network
                 }
             }
 
+            stream?.Close();
+            client?.Close();
             client = null;
             dataQueue.Clear();
             CurrentState = State.Error;

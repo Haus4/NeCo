@@ -1,4 +1,5 @@
-﻿using Neco.Client.Network;
+﻿using libsignal.ecc;
+using Neco.Client.Network;
 using Neco.DataTransferObjects;
 using System;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Neco.Client.Model
     public class ChatModel
     {
         private ViewModel.ChatSession sessionViewmodel;
+        //private byte[] remotePublicKey; // TODO: Get that data from the server
 
         public ChatModel(ViewModel.ChatSession model)
         {
@@ -20,7 +22,7 @@ namespace Neco.Client.Model
                 try
                 {
                     MessageRequest message = RequestSerializer.Deserialize<RequestBase>(data) as MessageRequest;
-                    if (message != null)
+                    if (message != null /*&& App.Instance.CryptoHandler.VerifySignature(remotePublicKey, message.Message, message.Signature)*/)
                     {
                         PushForeignMessage(Encoding.UTF8.GetString(message.Message));
                     }
@@ -30,6 +32,16 @@ namespace Neco.Client.Model
 
                 }
             });
+
+            SessionRequest request = new SessionRequest
+            {
+                PublicKey = App.Instance.CryptoHandler.SerializePublicKey(),
+                Signature = App.Instance.CryptoHandler.CalculateSecuritySignature(),
+                Latitude = App.Instance.Locator.Position?.Latitude ?? 0.0,
+                Longitude = App.Instance.Locator.Position?.Longitude ?? 0.0
+            };
+
+            App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Request, RequestSerializer.Serialize<RequestBase>(request));
         }
 
         public void PushMessage(String message)
@@ -42,12 +54,10 @@ namespace Neco.Client.Model
             });
 
             byte[] messageBytes = Encoding.UTF8.GetBytes(message);
-            byte[] signature = new byte[1];
-
             MessageRequest request = new MessageRequest
             {
                 Message = messageBytes,
-                Signature = signature
+                Signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes)
             };
 
             App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Request, RequestSerializer.Serialize<RequestBase>(request));

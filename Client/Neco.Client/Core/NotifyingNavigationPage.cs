@@ -27,6 +27,7 @@ namespace Neco.Client
                 {
                     lastPage = (e.Page as NotifiableContentPage);
                     lastPage.OnPopped();
+                    lastPage = null;
                 }
             };
         }
