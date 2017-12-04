@@ -143,7 +143,7 @@ namespace Neco.Client.Network
             return false;
         }
 
-        private void ConnectSocket()
+        private bool OpenSocket()
         {
             IPHostEntry host = Dns.GetHostEntry(hostname);
             for(int i = 0; i < host.AddressList.Length; ++i)
@@ -153,32 +153,26 @@ namespace Neco.Client.Network
                     IPEndPoint endpoint = new IPEndPoint(host.AddressList[i], port);
 
                     socket = new Socket(host.AddressList[i].AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                    if (!socket.ConnectAsync(endpoint).Wait(2000))
-                    {
-                        socket?.Close();
-                        socket = null;
-                        continue;
-                    }
-                    else
+                    if (socket.ConnectAsync(endpoint).Wait(2000))
                     {
                         stream = new NetworkStream(socket);
+                        return true;
                     }
                 }
                 catch (Exception)
-                {
-                    stream?.Close();
-                    socket?.Close();
-                    stream = null;
-                    socket = null;
-                }
+                {}
             }
+
+            stream?.Close();
+            socket?.Close();
+            stream = null;
+            socket = null;
+            return false;
         }
 
         private void Runner()
         {
-            ConnectSocket();
-
-            if (socket == null)
+            if(!OpenSocket())
             {
                 CurrentState = State.Error;
                 return;
