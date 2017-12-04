@@ -4,6 +4,7 @@ using Neco.DataTransferObjects;
 using System;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Neco.Client.Model
@@ -17,19 +18,9 @@ namespace Neco.Client.Model
         {
             sessionViewmodel = model;
 
-            App.Instance.Connector.Receive<MessageRequest>((data) =>
+            App.Instance.Connector.Receive<MessageRequest>((message) =>
             {
-                try
-                {
-                    if (data is MessageRequest message)
-                    {
-                        PushForeignMessage(Encoding.UTF8.GetString(message.Message));
-                    }
-                }
-                catch(Exception)
-                {
-
-                }
+                PushForeignMessage(Encoding.UTF8.GetString(message.Message));
             });
 
             SessionRequest request = new SessionRequest
@@ -40,7 +31,7 @@ namespace Neco.Client.Model
                 Longitude = App.Instance.Locator.Position?.Longitude ?? 0.0
             };
 
-            App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Request, request);
+            Task.Run(async () => await App.Instance.Connector.SendRequest(request));
         }
 
         public void PushMessage(String message)
@@ -59,7 +50,14 @@ namespace Neco.Client.Model
                 Signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes)
             };
 
-            App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Request, request);
+            Task.Run(async () =>
+            {
+                var response = await App.Instance.Connector.SendRequest(request);
+                if (response != null)
+                {
+                    Console.WriteLine("Response received!");
+                }
+            });
         }
 
         private void PushForeignMessage(String message)

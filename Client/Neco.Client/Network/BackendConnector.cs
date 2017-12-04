@@ -15,7 +15,8 @@ namespace Neco.Client.Network
         private TcpClient client;
         private Thread receiveThread;
         private Queue<byte> dataQueue;
-        private Dictionary<Type, Action<RequestBase>> handlers;
+        private Dictionary<Type, Func<RequestBase, ResponseBase>> handlers;
+        private Dictionary<long, ResponseBase> responses;
 
         private string hostname;
         private int port;
@@ -23,7 +24,8 @@ namespace Neco.Client.Network
         public BackendConnector(String host)
         {
             dataQueue = new Queue<byte>();
-            handlers = new Dictionary<Type, Action<RequestBase>>();
+            handlers = new Dictionary<Type, Func<RequestBase, ResponseBase>>();
+            responses = new Dictionary<long, ResponseBase>();
 
             var separator = host.LastIndexOf(':');
             if (separator < 0) throw new ArgumentException();
@@ -44,7 +46,7 @@ namespace Neco.Client.Network
 
         public void Connect()
         {
-            if(receiveThread == null ||!receiveThread.IsAlive)
+            if (receiveThread == null || !receiveThread.IsAlive)
             {
                 CurrentState = State.Unknown;
                 receiveThread = new Thread(() => Runner());
@@ -59,16 +61,65 @@ namespace Neco.Client.Network
             receiveThread?.Join();
         }
 
-        public void Send(CommandTypes type, DataTransferObjects.RequestBase request)
+        public async Task SendResponse(ResponseBase response)
         {
             if (client != null && client.Connected)
             {
-                byte[] data = RequestSerializer.Serialize(request);
-                Command command = new Command(type, data);
-                byte[] outData = CommandParser.ToBytes(command);
-
-                Task.Run(async () => await SendData(outData));
+                byte[] data = RequestSerializer.Serialize(response);
+                await SendCommand(CommandTypes.Response, data);
             }
+        }
+
+        public async Task<ResponseBase> SendRequest(RequestBase request)
+        {
+            ResponseBase result = null;
+
+            if (client != null && client.Connected)
+            {
+                byte[] data = RequestSerializer.Serialize(request);
+                await SendCommand(CommandTypes.Request, data);
+
+                lock (responses)
+                {
+                    // This tells the system that we're waiting for a specific response with this token
+                    responses[request.Token] = null;
+                }
+
+                WaitForResponse(request.Token).Wait(3000);
+
+                lock (responses)
+                {
+                    if (responses.ContainsKey(request.Token))
+                    {
+                        result = responses[request.Token];
+                        responses.Remove(request.Token);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private async Task WaitForResponse(long token)
+        {
+            while (true)
+            {
+                lock (responses)
+                {
+                    if (!responses.ContainsKey(token)) break;
+                    if (responses[token] != null) break;
+                }
+
+                await Task.Delay(10);
+            }
+        }
+
+        public async Task SendCommand(CommandTypes type, byte[] data)
+        {
+            Command command = new Command(type, data);
+            byte[] outData = CommandParser.ToBytes(command);
+
+            await SendData(outData);
         }
 
         private async Task<bool> SendData(byte[] bytes)
@@ -82,7 +133,8 @@ namespace Neco.Client.Network
                     stream.Flush();
 
                     return true;
-                } catch(Exception) {}
+                }
+                catch (Exception) { }
             }
 
             return false;
@@ -123,9 +175,13 @@ namespace Neco.Client.Network
                     try
                     {
                         int length = stream.Read(bytes, 0, (int)bytes.Length);
-                        for (int i = 0; i < length; ++i) dataQueue.Enqueue(bytes[i]);
+
+                        lock (dataQueue)
+                        {
+                            for (int i = 0; i < length; ++i) dataQueue.Enqueue(bytes[i]);
+                        }
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
 
                     }
@@ -145,55 +201,114 @@ namespace Neco.Client.Network
 
         private void HandleData()
         {
-            while(dataQueue.Count > 8)
+            lock (dataQueue)
             {
-                int length = CommandParser.ParseBodyLength(dataQueue.ToArray(), 0, dataQueue.Count);
-                CommandTypes type = CommandParser.ParseCommandType(dataQueue.Skip(4).ToArray());
-                
-                if (length <= dataQueue.Count)
+                while (dataQueue.Count > 8)
                 {
-                    for(int i = 0; i < 8; ++i) dataQueue.Dequeue();
+                    int length = CommandParser.ParseBodyLength(dataQueue.ToArray(), 0, dataQueue.Count);
+                    CommandTypes type = CommandParser.ParseCommandType(dataQueue.Skip(4).Take(4).ToArray());
 
-                    byte[] data = new byte[length];
-                    for(int i = 0; i < length; ++i)
+                    if (length <= dataQueue.Count)
                     {
-                        data[i] = dataQueue.Dequeue();
-                    }
+                        // Skip header bytes
+                        for (int i = 0; i < 8; ++i) dataQueue.Dequeue();
 
-                    DispatchData(type, data);
-                }
-                else
-                {
-                    break;
+                        byte[] data = new byte[length];
+                        for (int i = 0; i < length; ++i)
+                        {
+                            data[i] = dataQueue.Dequeue();
+                        }
+
+                        DispatchData(type, data);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
         }
 
         private void DispatchData(CommandTypes type, byte[] bytes)
         {
-            DataTransferObjects.RequestBase obj = RequestSerializer.Deserialize<DataTransferObjects.RequestBase>(bytes);
-
             if (type == CommandTypes.Request)
             {
-                if (handlers.ContainsKey(obj.GetType()))
+                try
                 {
-                    handlers[obj.GetType()](obj);
+                    RequestBase request = RequestSerializer.Deserialize<RequestBase>(bytes);
+                    ResponseBase response = null;
+
+                    lock (handlers)
+                    {
+                        if (handlers.ContainsKey(request.GetType()))
+                        {
+                            response = handlers[request.GetType()](request);
+                        }
+                    }
+
+                    if (response == null)
+                    {
+                        response = request.CreateResponse();
+                    }
+
+                    Task.Run(async () => await SendResponse(response));
+                }
+                catch(Exception)
+                {
+
                 }
             }
-            else if(type == CommandTypes.Response)
+            else if (type == CommandTypes.Response)
             {
+                try
+                {
+                    ResponseBase response = RequestSerializer.Deserialize<ResponseBase>(bytes);
 
+                    lock (responses)
+                    {
+                        if (responses.ContainsKey(response.Token))
+                        {
+                            responses[response.Token] = response;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
             }
         }
 
-        public void Receive<T>(Action<RequestBase> handler)
+        public void Receive<T>(Action<T> handler) where T : RequestBase
         {
-            if(handlers.ContainsKey(typeof(T)))
+            lock (handlers)
             {
-                handlers.Remove(typeof(T));
-            }
+                handlers[typeof(T)] = (data) =>
+                {
+                    if (data is T obj)
+                    {
+                        handler(obj);
+                    }
 
-            handlers.Add(typeof(T), handler);
+                    return null;
+                };
+            }
+        }
+
+        public void Receive<T>(Func<T, ResponseBase> handler) where T : RequestBase
+        {
+            lock (handlers)
+            {
+                handlers[typeof(T)] = (data) =>
+                {
+                    if (data is T obj)
+                    {
+                        return handler(obj);
+                    }
+
+                    return null;
+                };
+            }
         }
     }
 }

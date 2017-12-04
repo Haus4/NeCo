@@ -10,7 +10,13 @@ namespace Neco.DataTransferObjects
 
         private static long _lastToken = 0;
 
-        public void AssignNewToken()
+        public RequestBase()
+        {
+            Token = _lastToken;
+            AssignNewToken();
+        }
+
+        private static void AssignNewToken()
         {
             Interlocked.Increment(ref _lastToken);
         }
