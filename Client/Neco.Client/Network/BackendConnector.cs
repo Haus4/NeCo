@@ -153,6 +153,7 @@ namespace Neco.Client.Network
             }
             catch (Exception)
             {
+                client?.Close();
                 client = null;
             }
 
