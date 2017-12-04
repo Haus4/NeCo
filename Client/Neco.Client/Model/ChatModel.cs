@@ -17,12 +17,11 @@ namespace Neco.Client.Model
         {
             sessionViewmodel = model;
 
-            App.Instance.Connector.Receive(Infrastructure.Protocol.CommandTypes.Request, (data) =>
+            App.Instance.Connector.Receive<MessageRequest>((data) =>
             {
                 try
                 {
-                    MessageRequest message = RequestSerializer.Deserialize<RequestBase>(data) as MessageRequest;
-                    if (message != null /*&& App.Instance.CryptoHandler.VerifySignature(remotePublicKey, message.Message, message.Signature)*/)
+                    if (data is MessageRequest message)
                     {
                         PushForeignMessage(Encoding.UTF8.GetString(message.Message));
                     }
@@ -41,7 +40,7 @@ namespace Neco.Client.Model
                 Longitude = App.Instance.Locator.Position?.Longitude ?? 0.0
             };
 
-            App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Request, RequestSerializer.Serialize<RequestBase>(request));
+            App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Request, request);
         }
 
         public void PushMessage(String message)
@@ -60,7 +59,7 @@ namespace Neco.Client.Model
                 Signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes)
             };
 
-            App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Request, RequestSerializer.Serialize<RequestBase>(request));
+            App.Instance.Connector.Send(Infrastructure.Protocol.CommandTypes.Request, request);
         }
 
         private void PushForeignMessage(String message)

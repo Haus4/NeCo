@@ -1,7 +1,9 @@
 using Neco.Client.Core;
+using Neco.DataTransferObjects;
 using Neco.Infrastructure.Protocol;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +15,7 @@ namespace Neco.Client.Network
         private TcpClient client;
         private Thread receiveThread;
         private Queue<byte> dataQueue;
-        private Dictionary<CommandTypes, Action<Byte[]>> handlers;
+        private Dictionary<Type, Action<RequestBase>> handlers;
 
         private string hostname;
         private int port;
@@ -21,7 +23,7 @@ namespace Neco.Client.Network
         public BackendConnector(String host)
         {
             dataQueue = new Queue<byte>();
-            handlers = new Dictionary<CommandTypes, Action<Byte[]>>();
+            handlers = new Dictionary<Type, Action<RequestBase>>();
 
             var separator = host.LastIndexOf(':');
             if (separator < 0) throw new ArgumentException();
@@ -57,14 +59,13 @@ namespace Neco.Client.Network
             receiveThread?.Join();
         }
 
-        public void Send(CommandTypes type, byte[] data)
+        public void Send(CommandTypes type, DataTransferObjects.RequestBase request)
         {
             if (client != null && client.Connected)
             {
-                byte[] outData = new byte[data.Length + 8];
-                Array.Copy(data, 0, outData, 8, data.Length);
-                Array.Copy(BitConverter.GetBytes(outData.Length), 0, outData, 0, 4);
-                Array.Copy(BitConverter.GetBytes((int)type), 0, outData, 4, 4);
+                byte[] data = RequestSerializer.Serialize(request);
+                Command command = new Command(type, data);
+                byte[] outData = CommandParser.ToBytes(command);
 
                 Task.Run(async () => await SendData(outData));
             }
@@ -144,18 +145,22 @@ namespace Neco.Client.Network
 
         private void HandleData()
         {
-            while(dataQueue.Count > 4)
+            while(dataQueue.Count > 8)
             {
-                int length = BitConverter.ToInt32(dataQueue.ToArray(), 0);
-                if(length <= dataQueue.Count)
+                int length = CommandParser.ParseBodyLength(dataQueue.ToArray(), 0, dataQueue.Count);
+                CommandTypes type = CommandParser.ParseCommandType(dataQueue.Skip(4).ToArray());
+                
+                if (length <= dataQueue.Count)
                 {
+                    for(int i = 0; i < 8; ++i) dataQueue.Dequeue();
+
                     byte[] data = new byte[length];
                     for(int i = 0; i < length; ++i)
                     {
                         data[i] = dataQueue.Dequeue();
                     }
 
-                    DispatchData(data);
+                    DispatchData(type, data);
                 }
                 else
                 {
@@ -164,28 +169,31 @@ namespace Neco.Client.Network
             }
         }
 
-        private void DispatchData(byte[] bytes)
+        private void DispatchData(CommandTypes type, byte[] bytes)
         {
-            int length = Math.Min(BitConverter.ToInt32(bytes, 0), bytes.Length) - 8;
-            CommandTypes type = (CommandTypes)BitConverter.ToInt32(bytes, 4);
+            DataTransferObjects.RequestBase obj = RequestSerializer.Deserialize<DataTransferObjects.RequestBase>(bytes);
 
-            if (handlers.ContainsKey(type))
+            if (type == CommandTypes.Request)
             {
-                byte[] data = new byte[length];
-                Array.Copy(bytes, 8, data, 0, length);
+                if (handlers.ContainsKey(obj.GetType()))
+                {
+                    handlers[obj.GetType()](obj);
+                }
+            }
+            else if(type == CommandTypes.Response)
+            {
 
-                handlers[type](data);
             }
         }
 
-        public void Receive(CommandTypes type, Action<Byte[]> handler)
+        public void Receive<T>(Action<RequestBase> handler)
         {
-            if(handlers.ContainsKey(type))
+            if(handlers.ContainsKey(typeof(T)))
             {
-                handlers.Remove(type);
+                handlers.Remove(typeof(T));
             }
 
-            handlers.Add(type, handler);
+            handlers.Add(typeof(T), handler);
         }
     }
 }
