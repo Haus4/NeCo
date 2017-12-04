@@ -4,6 +4,7 @@ using Neco.Infrastructure.Protocol;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +13,9 @@ namespace Neco.Client.Network
 {
     public class BackendConnector : StateHandler
     {
-        private TcpClient client;
+        private Socket socket;
+        private NetworkStream stream;
+
         private Thread receiveThread;
         private Queue<byte> dataQueue;
         private Dictionary<Type, Func<RequestBase, ResponseBase>> handlers;
@@ -40,7 +43,7 @@ namespace Neco.Client.Network
         {
             get
             {
-                return client != null && client.Connected;
+                return socket != null && socket.Connected && stream != null && stream.CanRead;
             }
         }
 
@@ -56,14 +59,16 @@ namespace Neco.Client.Network
 
         public void Stop()
         {
-            client?.GetStream()?.Close();
-            client?.Close();
+            stream?.Close();
+            socket?.Close();
+            stream = null;
+            socket = null;
             receiveThread?.Join();
         }
 
         public async Task SendResponse(ResponseBase response)
         {
-            if (client != null && client.Connected)
+            if (Connected)
             {
                 byte[] data = RequestSerializer.Serialize(response);
                 await SendCommand(CommandTypes.Response, data);
@@ -74,7 +79,7 @@ namespace Neco.Client.Network
         {
             ResponseBase result = null;
 
-            if (client != null && client.Connected)
+            if (Connected)
             {
                 byte[] data = RequestSerializer.Serialize(request);
                 await SendCommand(CommandTypes.Request, data);
@@ -124,14 +129,12 @@ namespace Neco.Client.Network
 
         private async Task<bool> SendData(byte[] bytes)
         {
-            if (client != null && client.Connected)
+            if (Connected)
             {
                 try
                 {
-                    NetworkStream stream = client.GetStream();
                     await stream.WriteAsync(bytes, 0, bytes.Length);
                     stream.Flush();
-
                     return true;
                 }
                 catch (Exception) { }
@@ -140,24 +143,42 @@ namespace Neco.Client.Network
             return false;
         }
 
-        private void Runner()
+        private void ConnectSocket()
         {
-            client = new TcpClient();
-            try
+            IPHostEntry host = Dns.GetHostEntry(hostname);
+            for(int i = 0; i < host.AddressList.Length; ++i)
             {
-                if (!client.ConnectAsync(hostname, port).Wait(3000))
+                try
                 {
-                    client.Close();
-                    client = null;
+                    IPEndPoint endpoint = new IPEndPoint(host.AddressList[i], port);
+
+                    socket = new Socket(host.AddressList[i].AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                    if (!socket.ConnectAsync(endpoint).Wait(2000))
+                    {
+                        socket?.Close();
+                        socket = null;
+                        continue;
+                    }
+                    else
+                    {
+                        stream = new NetworkStream(socket);
+                    }
+                }
+                catch (Exception)
+                {
+                    stream?.Close();
+                    socket?.Close();
+                    stream = null;
+                    socket = null;
                 }
             }
-            catch (Exception)
-            {
-                client?.Close();
-                client = null;
-            }
+        }
 
-            if (client == null)
+        private void Runner()
+        {
+            ConnectSocket();
+
+            if (socket == null)
             {
                 CurrentState = State.Error;
                 return;
@@ -165,9 +186,8 @@ namespace Neco.Client.Network
 
             CurrentState = State.Success;
 
-            NetworkStream stream = client.GetStream();
-            byte[] bytes = new byte[client.ReceiveBufferSize];
-            while (client != null && client.Connected && stream != null && stream.CanRead)
+            byte[] bytes = new byte[0x2000];
+            while (Connected)
             {
                 HandleData();
 
@@ -176,7 +196,6 @@ namespace Neco.Client.Network
                     try
                     {
                         int length = stream.Read(bytes, 0, (int)bytes.Length);
-
                         lock (dataQueue)
                         {
                             for (int i = 0; i < length; ++i) dataQueue.Enqueue(bytes[i]);
@@ -194,8 +213,9 @@ namespace Neco.Client.Network
             }
 
             stream?.Close();
-            client?.Close();
-            client = null;
+            socket?.Close();
+            stream = null;
+            socket = null;
             dataQueue.Clear();
             CurrentState = State.Error;
         }

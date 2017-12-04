@@ -93,7 +93,7 @@ namespace Neco.Client
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                chatButton.Text = "Connecting";
+                chatButton.Text = "Searching";
                 chatButton.IsEnabled = false;
                 spinner.IsRunning = true;
             });
