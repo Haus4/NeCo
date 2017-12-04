@@ -17,6 +17,7 @@ namespace Neco.Server.Infrastructure
         public bool HasChat { get; private set; }
         public String ChatSessionId { get; private set; }
         public int ChatMemberId { get; private set; }
+        public byte[] PublicKey { get; set; }
         protected static readonly ILog log = LogManager.GetLogger(typeof(ClientSession));
         protected override void OnSessionStarted()
         {
@@ -25,24 +26,27 @@ namespace Neco.Server.Infrastructure
 
         protected override void HandleException(Exception e)
         {
-            log.Info("Application error: " + e.Message);
+            log.Error("Application error: " + e.Message);
         }
 
         protected override void OnSessionClosed(CloseReason reason)
         {
-            ChatSessionManager.CloseSession(SessionID);
+            LeaveChatSession();
             //add you logics which will be executed after the session is closed
             base.OnSessionClosed(reason);
         }
 
-        public void JoinSession(String sessionId, int memberId)
+        public void JoinChatSession(String sessionId, int memberId)
         {
+            HasChat = true;
             ChatMemberId = memberId;
             ChatSessionId = sessionId;
         }
 
-        public void LeaveSession()
+        public void LeaveChatSession()
         {
+            ChatSessionManager.LeaveSession(ChatSessionId, this);
+            HasChat = false;
             ChatMemberId = -1;
             ChatSessionId = null;
         }

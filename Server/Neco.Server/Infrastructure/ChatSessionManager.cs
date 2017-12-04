@@ -20,12 +20,13 @@ namespace Neco.Server.Infrastructure
             chatSessions = new Dictionary<String, ChatSession>();
         }
 
-        public static void CreateSession(ClientSession hostSession)
+        public static Task<byte[]> CreateSession(ClientSession hostSession)
         {
             ChatSession chatSession = new ChatSession(hostSession, "CHAT"+hostSession.SessionID,2);
             log.Info("Chat Session created");
             chatSessions.Add(chatSession.SessionId, chatSession);
             HasSession = true;
+            return chatSession.AwaitMemberKey();
         }
 
         public static ChatSession GetSession(String SessionId)
@@ -38,12 +39,13 @@ namespace Neco.Server.Infrastructure
             return null;
         }
 
-        public static void JoinSession(String SessionId, ClientSession ses)
+        public static byte[] JoinSession(String SessionId, ClientSession ses)
         {
             var hostSession = GetSession(SessionId);
             if(hostSession != null && hostSession.IsOpen != false){
-                hostSession.JoinSession(ses);
+                return hostSession.JoinSession(ses);
             }
+            return null;
         }
 
         public static void LeaveSession(String SessionId, ClientSession ses)
@@ -58,10 +60,7 @@ namespace Neco.Server.Infrastructure
         public static void CloseSession(String SessionId)
         {
             chatSessions.Remove(SessionId);
-            if(chatSessions.Count < 1)
-            {
-                HasSession = false;
-            }
+            if(chatSessions.Count < 1) HasSession = false;
         }
 
         public static String GetIdForNextOpenSession()
@@ -71,13 +70,8 @@ namespace Neco.Server.Infrastructure
 
         public static bool IsSessionAvailable()
         {
-            if (!HasSession)
-            {
-                return false;
-            } else
-            {
-                return chatSessions.Values.Any(value => value.IsOpen == true);
-            }
+            if (!HasSession) return false;
+            else return chatSessions.Values.Any(value => value.IsOpen == true);
         }
     }
 }
