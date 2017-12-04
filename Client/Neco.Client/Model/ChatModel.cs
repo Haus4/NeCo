@@ -12,17 +12,23 @@ namespace Neco.Client.Model
     public class ChatModel
     {
         private ViewModel.ChatSession sessionViewmodel;
-        //private byte[] remotePublicKey; // TODO: Get that data from the server
+        private byte[] remotePublicKey;
 
-        public ChatModel(ViewModel.ChatSession model)
+        public ChatModel(ViewModel.ChatSession viewModel)
         {
-            sessionViewmodel = model;
+            sessionViewmodel = viewModel;
 
             App.Instance.Connector.Receive<MessageRequest>((message) =>
             {
-                PushForeignMessage(Encoding.UTF8.GetString(message.Message));
+                if (App.Instance.CryptoHandler.VerifySignature(remotePublicKey, message.Message, message.Signature))
+                {
+                    PushForeignMessage(Encoding.UTF8.GetString(message.Message));
+                }
             });
+        }
 
+        public async Task<bool> Join()
+        {
             SessionRequest request = new SessionRequest
             {
                 PublicKey = App.Instance.CryptoHandler.SerializePublicKey(),
@@ -31,7 +37,14 @@ namespace Neco.Client.Model
                 Longitude = App.Instance.Locator.Position?.Longitude ?? 0.0
             };
 
-            Task.Run(async () => await App.Instance.Connector.SendRequest(request));
+            var response = await App.Instance.Connector.SendRequest(request, 30000);
+            if (response != null && response is SessionResponse sessionResp && sessionResp.Success)
+            {
+                remotePublicKey = sessionResp.PublicKey;
+                return true;
+            }
+
+            return false;
         }
 
         public void PushMessage(String message)
@@ -50,14 +63,7 @@ namespace Neco.Client.Model
                 Signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes)
             };
 
-            Task.Run(async () =>
-            {
-                var response = await App.Instance.Connector.SendRequest(request);
-                if (response != null)
-                {
-                    Console.WriteLine("Response received!");
-                }
-            });
+            Task.Run(async () => await App.Instance.Connector.SendRequest(request));
         }
 
         private void PushForeignMessage(String message)

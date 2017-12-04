@@ -89,10 +89,38 @@ namespace Neco.Client
             spinner.IsRunning = true;
         }
 
-        private async void StartSessionHandler(object sender, EventArgs e)
+        private void StartSessionHandler(object sender, EventArgs e)
         {
-            session = new ViewModel.ChatSession();
-            await Navigation.PushAsync(session.View, true);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                chatButton.Text = "Connecting";
+                chatButton.IsEnabled = false;
+                spinner.IsRunning = true;
+            });
+
+            Task.Run(async () =>
+            {
+                session = new ViewModel.ChatSession();
+                bool success = await session.Model.Join();
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    if (success)
+                    {
+                        await Navigation.PushAsync(session.View, true);
+                    }
+                    else
+                    {
+                        IMessage messageHandler = DependencyService.Get<IMessage>();
+                        messageHandler?.ShowToast("Unable to join a chat lobby");
+                    }
+
+                    chatButton.Text = "Start chatting";
+                    chatButton.IsEnabled = true;
+                    spinner.IsRunning = false;
+                });
+
+            });
         }
     }
 }

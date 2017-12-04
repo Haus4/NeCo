@@ -70,7 +70,7 @@ namespace Neco.Client.Network
             }
         }
 
-        public async Task<ResponseBase> SendRequest(RequestBase request)
+        public async Task<ResponseBase> SendRequest(RequestBase request, int timeout = 3000)
         {
             ResponseBase result = null;
 
@@ -85,7 +85,7 @@ namespace Neco.Client.Network
                     responses[request.Token] = null;
                 }
 
-                WaitForResponse(request.Token).Wait(3000);
+                WaitForResponse(request.Token).Wait(timeout);
 
                 lock (responses)
                 {
