@@ -13,8 +13,7 @@ namespace Neco.Client.Network
 {
     public class BackendConnector : StateHandler
     {
-        private Socket socket;
-        private NetworkStream stream;
+        private TcpClient client;
 
         private Thread receiveThread;
         private Queue<byte> dataQueue;
@@ -43,7 +42,7 @@ namespace Neco.Client.Network
         {
             get
             {
-                return socket != null && socket.Connected && stream != null && stream.CanRead;
+                return client != null && client.Connected && client.GetStream() != null && client.GetStream().CanRead;
             }
         }
 
@@ -59,10 +58,9 @@ namespace Neco.Client.Network
 
         public void Stop()
         {
-            stream?.Close();
-            socket?.Close();
-            stream = null;
-            socket = null;
+            client?.GetStream()?.Close();
+            client?.Close();
+            client = null;
             receiveThread?.Join();
         }
 
@@ -133,6 +131,7 @@ namespace Neco.Client.Network
             {
                 try
                 {
+                    var stream = client.GetStream();
                     await stream.WriteAsync(bytes, 0, bytes.Length);
                     stream.Flush();
                     return true;
@@ -150,23 +149,20 @@ namespace Neco.Client.Network
             {
                 try
                 {
-                    IPEndPoint endpoint = new IPEndPoint(host.AddressList[i], port);
-
-                    socket = new Socket(host.AddressList[i].AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                    if (socket.ConnectAsync(endpoint).Wait(2000))
+                    client = new TcpClient(host.AddressList[i].AddressFamily);
+                    if (client.ConnectAsync(host.AddressList[i], port).Wait(2000))
                     {
-                        stream = new NetworkStream(socket);
                         return true;
                     }
                 }
                 catch (Exception)
-                {}
+                {
+                }
             }
 
-            stream?.Close();
-            socket?.Close();
-            stream = null;
-            socket = null;
+            client?.GetStream()?.Close();
+            client?.Close();
+            client = null;
             return false;
         }
 
@@ -185,6 +181,7 @@ namespace Neco.Client.Network
             {
                 HandleData();
 
+                var stream = client.GetStream();
                 if (stream.DataAvailable)
                 {
                     try
@@ -206,10 +203,9 @@ namespace Neco.Client.Network
                 }
             }
 
-            stream?.Close();
-            socket?.Close();
-            stream = null;
-            socket = null;
+            client?.GetStream()?.Close();
+            client?.Close();
+            client = null;
             dataQueue.Clear();
             CurrentState = State.Error;
         }
