@@ -17,7 +17,6 @@ namespace Neco.DataTransferObjects
     public class SessionResponse : ResponseBase
     {
         public bool Success { get; set; }
-        public String Message { get; set; }
-        public byte[] Signature { get; set; }
+        public byte[] PublicKey { get; set; }
     }
 }

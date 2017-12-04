@@ -1,95 +1,119 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Neco.Server.Application.AccountService" Collapsed="true">
-    <Position X="17.25" Y="6" Width="1.5" />
+    <Position X="10" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Application\AccountService.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Neco.Server.Application.ChatService" Collapsed="true">
-    <Position X="17.25" Y="6.75" Width="1.5" />
+  <Class Name="Neco.Server.Application.BaseService" Collapsed="true">
+    <Position X="12.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\BaseService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Neco.Server.Application.ChatService" Collapsed="true">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Application\ChatService.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Neco.Server.Infrastructure.ChatSession">
-    <Position X="22.25" Y="3.5" Width="1.5" />
+  <Class Name="Neco.Server.Application.SessionService" Collapsed="true">
+    <Position X="14.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAEAAAAAAAQIgAAAIAAAAAAAAAAAGAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Application\SessionService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Neco.Server.Infrastructure.ChatSession">
+    <Position X="7.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IABAIAAAAEAAAEAAAQIhAAAICAAAAAAAAAACAAAQAAA=</HashCode>
       <FileName>Infrastructure\ChatSession.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="sessionCreator" />
-      <Field Name="sessionMember" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Neco.Server.Infrastructure.ChatSessionManager">
-    <Position X="19.25" Y="1.25" Width="2" />
+    <Position X="6" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAABAAAAAAAAgAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAQAAAAABAAAAIBCAgAAAAACQAAAAACAAAAAAA=</HashCode>
       <FileName>Infrastructure\ChatSessionManager.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="chatSessions" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Neco.Server.Infrastructure.ClientSession">
-    <Position X="19.25" Y="3.5" Width="1.5" />
+    <Position X="4.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAQAAAABAAAAAgAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAQAIAAAAAAEABCAAQAAAABAAQAAgCAAAAAAA=</HashCode>
       <FileName>Infrastructure\ClientSession.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Neco.Server.Infrastructure.InfrastructureInitializer">
-    <Position X="15.5" Y="1.5" Width="3.25" />
+    <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAEAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
       <FileName>Infrastructure\InfrastructureInitializer.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="_necoSocketServer" />
-      <Field Name="_settings" />
-    </ShowAsAssociation>
   </Class>
-  <Class Name="Neco.Server.Infrastructure.NecoCommandBase">
-    <Position X="25.75" Y="2.75" Width="1.5" />
+  <Class Name="Neco.Server.Infrastructure.NecoCommandBase" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIAAAAAAAAAAAACAAAAAAIQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Infrastructure\NecoCommandBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Neco.Server.Infrastructure.NecoReceiveFilter">
-    <Position X="15.5" Y="6" Width="1.5" />
+    <Position X="6" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAQAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Infrastructure\NecoReceiveFilter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Neco.Server.Infrastructure.SocketServer">
-    <Position X="17.25" Y="3.5" Width="1.5" />
+  <Class Name="Neco.Server.Infrastructure.RequestSerializer">
+    <Position X="2.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AKAAAAAACAAAAAAAAAAAAAAQAAAAAAAAAAAAACAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACBAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Infrastructure\RequestSerializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Neco.Server.Infrastructure.RequestsHandler">
+    <Position X="4.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAQAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\RequestsHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Neco.Server.Infrastructure.SocketServer">
+    <Position X="2.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AKAAAAAACAAAAAAAAAAACAAQAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>Infrastructure\SocketServer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Neco.Server.Infrastructure.Commands.MessageCommand">
-    <Position X="24.5" Y="5.5" Width="1.75" />
+  <Class Name="Neco.Server.Infrastructure.Commands.PingCommand" Collapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAACAAAAAAIAAAAAAAAAAAAAAAAAAAQA=</HashCode>
-      <FileName>Infrastructure\Commands\MessageCommand.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Commands\PingCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Neco.Server.Infrastructure.Commands.SessionCommand">
-    <Position X="26.75" Y="5.5" Width="1.5" />
+  <Class Name="Neco.Server.Infrastructure.Commands.RequestCommand" Collapsed="true">
+    <Position X="14.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAAAAAACAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Infrastructure\Commands\SessionCommand.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAACAAAAACIAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Commands\RequestCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Neco.Server.Infrastructure.Commands.ResponseCommand" Collapsed="true">
+    <Position X="10" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Commands\ResponseCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Neco.Server.Program">
-    <Position X="13" Y="1.25" Width="1.5" />
+    <Position X="0.75" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -106,23 +130,18 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Neco.Server.ServiceLocator">
-    <Position X="13" Y="4.5" Width="1.5" />
+    <Position X="16.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAIAAgAACAAAAgAAAAAAAAAAAAAQAAQAACAAAgAAA=</HashCode>
       <FileName>ServiceLocator.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Neco.Server.Settings">
-    <Position X="15.5" Y="4" Width="1.5" />
+    <Position X="0.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAIBAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Settings.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="System.Collections.ArrayList" Collapsed="true">
-    <Position X="22.25" Y="1.25" Width="1.5" />
-    <TypeIdentifier />
-    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Neco.Server.Infrastructure
@@ -22,6 +23,8 @@ namespace Neco.Server.Infrastructure
         public int CurrentMembers { get; private set; }
         protected static readonly ILog log = LogManager.GetLogger(typeof(ChatSession));
 
+        private bool hasMember = false;
+
         public ChatSession(ClientSession _sessionCreator, String _sessionId, int allowedMembers)
         {
             sessionCreator = _sessionCreator;
@@ -33,7 +36,19 @@ namespace Neco.Server.Infrastructure
             _sessionCreator.JoinChatSession(SessionId, 0);
         }
 
-        public void JoinSession(ClientSession sessionMember)
+        public Task<byte[]> AwaitMemberKey()
+        {
+            return Task.Run(() =>
+            {
+                while (!hasMember)
+                {
+                    Thread.Sleep(2000);
+                }
+                return sessionMembers.First().PublicKey;
+            });
+        }
+
+        public byte[] JoinSession(ClientSession sessionMember)
         {
             for(var i=0; i<sessionMembers.Length; i++)
             {
@@ -43,12 +58,14 @@ namespace Neco.Server.Infrastructure
                     sessionMember.JoinChatSession(SessionId, i);
                     CurrentMembers++;
                     if (CurrentMembers == TotalMembers) IsOpen = false;
+                    hasMember = true;
                     break;
                 } else
                 {
                     log.Error("Client tried to connect to full session... " + CurrentMembers + "/" + TotalMembers + " " + sessionMember.SessionID);
                 }
             }
+            return sessionCreator.PublicKey;
             //SendEachMember(_sessionMember.SessionID + " joined your session... say hello 😃");
         }
 

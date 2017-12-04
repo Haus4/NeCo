@@ -10,17 +10,25 @@ namespace Neco.Server.Application
 {
     public class SessionService : BaseService
     {
-        public void Session(ClientSession session, SessionRequest request)
+        public async Task<SessionResponse> Session(ClientSession session, SessionRequest request)
         {
+            session.PublicKey = request.PublicKey;
+            var response = request.CreateResponse<SessionResponse>();
             if (session.HasChat) session.LeaveChatSession();
 
             if (ChatSessionManager.IsSessionAvailable())
             {
                 var chatSessionId = ChatSessionManager.GetIdForNextOpenSession();
-                ChatSessionManager.JoinSession(chatSessionId, session);
-            } else
+                response.PublicKey = ChatSessionManager.JoinSession(chatSessionId, session);
+                response.Success = true;
+                return response;
+            }
+            else
             {
-                ChatSessionManager.CreateSession(session);
+                var publicKey = await ChatSessionManager.CreateSession(session);
+                response.Success = true;
+                response.PublicKey = publicKey;
+                return response;
             }
         }
     }

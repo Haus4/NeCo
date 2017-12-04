@@ -17,6 +17,7 @@ namespace Neco.Server.Infrastructure
         public bool HasChat { get; private set; }
         public String ChatSessionId { get; private set; }
         public int ChatMemberId { get; private set; }
+        public byte[] PublicKey { get; set; }
         protected static readonly ILog log = LogManager.GetLogger(typeof(ClientSession));
         protected override void OnSessionStarted()
         {
