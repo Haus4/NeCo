@@ -46,10 +46,10 @@ namespace Neco.Infrastructure.Protocol
         {
             var bytes = new[]
                 {
-                    header[offset + NumTypeBytes], 
-                    header[offset + NumTypeBytes + 1],
-                    header[offset + NumTypeBytes + 2],
-                    header[offset + NumTypeBytes + 3]
+                    header[offset], 
+                    header[offset + 1],
+                    header[offset + 2],
+                    header[offset + 3]
                 };
             var parsedLength = BitConverter.ToInt32(bytes, 0);
             return parsedLength;

@@ -41,6 +41,17 @@ namespace Neco.Client.Core
             {
                 CurrentState = State.Error;
             }
+#if DEBUG // For emulators
+            else
+            {
+                Position _position = await locator.GetLastKnownLocationAsync();
+                if(position == null && _position != null)
+                {
+                    position = _position;
+                    CurrentState = State.Success;
+                }
+            }
+#endif
         }
 
         private void PositionChanged(object obj, PositionEventArgs e)

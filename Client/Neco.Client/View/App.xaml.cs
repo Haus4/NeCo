@@ -1,6 +1,9 @@
+using libsignal.ecc;
 using Plugin.Geolocator;
 using Plugin.Geolocator.Abstractions;
 using System;
+using System.Linq;
+using System.Text;
 using Xamarin.Forms;
 
 namespace Neco.Client
@@ -12,7 +15,7 @@ namespace Neco.Client
         private MainPage mainPage;
         private NotifyingNavigationPage notifyingNavigationPage;
         private object context;
-        private string key;
+        private Core.CryptoHandler cryptoHandler;
 
         private Core.GeoLocator locator;
 
@@ -21,11 +24,10 @@ namespace Neco.Client
             InitializeComponent();
 
             context = _context;
+
             locator = new Core.GeoLocator();
-
-            LoadKey();
-
-            backendConnector = new Network.BackendConnector(/*"neco.it.dh-karlsruhe.de:9000"*/"192.168.0.214:9000");
+            cryptoHandler = new Core.CryptoHandler(context);
+            backendConnector = new Network.BackendConnector(/*"neco.it.dh-karlsruhe.de:9000"*/"kthx.at:28960");
 
             mainPage = new MainPage();
             notifyingNavigationPage = new NotifyingNavigationPage(mainPage);
@@ -48,23 +50,19 @@ namespace Neco.Client
             }
         }
 
+        public Core.CryptoHandler CryptoHandler
+        {
+            get
+            {
+                return cryptoHandler;
+            }
+        }
+
         public static App Instance
         {
             get
             {
                 return Current as App;
-            }
-        }
-
-        private void LoadKey()
-        {
-            IDataStore dataStore = DependencyService.Get<IDataStore>();
-
-            key = dataStore.GetString(context, "key");
-            if(key == null)
-            {
-                key = "blub"; // TODO: Generate ECC key using ed25519
-                dataStore.SetString(context, "key", key);
             }
         }
 

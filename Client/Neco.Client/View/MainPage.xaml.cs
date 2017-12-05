@@ -74,7 +74,7 @@ namespace Neco.Client
         private void ReconnectHandler(object sender, EventArgs e)
         {
             chatButton.Clicked -= ReconnectHandler;
-            if(App.Instance.Locator.CurrentState == State.Error)
+            if (App.Instance.Locator.CurrentState == State.Error)
             {
                 App.Instance.Locator.Listen();
             }
@@ -89,13 +89,38 @@ namespace Neco.Client
             spinner.IsRunning = true;
         }
 
-        private async void StartSessionHandler(object sender, EventArgs e)
+        private void StartSessionHandler(object sender, EventArgs e)
         {
-            session = new ViewModel.ChatSession();
-            if (session.Available)
+            Device.BeginInvokeOnMainThread(() =>
             {
-                await Navigation.PushAsync(session.View, true);
-            }
+                chatButton.Text = "Searching";
+                chatButton.IsEnabled = false;
+                spinner.IsRunning = true;
+            });
+
+            Task.Run(async () =>
+            {
+                session = new ViewModel.ChatSession();
+                bool success = await session.Model.Join();
+
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    if (success)
+                    {
+                        await Navigation.PushAsync(session.View, true);
+                    }
+                    else
+                    {
+                        IMessage messageHandler = DependencyService.Get<IMessage>();
+                        messageHandler?.ShowToast("Unable to join a chat lobby");
+                    }
+
+                    chatButton.Text = "Start chatting";
+                    chatButton.IsEnabled = true;
+                    spinner.IsRunning = false;
+                });
+
+            });
         }
     }
 }
