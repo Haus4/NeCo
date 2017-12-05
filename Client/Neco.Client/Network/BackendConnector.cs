@@ -58,9 +58,7 @@ namespace Neco.Client.Network
 
         public void Stop()
         {
-            client?.GetStream()?.Close();
-            client?.Close();
-            client = null;
+            CloseSocket();
             receiveThread?.Join();
         }
 
@@ -142,6 +140,13 @@ namespace Neco.Client.Network
             return false;
         }
 
+        void CloseSocket()
+        {
+            try { client?.GetStream()?.Close(); } catch (Exception) { }
+            try { client?.Close(); } catch (Exception) { }
+            client = null;
+        }
+
         private bool OpenSocket()
         {
             IPHostEntry host = Dns.GetHostEntry(hostname);
@@ -160,9 +165,7 @@ namespace Neco.Client.Network
                 }
             }
 
-            client?.GetStream()?.Close();
-            client?.Close();
-            client = null;
+            CloseSocket();
             return false;
         }
 
@@ -203,9 +206,7 @@ namespace Neco.Client.Network
                 }
             }
 
-            client?.GetStream()?.Close();
-            client?.Close();
-            client = null;
+            CloseSocket();
             dataQueue.Clear();
             CurrentState = State.Error;
         }
