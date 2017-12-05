@@ -45,7 +45,7 @@ namespace Neco.Server.Infrastructure
 
         public void LeaveChatSession()
         {
-            ChatSessionManager.LeaveSession(ChatSessionId, this);
+            if(HasChat) ChatSessionManager.LeaveSession(ChatSessionId, this);
             HasChat = false;
             ChatMemberId = -1;
             ChatSessionId = null;
