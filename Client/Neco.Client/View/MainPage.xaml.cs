@@ -113,6 +113,7 @@ namespace Neco.Client
                     {
                         IMessage messageHandler = DependencyService.Get<IMessage>();
                         messageHandler?.ShowToast("Unable to join a chat lobby");
+                        session.Model.CloseSession();
                     }
 
                     chatButton.Text = "Start chatting";

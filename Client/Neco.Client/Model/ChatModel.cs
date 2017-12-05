@@ -29,11 +29,20 @@ namespace Neco.Client.Model
             App.Instance.Connector.Receive<SessionCloseRequest>((message) =>
             {
                 sessionViewmodel.View.Close();
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    IMessage messageHandler = DependencyService.Get<IMessage>();
+                    messageHandler?.ShowToast("Partner left the chat");
+                });
             });
         }
 
         public void CloseSession()
         {
+            App.Instance.Connector.Receive<MessageRequest>(null);
+            App.Instance.Connector.Receive<SessionCloseRequest>(null);
+
             SessionCloseRequest request = new SessionCloseRequest
             {
                 Signature = new byte[1]

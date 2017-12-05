@@ -305,7 +305,7 @@ namespace Neco.Client.Network
                 {
                     if (data is T obj)
                     {
-                        handler(obj);
+                        handler.Invoke(obj);
                     }
 
                     return null;
@@ -321,7 +321,7 @@ namespace Neco.Client.Network
                 {
                     if (data is T obj)
                     {
-                        return handler(obj);
+                        return handler.Invoke(obj);
                     }
 
                     return null;

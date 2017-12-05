@@ -31,16 +31,16 @@ namespace Neco.Client
             model.CloseSession();
         }
 
-        public async void Close()
+        public void Close()
         {
-            await App.Instance.MainPage.Navigation.PopAsync(true);
+            Device.BeginInvokeOnMainThread(async () => await App.Instance.MainPage.Navigation.PopAsync(true));
         }
 
         private void OnBackendStateChanged(object sender, EventArgs e)
         {
             if(sender is Network.BackendConnector connector && connector.CurrentState == Core.State.Error)
             {
-                Device.BeginInvokeOnMainThread(() => Close());
+                Close();
             }
         }
 
