@@ -25,6 +25,21 @@ namespace Neco.Client.Model
                     PushForeignMessage(Encoding.UTF8.GetString(message.Message));
                 }
             });
+
+            App.Instance.Connector.Receive<SessionCloseRequest>((message) =>
+            {
+                sessionViewmodel.View.Close();
+            });
+        }
+
+        public void CloseSession()
+        {
+            SessionCloseRequest request = new SessionCloseRequest
+            {
+                Signature = new byte[1]
+            };
+
+            Task.Run(async () => await App.Instance.Connector.SendRequest(request));
         }
 
         public async Task<bool> Join()

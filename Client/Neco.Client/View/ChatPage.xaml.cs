@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neco.DataTransferObjects;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -16,10 +17,10 @@ namespace Neco.Client
     {
         private Model.ChatModel model;
 
-        public ChatPage(ViewModel.ChatSession model)
+        public ChatPage(ViewModel.ChatSession viewModel)
         {
             InitializeComponent();
-            SetupComponents(model);
+            SetupComponents(viewModel);
 
             App.Instance.Connector.StateChanged += OnBackendStateChanged;
         }
@@ -27,13 +28,19 @@ namespace Neco.Client
         public override void OnPopped()
         {
             App.Instance.Connector.StateChanged -= OnBackendStateChanged;
+            model.CloseSession();
+        }
+
+        public async void Close()
+        {
+            await App.Instance.MainPage.Navigation.PopAsync(true);
         }
 
         private void OnBackendStateChanged(object sender, EventArgs e)
         {
             if(sender is Network.BackendConnector connector && connector.CurrentState == Core.State.Error)
             {
-                Device.BeginInvokeOnMainThread(() => App.Instance.MainPage.Navigation.PopAsync(true));
+                Device.BeginInvokeOnMainThread(() => Close());
             }
         }
 
