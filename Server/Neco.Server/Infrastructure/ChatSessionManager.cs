@@ -48,18 +48,14 @@ namespace Neco.Server.Infrastructure
             return null;
         }
 
-        public static void LeaveSession(String SessionId, ClientSession ses)
+        public static void CloseSession(String SessionId, ClientSession ses)
         {
             var hostSession = GetSession(SessionId);
-            if (hostSession != null && hostSession.IsOpen != false)
+            if (hostSession != null)
             {
-                hostSession.LeaveSession(ses);
+                hostSession.CloseSession(ses);
+                chatSessions.Remove(SessionId);
             }
-        }
-
-        public static void CloseSession(String SessionId)
-        {
-            chatSessions.Remove(SessionId);
             if(chatSessions.Count < 1) HasSession = false;
         }
 

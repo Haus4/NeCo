@@ -25,7 +25,7 @@ namespace Neco.Server.Infrastructure
             var serverConfig = new ServerConfig
             {
                 Port = _settings.ServerPort,
-                Ip = "Any",
+                Ip = _settings.IpAddress,
                 MaxConnectionNumber = 2000,
                 Mode = SocketMode.Tcp,
                 Name = "NecoServer",
