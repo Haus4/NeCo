@@ -32,7 +32,21 @@ namespace Neco.Server.Application
                     return response;
                 }
             }
-            catch(Exception exc)
+            catch (Exception exc)
+            {
+                response.Success = false;
+                return response;
+            }
+        }
+        public SessionCloseResponse SessionClose(ClientSession session, SessionCloseRequest request)
+        {
+            var response = request.CreateResponse<SessionCloseResponse>();
+            try
+            {
+                if (session.HasChat) session.LeaveChatSession();
+                response.Success = true;
+                return response;
+            } catch(Exception e)
             {
                 response.Success = false;
                 return response;

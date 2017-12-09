@@ -31,7 +31,7 @@ namespace Neco.Server.Infrastructure
 
         protected override void OnSessionClosed(CloseReason reason)
         {
-            LeaveChatSession();
+            if(HasChat) LeaveChatSession();
             //add you logics which will be executed after the session is closed
             base.OnSessionClosed(reason);
         }
@@ -45,7 +45,7 @@ namespace Neco.Server.Infrastructure
 
         public void LeaveChatSession()
         {
-            if(HasChat) ChatSessionManager.LeaveSession(ChatSessionId, this);
+            if(HasChat) ChatSessionManager.CloseSession(ChatSessionId, this);
             HasChat = false;
             ChatMemberId = -1;
             ChatSessionId = null;

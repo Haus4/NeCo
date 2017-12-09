@@ -109,7 +109,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Neco.DataTransferObjects\Neco.DataTransferObjects.csproj">
-      <Project>{bd51606f-3261-4741-ab2d-4e9aca23472b}</Project>
+      <Project>{5df05250-6aea-4a85-85cc-4a3247ed841e}</Project>
       <Name>Neco.DataTransferObjects</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Shared\Neco.Infrastructure.Protocol\Neco.Infrastructure.Protocol.csproj">
