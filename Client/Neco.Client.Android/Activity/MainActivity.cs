@@ -42,7 +42,7 @@ namespace Neco.Client.Droid
             }
         }
 
-        public override View CurrentFocus
+        public override Android.Views.View CurrentFocus
         {
             get
             {

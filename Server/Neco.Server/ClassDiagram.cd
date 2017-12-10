@@ -24,28 +24,21 @@
   <Class Name="Neco.Server.Application.SessionService" Collapsed="true">
     <Position X="14.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>Application\SessionService.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Neco.Server.Infrastructure.ChatSession">
     <Position X="7.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IABAIAAAAEAAAEAAAQIhAAAICAAAAAAAAAACAAAQAAA=</HashCode>
+      <HashCode>IAAAIAAAAEAAAEABAQJgCAAICAAAAAAAAAACAAAQAAA=</HashCode>
       <FileName>Infrastructure\ChatSession.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Neco.Server.Infrastructure.ChatSessionManager">
-    <Position X="6" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAQAAAAABAAAAIBCAgAAAAACQAAAAACAAAAAAA=</HashCode>
-      <FileName>Infrastructure\ChatSessionManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Neco.Server.Infrastructure.ClientSession">
     <Position X="4.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAIAAAAAAEABCAAQAAAABAAQAAgCAAAAAAA=</HashCode>
+      <HashCode>CAAAAACAQAIAAACQAEAACAQQAAAABAAAAAgAAAAAAAA=</HashCode>
       <FileName>Infrastructure\ClientSession.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -139,7 +132,7 @@
   <Class Name="Neco.Server.Settings">
     <Position X="0.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAAAAAAAIBAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAABAAAAAAAAAAIDAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Settings.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -12,21 +12,20 @@ namespace Neco.Server.Application
     {
         public async Task<SessionResponse> Session(ClientSession session, SessionRequest request)
         {
-            session.PublicKey = request.PublicKey;
             var response = request.CreateResponse<SessionResponse>();
+            response.Token = request.Token;
             if (session.HasChat) session.LeaveChatSession();
             try
             {
-                if (ChatSessionManager.IsSessionAvailable())
+                if (ChatLobbyManager.HasMemberSession(session.ChatLobbyId, request.MemberKey))
                 {
-                    var chatSessionId = ChatSessionManager.GetIdForNextOpenSession();
-                    response.PublicKey = ChatSessionManager.JoinSession(chatSessionId, session);
+                    response.PublicKey = ChatLobbyManager.JoinSession(session.ChatLobbyId, request.MemberKey, session);
                     response.Success = true;
                     return response;
                 }
                 else
                 {
-                    var publicKey = await ChatSessionManager.CreateSession(session);
+                    var publicKey = await ChatLobbyManager.OpenSession(session.ChatLobbyId, session);
                     response.Success = true;
                     response.PublicKey = publicKey;
                     return response;
@@ -41,6 +40,7 @@ namespace Neco.Server.Application
         public SessionCloseResponse SessionClose(ClientSession session, SessionCloseRequest request)
         {
             var response = request.CreateResponse<SessionCloseResponse>();
+            response.Token = request.Token;
             try
             {
                 if (session.HasChat) session.LeaveChatSession();

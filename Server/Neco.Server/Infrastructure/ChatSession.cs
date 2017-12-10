@@ -18,6 +18,7 @@ namespace Neco.Server.Infrastructure
         private ClientSession sessionCreator;
         private ClientSession[] sessionMembers;
 
+        public String LobbyId { get; private set; }
         public String SessionId { get; private set; }
         public bool IsOpen { get; private set; }
         public int TotalMembers { get; }
@@ -26,15 +27,16 @@ namespace Neco.Server.Infrastructure
 
         private bool hasMember = false;
 
-        public ChatSession(ClientSession _sessionCreator, String _sessionId, int allowedMembers)
+        public ChatSession(ClientSession _sessionCreator, String lobbyId, String sessionId, int allowedMembers)
         {
             sessionCreator = _sessionCreator;
-            SessionId = _sessionId;
+            SessionId = sessionId;
+            LobbyId = lobbyId;
             IsOpen = true;
             TotalMembers = allowedMembers;
             CurrentMembers = 1;
             sessionMembers = new ClientSession[allowedMembers];
-            _sessionCreator.JoinChatSession(SessionId, 0);
+            _sessionCreator.JoinChatSession(SessionId);
         }
 
         public Task<byte[]> AwaitMemberKey()
@@ -56,7 +58,7 @@ namespace Neco.Server.Infrastructure
                 if(sessionMembers[i] == null)
                 {
                     sessionMembers[i] = sessionMember;
-                    sessionMember.JoinChatSession(SessionId, i);
+                    sessionMember.JoinChatSession(SessionId);
                     CurrentMembers++;
                     if (CurrentMembers == TotalMembers) IsOpen = false;
                     hasMember = true;

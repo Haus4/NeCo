@@ -14,9 +14,11 @@ namespace Neco.Server.Infrastructure
 {
     public class ClientSession : AppSession<ClientSession, BinaryRequestInfo>
     {
+        public bool HasLobby { get; private set; }
+        public String ChatLobbyId { get; private set; }
+        public int LobbyMemberId { get; private set; }
         public bool HasChat { get; private set; }
         public String ChatSessionId { get; private set; }
-        public int ChatMemberId { get; private set; }
         public byte[] PublicKey { get; set; }
         protected static readonly ILog log = LogManager.GetLogger(typeof(ClientSession));
         protected override void OnSessionStarted()
@@ -36,18 +38,29 @@ namespace Neco.Server.Infrastructure
             base.OnSessionClosed(reason);
         }
 
-        public void JoinChatSession(String sessionId, int memberId)
+        public void JoinChatLobby(String lobbyId)
+        {
+            HasLobby = true;
+            ChatLobbyId = lobbyId;
+        }
+
+        public void LeaveChatLobby()
+        {
+            if (HasLobby) ChatLobbyManager.LeaveLobby(ChatLobbyId, this);
+            HasLobby = false;
+            ChatLobbyId = null;
+        }
+
+        public void JoinChatSession(String sessionId)
         {
             HasChat = true;
-            ChatMemberId = memberId;
             ChatSessionId = sessionId;
         }
 
         public void LeaveChatSession()
         {
-            if(HasChat) ChatSessionManager.CloseSession(ChatSessionId, this);
+            if(HasChat) ChatLobbyManager.CloseSession(ChatLobbyId, ChatSessionId, this);
             HasChat = false;
-            ChatMemberId = -1;
             ChatSessionId = null;
         }
 

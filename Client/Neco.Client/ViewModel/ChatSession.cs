@@ -1,45 +1,22 @@
-﻿using Neco.Client.Network;
-using Neco.DataTransferObjects;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Neco.Client.ViewModel
 {
     public class ChatSession : ViewModelBase
     {
-        private ObservableCollection<ChatMessage> messageList;
-
-        private ChatPage chatView;
-        private Model.ChatModel chatModel;
-
-        public ChatSession()
+        private int sessionNum;
+        private byte[] remotePublicKey;
+        public byte[] RemotePublicKey
         {
-            messageList = new ObservableCollection<ChatMessage>();
-            chatModel = new Model.ChatModel(this);
-            chatView = new ChatPage(this);
+            get { return remotePublicKey; }
+            set { SetProperty(ref remotePublicKey, value); }
         }
-
-        public ObservableCollection<ChatMessage> Messages
+        public int SessionNum
         {
-            get
-            {
-                return messageList;
-            }
-        }
-
-        public ChatPage View
-        {
-            get
-            {
-                return chatView;
-            }
-        }
-
-        public Model.ChatModel Model
-        {
-            get
-            {
-                return chatModel;
-            }
+            get { return sessionNum; }
+            set { SetProperty(ref sessionNum, value); }
         }
     }
 }
