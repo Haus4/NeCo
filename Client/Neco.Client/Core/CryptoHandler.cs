@@ -8,12 +8,13 @@ namespace Neco.Client.Core
 {
     public class CryptoHandler
     {
+        private IDataStore dataStore;
         private ECKeyPair keyPair;
         private const string securityString = "NeCo";
 
         public CryptoHandler(object context)
         {
-            IDataStore dataStore = DependencyService.Get<IDataStore>();
+            dataStore = DependencyService.Get<IDataStore>();
 
             LoadKeyIfAvailable(dataStore, context);
             if(keyPair == null)
