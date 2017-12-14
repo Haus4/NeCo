@@ -23,7 +23,7 @@ namespace Neco.Client.iOS
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			global::Xamarin.Forms.Forms.Init ();
-			LoadApplication (new Neco.Client.App ());
+			LoadApplication (new Neco.Client.App (this));
 
 			return base.FinishedLaunching (app, options);
 		}

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Neco.Client"
+             xmlns:control="clr-namespace:Neco.Client.Control"
+             x:Class="Neco.Client.MainPage"
+             Title="NeCo">
+    <ContentPage.Content>
+        <StackLayout>
+            <Image Source="Image/logo_shadow.png"
+                   Scale="0" 
+                   x:Name="logo" />
+            <control:ColoredButton Text="Connecting"
+                                   VerticalOptions="Center"
+                                   HorizontalOptions="Center"
+                                   x:Name="chatButton"
+                                   AutomationId="chatButton"
+                                   Color="#666666"
+                                   IsEnabled="False"
+                                   TextColor="#FFFFFF" />
+            <ActivityIndicator Color="#666666"
+                               IsRunning="True"
+                               x:Name="spinner" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

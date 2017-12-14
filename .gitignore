@@ -4,3 +4,6 @@
 /packages/
 /**/packages/
 *.csproj.user
+*.bak
+/packages.static/
+**/Resource.Designer.cs

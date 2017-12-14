@@ -2,12 +2,19 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
   <item
-      android:drawable="@drawable/gradient"/>
+    android:gravity="fill_horizontal|fill_vertical"
+    android:drawable="@drawable/gradient"/>
 
-  <item>
+  <item
+    android:width="220dp"
+    android:height="200dp"
+    android:gravity="center">
     <bitmap
-        android:gravity="center"
-        android:src="@drawable/logo_small"/>
+      android:gravity="fill_horizontal|fill_vertical"
+      android:tileMode="disabled"
+      android:antialias="true"
+      android:filter="true"
+      android:src="@drawable/logo_shadow"/>
   </item>
 
 </layer-list>

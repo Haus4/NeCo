@@ -1,0 +1,3 @@
+[submodule "libsignal-protocol-pcl"]
+	path = libsignal-protocol-pcl
+	url = git://github.com/langboost/libsignal-protocol-pcl.git
