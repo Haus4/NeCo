@@ -11,11 +11,13 @@ namespace Neco.Client.Model
 {
     public class ChatModel
     {
+        private IMessage messageHandler;
         private ViewModel.ChatSession sessionViewmodel;
         private byte[] remotePublicKey;
 
         public ChatModel(ViewModel.ChatSession viewModel)
         {
+            messageHandler = DependencyService.Get<IMessage>();
             sessionViewmodel = viewModel;
 
             App.Instance.Connector.Receive<MessageRequest>((message) =>
@@ -32,7 +34,6 @@ namespace Neco.Client.Model
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    IMessage messageHandler = DependencyService.Get<IMessage>();
                     messageHandler?.ShowToast("Partner left the chat");
                 });
             });
