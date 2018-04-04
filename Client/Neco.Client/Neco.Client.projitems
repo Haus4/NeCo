@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Control\ColoredButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Control\TemplatedGrid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\CryptoHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\GeoLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IDataStore.cs" />
@@ -23,7 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LobbyViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ChatViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\BackendConnector.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ChatSession.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ChatSessionID.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

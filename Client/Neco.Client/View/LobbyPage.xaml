@@ -8,17 +8,16 @@
     <neco:NotifiableContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="sessionButtonTemplate">
-                <ViewCell>
-                    <Grid Padding="5" HorizontalOptions="Start">
-                        <control:ColoredButton Text="{Binding SessionNum}"
+                <StackLayout BackgroundColor="Gray" WidthRequest="75" HeightRequest="55">
+                    <control:ColoredButton Text="{Binding SessionID}"
                                                FontAttributes="Bold"
                                                BorderRadius="20"
                                                x:Name="sessionButton"
                                                AutomationId="sessionButton"
                                                Color="#666666"
-                                               TextColor="#FFFFFF" />
-                    </Grid>
-                </ViewCell>
+                                               TextColor="#FFFFFF"
+                                               Grid.Column="0" />
+                </StackLayout>
             </DataTemplate>
         </ResourceDictionary>
     </neco:NotifiableContentPage.Resources>
@@ -35,11 +34,20 @@
                    AutomationId="rangeLabel"
                    BackgroundColor="#666666"
                    HorizontalOptions="EndAndExpand" />
-            <ListView VerticalOptions="FillAndExpand"
-                      x:Name="memberList"
-                      AutomationId="memberList"
-                      ItemTemplate="{StaticResource sessionButtonTemplate}">
-            </ListView>
+            <control:TemplatedGrid HorizontalContentAlignment="Center"
+                                x:Name="memberGrid"
+                                ItemsSource="{Binding MemberIDs}"
+                                ItemTemplate="{StaticResource sessionButtonTemplate}">
+                <!--<control:TemplatedGrid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </control:TemplatedGrid.RowDefinitions>
+                <control:TemplatedGrid.ColumnDefinitions>
+                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="25*" />
+                    <ColumnDefinition Width="25*" />
+                </control:TemplatedGrid.ColumnDefinitions>-->
+            </control:TemplatedGrid>
         </StackLayout>
     </neco:NotifiableContentPage.Content>
 </neco:NotifiableContentPage>

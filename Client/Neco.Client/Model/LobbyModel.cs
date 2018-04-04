@@ -3,6 +3,8 @@ using Neco.Client.Network;
 using Neco.DataTransferObjects;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +15,8 @@ namespace Neco.Client.Model
     public class LobbyModel
     {
         private ViewModel.LobbyViewModel lobbyViewModel;
-        private List<byte[]> memberPublicKeys;
+        private Dictionary<string, string> memberPublicKeyDictionary;
+        private SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
         private String lobbyId = null;
         private bool cancelRequests = false;
 
@@ -38,7 +41,9 @@ namespace Neco.Client.Model
 
         public async Task<bool> Join()
         {
-            StartRequestInterval();
+            memberPublicKeyDictionary = new Dictionary<string, string>();
+            var serializedKey = App.Instance.CryptoHandler.SerializePublicKey();
+            memberPublicKeyDictionary.Add("client", BitConverter.ToString(serializedKey));
             return await SendLobbyRequest();
         }
 
@@ -56,33 +61,82 @@ namespace Neco.Client.Model
             var response = await App.Instance.Connector.SendRequest(request, 30000);
             if (response != null && response is LobbyResponse lobbyResp && lobbyResp.Success)
             {
-                if(memberPublicKeys != lobbyResp.MemberPublicKeys) ActualizeMembers(lobbyResp.MemberPublicKeys);
-                memberPublicKeys = lobbyResp.MemberPublicKeys;
-                lobbyId = lobbyResp.LobbyId;
-                return true;
+                bool result = false;
+                await semaphoreSlim.WaitAsync();
+                try
+                {
+                    RefreshMemberList(lobbyResp.MemberPublicKeys);
+                    lobbyId = lobbyResp.LobbyId;
+                    result = true;
+                }
+                finally
+                {
+                    semaphoreSlim.Release();
+                }
+                return result;
             }
 
             return false;
         }
 
-        private void ActualizeMembers(List<byte[]> newMembers)
+        private void RefreshMemberList(List<string> newMembers)
         {
-            int i = 0;
             //if(lobbyViewModel.Members != null && lobbyViewModel.Members.Count > 0) lobbyViewModel.Members.Clear();
-            foreach (byte[] key in newMembers)
+            List<string> removeEntries = new List<string>();
+            foreach(KeyValuePair<string,string> keyValuePair in memberPublicKeyDictionary)
             {
-                if (key == App.Instance.CryptoHandler.SerializePublicKey()) continue;
-                var member = new ViewModel.ChatSession()
+                if (newMembers.Contains(keyValuePair.Value))
                 {
-                    RemotePublicKey = key,
-                    SessionNum = i
-                };
-                if (!lobbyViewModel.Members.Contains(member)) lobbyViewModel.Members.Add(member);
-                i++;
+                    newMembers.Remove(keyValuePair.Value);
+                }
+                else
+                {
+                    removeEntries.Add(keyValuePair.Key);
+                }
+            }
+            foreach(string key in removeEntries)
+            {
+                memberPublicKeyDictionary.Remove(key);
+                RemoveSessionIdFromViewModel(key);
+            }
+            foreach(string key in newMembers)
+            {
+                var index = memberPublicKeyDictionary.Count;
+                memberPublicKeyDictionary.Add("Session " + index, key);
+                AddSessionIdToViewModel("Session " + index);
             }
         }
 
-        private async void StartRequestInterval()
+        private void RemoveSessionIdFromViewModel(string sessionId)
+        {
+            foreach(ObservableCollection<ViewModel.ChatSessionID> chatSessionIdList in lobbyViewModel.MemberIDs)
+            {
+                foreach(ViewModel.ChatSessionID chatSessionIds in chatSessionIdList)
+                {
+                    if (chatSessionIds.SessionID.Equals(sessionId)) chatSessionIds.SessionID = "LEFT"; return;
+                }
+            }
+        }
+
+        private void AddSessionIdToViewModel(string sessionId)
+        {
+            ViewModel.ChatSessionID sessionIdWrapper = new ViewModel.ChatSessionID();
+            foreach (ObservableCollection<ViewModel.ChatSessionID> chatSessionIdList in lobbyViewModel.MemberIDs)
+            {
+                if (chatSessionIdList.Count < 4)
+                {
+                    chatSessionIdList.Add(sessionIdWrapper);
+                    sessionIdWrapper.SessionID = sessionId;
+                    return;
+                }
+            }
+            ObservableCollection<ViewModel.ChatSessionID> collection = new ObservableCollection<ViewModel.ChatSessionID>();
+            lobbyViewModel.MemberIDs.Add(collection);
+            collection.Add(sessionIdWrapper);
+            sessionIdWrapper.SessionID = sessionId;
+        }
+
+        public async void StartRequestInterval()
         {
             await Task.Run(async () =>
             {
@@ -95,9 +149,12 @@ namespace Neco.Client.Model
             });
         }
 
-        public byte[] GetMemberKey(int sessionNum)
+        public byte[] GetMemberKey(string sessionId)
         {
-            return memberPublicKeys[sessionNum];
+            string[] arr = memberPublicKeyDictionary[sessionId].Split('-');
+            byte[] bytes = new byte[arr.Length];
+            for (int i = 0; i < arr.Length; i++) bytes[i] = Convert.ToByte(arr[i]);
+            return bytes;
         }
     }
 }

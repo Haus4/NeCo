@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -48,36 +49,41 @@ namespace Neco.Client
         private void SetupComponents(ViewModel.LobbyViewModel viewModel)
         {
             model = viewModel.Model;
-            memberList.ItemsSource = viewModel.Members;
-
-            memberList.ItemTapped += (object sender, ItemTappedEventArgs e) =>
+            memberGrid.ItemsSource = viewModel.MemberIDs;
+            /*memberGrid.ItemTapped += (object sender, ItemTappedEventArgs e) =>
             {
                 if (e.Item == null) return;
-                var buttonText = (e.Item as Button).Text;
-                if (buttonText != null && Int32.TryParse(buttonText, out int x)) StartSession(x);
+                var sessionId = (e.Item as Button).Text;
+                if (sessionId != null && sessionId.Length > 0) StartSession(sessionId);
                 memberList.SelectedItem = null;
-            };
+            };*/
 
-            viewModel.Members.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) =>
+            viewModel.MemberIDs.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) =>
             {
                 for (int i = e.NewStartingIndex; i < e.NewItems.Count; ++i)
                 {
-                    (e.NewItems[i] as ViewModel.ChatSession).PropertyChanged += (object s, PropertyChangedEventArgs ev) =>
+                    (e.NewItems[i] as ObservableCollection<ViewModel.ChatSessionID>).CollectionChanged += (object se, NotifyCollectionChangedEventArgs nce) =>
                     {
-                        Device.BeginInvokeOnMainThread(() =>
+                        for (int j = nce.NewStartingIndex; j < nce.NewItems.Count; ++j)
                         {
-                            // Trigger an update
-                            memberList.ItemsSource = null;
-                            memberList.ItemsSource = viewModel.Members;
-                        });
+                            (nce.NewItems[j] as ViewModel.ChatSessionID).PropertyChanged += (object s, PropertyChangedEventArgs ev) =>
+                            {
+                                 Device.BeginInvokeOnMainThread(() =>
+                                 {
+                                    // Trigger an update
+                                    memberGrid.ItemsSource = null;
+                                    memberGrid.ItemsSource = viewModel.MemberIDs;
+                                 });
+                            };
+                        }
                     };
                 }
             };
         }
 
-        private void StartSession(int sessionNum)
+        private void StartSession(string sessionId)
         {
-            var memberKey = model.GetMemberKey(sessionNum);
+            var memberKey = model.GetMemberKey(sessionId);
             Task.Run(async () =>
             {
                 chatViewModel = new ViewModel.ChatViewModel();

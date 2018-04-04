@@ -119,6 +119,7 @@ namespace Neco.Client
                     chatButton.IsEnabled = true;
                     spinner.IsRunning = false;
                 });
+                if (success) lobbyViewModel.Model.StartRequestInterval();
 
             });
         }

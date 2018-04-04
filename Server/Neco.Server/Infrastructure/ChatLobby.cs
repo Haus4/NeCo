@@ -16,8 +16,8 @@ namespace Neco.Server.Infrastructure
     {
 
         private static bool HasSession;
-        private Dictionary<String, ChatSession> chatSessions;
-        private Dictionary<byte[], ClientSession> lobbyMembers;
+        private Dictionary<string, ChatSession> chatSessions;
+        private Dictionary<string, ClientSession> lobbyMembers;
 
         public String LobbyId { get; private set; }
         public bool IsOpen { get; private set; }
@@ -39,15 +39,15 @@ namespace Neco.Server.Infrastructure
             Longitude = longitude;
             Latitude = latitude;
             Range = range;
-            lobbyMembers = new Dictionary<byte[], ClientSession>();
-            lobbyMembers.Add(lobbyCreator.PublicKey, lobbyCreator);
+            lobbyMembers = new Dictionary<string, ClientSession>();
+            lobbyMembers.Add(BitConverter.ToString(lobbyCreator.PublicKey), lobbyCreator);
         }
 
         public void JoinLobby(ClientSession lobbyMember)
         {
             if (IsOpen && CurrentMembers < TotalMembers)
             {
-                lobbyMembers.Add(lobbyMember.PublicKey, lobbyMember);
+                lobbyMembers.Add(BitConverter.ToString(lobbyMember.PublicKey), lobbyMember);
                 CurrentMembers++;
                 if (CurrentMembers == TotalMembers) IsOpen = false;
             } else
@@ -56,14 +56,15 @@ namespace Neco.Server.Infrastructure
             }
         }
 
-        public List<byte[]> GetMemberKeys()
+        public List<string> GetMemberKeys()
         {
             return lobbyMembers.Keys.ToList();
         }
 
         public void LeaveLobby(ClientSession lobbyMember)
         {
-            lobbyMembers.Remove(lobbyMember.PublicKey);
+            string key = BitConverter.ToString(lobbyMember.PublicKey);
+            lobbyMembers.Remove(key);
             CurrentMembers--;
             if (CurrentMembers == TotalMembers) IsOpen = false;
         }
@@ -79,7 +80,8 @@ namespace Neco.Server.Infrastructure
         public bool HasMemberSession(byte[] memberKey)
         {
             ClientSession session;
-            if(lobbyMembers.TryGetValue(memberKey, out session))
+            string key = BitConverter.ToString(memberKey);
+            if (lobbyMembers.TryGetValue(key, out session))
             {
                 return session.HasChat;
             }
@@ -88,7 +90,8 @@ namespace Neco.Server.Infrastructure
 
         public ChatSession GetSession(byte[] memberKey)
         {
-            if (lobbyMembers.TryGetValue(memberKey, out ClientSession session) && 
+            string key = BitConverter.ToString(memberKey);
+            if (lobbyMembers.TryGetValue(key, out ClientSession session) && 
                 chatSessions.TryGetValue(session.SessionID, out ChatSession chatSession))
             {
                 return chatSession;
@@ -134,9 +137,9 @@ namespace Neco.Server.Infrastructure
 
         public void SendEachMember(byte[] data, int offset, int length)
         {
-            foreach (KeyValuePair<byte[],ClientSession> pair in lobbyMembers)
+            foreach (ClientSession session in lobbyMembers.Values)
             {
-                pair.Value.Send(data, offset, length);
+                session.Send(data, offset, length);
             }
         }
 

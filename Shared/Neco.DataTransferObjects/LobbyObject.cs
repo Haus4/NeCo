@@ -22,6 +22,6 @@ namespace Neco.DataTransferObjects
         public Double Latitude { get; set; }
         public Double Longitude { get; set; }
         public long Range { get; set; }
-        public List<byte[]> MemberPublicKeys { get; set; }
+        public List<string> MemberPublicKeys { get; set; }
     }
 }
