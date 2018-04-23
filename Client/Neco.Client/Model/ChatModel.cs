@@ -2,6 +2,9 @@
 using Neco.Client.Network;
 using Neco.DataTransferObjects;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +27,7 @@ namespace Neco.Client.Model
             {
                 if (App.Instance.CryptoHandler.VerifySignature(remotePublicKey, message.Message, message.Signature))
                 {
-                    PushForeignMessage(Encoding.UTF8.GetString(message.Message));
+                    PushForeignData(message.Message);
                 }
             });
 
@@ -78,7 +81,8 @@ namespace Neco.Client.Model
             {
                 Time = DateTime.Now,
                 Message = message,
-                IsForeign = false
+                IsForeign = false,
+                IsImage = false
             });
 
             byte[] messageBytes = Encoding.UTF8.GetBytes(message);
@@ -91,13 +95,72 @@ namespace Neco.Client.Model
             Task.Run(async () => await App.Instance.Connector.SendRequest(request));
         }
 
+        public void PushImage(byte[] image)
+        {
+            MemoryStream stream = new MemoryStream(image);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
+            {
+                Time = DateTime.Now,
+                Image = ImageSource.FromStream(() => stream),
+                IsForeign = false,
+                IsImage = true
+            });
+
+            List<byte> list = new List<byte>
+            {
+                0xFF,
+                0xFF,
+                0xFF,
+                0xFF
+            };
+            list.AddRange(image);
+
+            byte[] messageBytes = list.ToArray();
+            MessageRequest request = new MessageRequest
+            {
+                Message = messageBytes,
+                Signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes)
+            };
+
+            Task.Run(async () => await App.Instance.Connector.SendRequest(request));
+        }
+
+        private void PushForeignData(byte[] data)
+        {
+            if(data.Length >= 4 && data[0] == 0xFF && data[1] == 0xFF && data[2] == 0xFF && data[3] == 0xFF)
+            {
+                PushForeignImage(new List<byte>(data).Skip(4).ToArray());
+            }
+            else
+            {
+                PushForeignMessage(Encoding.UTF8.GetString(data));
+            }
+        }
+
+        private void PushForeignImage(byte[] image)
+        {
+            MemoryStream stream = new MemoryStream(image);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
+            {
+                Time = DateTime.Now,
+                Image = ImageSource.FromStream(() => stream),
+                IsForeign = true,
+                IsImage = true
+            });
+        }
+
         private void PushForeignMessage(String message)
         {
             sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
             {
                 Time = DateTime.Now,
                 Message = message,
-                IsForeign = true
+                IsForeign = true,
+                IsImage = false
             });
         }
     }

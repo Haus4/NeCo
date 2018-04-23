@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Forms;
 
 namespace Neco.Client.ViewModel
 {
@@ -7,6 +8,8 @@ namespace Neco.Client.ViewModel
         private string message;
         private DateTime time;
         private bool isForeign;
+        private bool isImage;
+        private ImageSource image;
 
         public string Message
         {
@@ -24,12 +27,24 @@ namespace Neco.Client.ViewModel
             set { SetProperty(ref isForeign, value); }
         }
 
+        public bool IsImage
+        {
+            get { return isImage; }
+            set { SetProperty(ref isImage, value); }
+        }
+
         public string StringTime
         {
             get
             {
                 return Time.ToShortTimeString();
             }
+        }
+
+        public ImageSource Image
+        {
+            get { return image; }
+            set { SetProperty(ref image, value); }
         }
     }
 }

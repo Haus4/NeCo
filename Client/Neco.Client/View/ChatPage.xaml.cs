@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -80,11 +81,12 @@ namespace Neco.Client
                     if (fileData == null)
                         return; // user canceled file picking
 
-                    string fileName = fileData.FileName;
-                    string contents = System.Text.Encoding.UTF8.GetString(fileData.DataArray);
+                    if (fileData.FileName.EndsWith("jpg", StringComparison.Ordinal)
+                || fileData.FileName.EndsWith("png", StringComparison.Ordinal))
+                    {
+                        model.PushImage(fileData.DataArray);
+                    }
 
-                    System.Console.WriteLine("File name chosen: " + fileName);
-                    System.Console.WriteLine("File data: " + contents);
                 }
                 catch (Exception ex)
                 {
