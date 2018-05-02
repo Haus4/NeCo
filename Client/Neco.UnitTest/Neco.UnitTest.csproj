@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.6.0" />
+    <PackageReference Include="protobuf-net" Version="2.3.7" />
+    <PackageReference Include="Xam.Plugin.Geolocator" Version="4.2.0" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.1.444934" />
+    <PackageReference Include="Xamarin.Plugin.FilePicker" Version="1.2.1" />
+    <PackageReference Include="xunit" Version="2.3.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
+    <DotNetCliToolReference Include="dotnet-xunit" Version="2.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\libsignal-protocol-pcl\signal-protocol-pcl\signal-protocol-pcl.csproj" />
+    <ProjectReference Include="..\..\Shared\Neco.DataTransferObjects\Neco.DataTransferObjects.csproj" />
+    <ProjectReference Include="..\..\Shared\Neco.Infrastructure.Protocol\Neco.Infrastructure.Protocol.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\Neco.Client\Neco.Client.projitems" Label="Shared" />
+
+</Project>
