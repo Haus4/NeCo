@@ -57,7 +57,8 @@ The app should have the right to request the users location.
 |external input|1|||low|
 |external output|1|||low|
 |external inquieries|0|||low|
-||||||
+|internal logical files|1||1|low|
+|external interface files|1|||low|
 
 <!-- Link definitions: -->
 

@@ -4,7 +4,7 @@
 Share Files
 
 ### 1.1 Brief Description
-The app provides the user with the possibility to send a file to another user around you.
+The app provides the user with the possibility to share files with another person.
 
 ### 1.2 Screenshot Mockup
 
@@ -27,6 +27,9 @@ The Android-App and the Xamarin-Backend should transfer their data with the Tran
 
 ### 3.2 Geo-localization
 The device running the app requires to have a GPS chip installed.
+
+### 3.3. Use encryption library: Signal Protocol
+The client uses the encryption library to encrypt the message.
 
 ## 4. Preconditions
 
@@ -51,7 +54,16 @@ The app should have the right to request the users location.
 (n/a)
 
 ## 7. Function Point calculation
-(n/a)
+|transaction|DET|RET|FTR|Complexity|
+|---|---|---|---|---|
+|external input|1|||low|
+|external output|1|||low|
+|external inquieries|0|||low|
+|internal logical files|||1|low|
+|external interface files|||1|low|
+
+
+All function point calculation tables are also located in one spreadsheet. Please take a look at this [document][fpc spreadsheet].
 
 
 <!-- Link definitions: -->
@@ -59,4 +71,5 @@ The app should have the right to request the users location.
 
 [mockup]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC6_ShareFiles_Mockup.png "Chat Mockup"
 
+[fpc spreadsheet]:<https://github.com/Haus4/NeCo/raw/develop/docs/sem_2/time_estimation_uc.xlsx> "Function point calculation spreadsheet"
 
