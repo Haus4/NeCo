@@ -1,10 +1,10 @@
-# NeCo - Use-Case Specification: Send message
+# NeCo - Use-Case Specification: Chat Geo-Localized
 
 ## 1. Use-Case Name
-Send message
+Chat Geo-Localized
 
 ### 1.1 Brief Description
-The app provides the user with the possibility to send a message to another around you.
+The app provides the user with the possibility to receive a message from another in a certain distance around you.
 
 ### 1.2 Screenshot Mockup
 
@@ -15,10 +15,7 @@ The app provides the user with the possibility to send a message to another arou
 
 ### 2.1 Basic Flow
 
-![basic flow]
-
-
-The `.feature`-file can be found [here][feature].
+(n/a)
 
 ### 2.2 Alternative Flow
 (n/a)
@@ -30,6 +27,7 @@ The Android-App and the Xamarin-Backend should transfer their data with the Tran
 
 ### 3.2 Geo-localization
 The device running the app requires to have a GPS chip installed.
+
 
 ## 4. Preconditions
 
@@ -54,13 +52,17 @@ The app should have the right to request the users location.
 (n/a)
 
 ## 7. Function Point calculation
-(n/a)
-
+|transaction|DET|RET|FTR|Complexity|
+|---|---|---|---|---|
+|external input|1|||low|
+|external output|1|||low|
+|external inquieries|0|||low|
+||||||
 
 <!-- Link definitions: -->
-[basic flow]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC1_SendMessage_UCD.jpg "Basic Flow: Receive Message"
 
 [mockup]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC1_2_3_Mockup.png "Chat Mockup"
 
-[feature]: https://github.com/Haus4/NeCo/tree/develop/docs/UC1.feature "Feature description"
+
+
 

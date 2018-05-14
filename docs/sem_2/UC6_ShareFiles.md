@@ -1,10 +1,10 @@
-# NeCo - Use-Case Specification: Receive Message
+# NeCo - Use-Case Specification: Share Files
 
 ## 1. Use-Case Name
-Receive Message
+Share Files
 
 ### 1.1 Brief Description
-The app provides the user with the possibility to receive a message from another around you.
+The app provides the user with the possibility to send a file to another user around you.
 
 ### 1.2 Screenshot Mockup
 
@@ -17,9 +17,6 @@ The app provides the user with the possibility to receive a message from another
 
 ![basic flow]
 
-
-The `.feature`-file can be found [here][feature].
-
 ### 2.2 Alternative Flow
 (n/a)
 
@@ -30,7 +27,6 @@ The Android-App and the Xamarin-Backend should transfer their data with the Tran
 
 ### 3.2 Geo-localization
 The device running the app requires to have a GPS chip installed.
-
 
 ## 4. Preconditions
 
@@ -57,11 +53,10 @@ The app should have the right to request the users location.
 ## 7. Function Point calculation
 (n/a)
 
+
 <!-- Link definitions: -->
-[basic flow]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC2_ReceiveMessage.jpg "Basic Flow: Receive Message"
+[basic flow]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC6_ShareFiles.jpg "Basic Flow: Receive Message"
 
-[mockup]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC1_2_3_Mockup.png "Chat Mockup"
-
-[feature]: https://github.com/Haus4/NeCo/tree/develop/docs/UC2.feature "Feature description"
+[mockup]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC6_ShareFiles_Mockup.png "Chat Mockup"
 
 
