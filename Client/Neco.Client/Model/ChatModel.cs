@@ -18,9 +18,9 @@ namespace Neco.Client.Model
         private ViewModel.ChatSession sessionViewmodel;
         private byte[] remotePublicKey;
 
-        public ChatModel(ViewModel.ChatSession viewModel)
+        public ChatModel(ViewModel.ChatSession viewModel, bool showMessage = true)
         {
-            messageHandler = DependencyService.Get<IMessage>();
+            messageHandler = showMessage ? DependencyService.Get<IMessage>() : null;
             sessionViewmodel = viewModel;
 
             App.Instance.Connector.Receive<MessageRequest>((message) =>

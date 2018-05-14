@@ -12,9 +12,9 @@ namespace Neco.Client.Core
         private ECKeyPair keyPair;
         private const string securityString = "NeCo";
 
-        public CryptoHandler(object context)
+        public CryptoHandler(object context, IDataStore dataStore_ = null)
         {
-            dataStore = DependencyService.Get<IDataStore>();
+            dataStore = dataStore_ != null ? dataStore_ : DependencyService.Get<IDataStore>();
 
             LoadKeyIfAvailable(dataStore, context);
             if(keyPair == null)
