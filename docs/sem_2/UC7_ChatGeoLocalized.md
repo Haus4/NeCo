@@ -60,7 +60,17 @@ The app should have the right to request the users location.
 |internal logical files|1||1|low|
 |external interface files|1|||low|
 
+This makes 27,3 FP
+
+[Link to calculation website][fp calculation]
+
+All function point calculation tables are also located in one spreadsheet. Please take a look at this [document][fpc spreadsheet].
+
+
 <!-- Link definitions: -->
+[fpc spreadsheet]:<https://github.com/Haus4/NeCo/raw/develop/docs/sem_2/time_estimation_uc.xlsx> "Function point calculation spreadsheet"
+
+[fp calculation]: <http://groups.umd.umich.edu/cis/course.des/cis525/js/f00/harvey/FP_Calc.html#FPCalc> "FP calculation"
 
 [mockup]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC1_2_3_Mockup.png "Chat Mockup"
 

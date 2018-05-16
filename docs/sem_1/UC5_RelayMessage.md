@@ -49,9 +49,25 @@ The user should have already opened the NeCo Application on his smartphone and n
 (n/a)
 
 ## 7. Function Point calculation
-(n/a)
+|transaction|DET|RET|FTR|Complexity|
+|---|---|---|---|---|
+|external input|0|||low|
+|external output|2|||low|
+|external inquieries|0|||low|
+|internal logical files||7||avg|
+|external interface files|0|||low|
+
+This makes 81,9 FP
+
+[Link to calculation website][fp calculation]
+
+All function point calculation tables are also located in one spreadsheet. Please take a look at this [document][fpc spreadsheet].
+
 
 <!-- Link definitions: -->
+[fpc spreadsheet]:<https://github.com/Haus4/NeCo/raw/develop/docs/sem_2/time_estimation_uc.xlsx> "Function point calculation spreadsheet"
+
+[fp calculation]: <http://groups.umd.umich.edu/cis/course.des/cis525/js/f00/harvey/FP_Calc.html#FPCalc> "FP calculation"
 
 [basic flow]: <link> "Relay Message Basic Flow"
 
