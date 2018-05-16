@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChatTest.cs" />
     <Compile Include="CryptoHandlerTest.cs" />
     <Compile Include="MockDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
