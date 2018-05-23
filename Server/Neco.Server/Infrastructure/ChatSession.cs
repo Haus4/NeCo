@@ -1,5 +1,6 @@
 ﻿using Google.ProtocolBuffers;
 using log4net;
+using Neco.DataTransferObjects;
 using Neco.Infrastructure.Protocol;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace Neco.Server.Infrastructure
             {
                 while (!hasMember)
                 {
-                    Thread.Sleep(2000);
+                    Thread.Sleep(100);
                 }
                 return sessionMembers.First().PublicKey;
             });
@@ -101,20 +102,6 @@ namespace Neco.Server.Infrastructure
             }
         }
 
-        public void LeaveSession(ClientSession ses)
-        {
-            if(ses.HasChat && ses == sessionCreator)
-            {
-                sessionCreator = null;
-                CloseSession();
-            } else if(ses.ChatSessionId == SessionId && sessionMembers[ses.ChatMemberId] == ses)
-            {
-                sessionMembers[ses.ChatMemberId] = null;
-                CurrentMembers--;
-                if(CurrentMembers == 0) CloseSession();
-            }
-        }
-
         public void SendEachMember(string message)
         {
             //TODO
@@ -130,10 +117,23 @@ namespace Neco.Server.Infrastructure
             }
         }
 
-        public void CloseSession()
+        public void CloseSession(ClientSession ses)
         {
-            IsOpen = false;
-            ChatSessionManager.CloseSession(SessionId);
+            var request = new SessionCloseRequest()
+            {
+                Token = 0
+            };
+            if (ses != sessionCreator)
+            {
+                sessionCreator.Send<RequestBase>(request);
+            }
+            else
+            {
+                foreach (ClientSession sess in sessionMembers)
+                {
+                    if(sess!=null) sess.Send<RequestBase>(request);
+                };
+            }
         }
 
     }

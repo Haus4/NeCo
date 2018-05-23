@@ -16,7 +16,7 @@ namespace Neco.Server.Application
             {
                 var chatSession = ChatSessionManager.GetSession(session.ChatSessionId);
                 var data = RequestSerializer.Serialize<RequestBase>(request);
-                chatSession.SendToSpecificMember(session.RemoteEndPoint, data);
+                if(chatSession != null) chatSession.SendToSpecificMember(session.RemoteEndPoint, data);
             }
         }
     }

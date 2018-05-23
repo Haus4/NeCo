@@ -15,19 +15,40 @@ namespace Neco.Server.Application
             session.PublicKey = request.PublicKey;
             var response = request.CreateResponse<SessionResponse>();
             if (session.HasChat) session.LeaveChatSession();
-
-            if (ChatSessionManager.IsSessionAvailable())
+            try
             {
-                var chatSessionId = ChatSessionManager.GetIdForNextOpenSession();
-                response.PublicKey = ChatSessionManager.JoinSession(chatSessionId, session);
-                response.Success = true;
+                if (ChatSessionManager.IsSessionAvailable())
+                {
+                    var chatSessionId = ChatSessionManager.GetIdForNextOpenSession();
+                    response.PublicKey = ChatSessionManager.JoinSession(chatSessionId, session);
+                    response.Success = true;
+                    return response;
+                }
+                else
+                {
+                    var publicKey = await ChatSessionManager.CreateSession(session);
+                    response.Success = true;
+                    response.PublicKey = publicKey;
+                    return response;
+                }
+            }
+            catch (Exception exc)
+            {
+                response.Success = false;
                 return response;
             }
-            else
+        }
+        public SessionCloseResponse SessionClose(ClientSession session, SessionCloseRequest request)
+        {
+            var response = request.CreateResponse<SessionCloseResponse>();
+            try
             {
-                var publicKey = await ChatSessionManager.CreateSession(session);
+                if (session.HasChat) session.LeaveChatSession();
                 response.Success = true;
-                response.PublicKey = publicKey;
+                return response;
+            } catch(Exception e)
+            {
+                response.Success = false;
                 return response;
             }
         }

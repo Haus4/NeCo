@@ -53,6 +53,7 @@ namespace Neco.Server.Infrastructure.Commands
         public override async void ExecuteExternalCommand(ClientSession session, byte[] data)
         {
             var request = RequestSerializer.Deserialize<RequestBase>(data);
+            if (!AppServicesMethods.ContainsKey(request.GetType())) return;
             var methodAndInstancePair = AppServicesMethods[request.GetType()];
 
             log.InfoFormat("{0}  {1}", methodAndInstancePair.Item1.Name, request.GetType().Name);

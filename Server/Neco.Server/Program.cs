@@ -10,6 +10,8 @@ namespace Neco.Server
     class Program
     {
         enum Commands { Help, Exit };
+
+       
         static void Main(string[] args)
         {
             ServiceLocator.Init();
