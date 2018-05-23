@@ -14,7 +14,7 @@ namespace Neco.Client.Core
 
         public CryptoHandler(object context, IDataStore dataStore_ = null)
         {
-            dataStore = dataStore_ != null ? dataStore_ : DependencyService.Get<IDataStore>();
+            dataStore = dataStore_ ?? DependencyService.Get<IDataStore>();
 
             LoadKeyIfAvailable(dataStore, context);
             if(keyPair == null)
