@@ -5,18 +5,18 @@ namespace Neco.Client.ViewModel
 {
     public class LobbyViewModel : ViewModelBase
     {
-        private ObservableCollection<ObservableCollection<ChatSessionID>> memberIdList;
+        private ObservableCollection<ChatSessionID> memberIdList;
 
         private LobbyPage lobbyView;
         private Model.LobbyModel lobbyModel;
 
         public LobbyViewModel()
         {
-            memberIdList = new ObservableCollection<ObservableCollection<ChatSessionID>>();
+            memberIdList = new ObservableCollection<ChatSessionID>();
             lobbyModel = new Model.LobbyModel(this);
             lobbyView = new LobbyPage(this);
         }
-        public ObservableCollection<ObservableCollection<ChatSessionID>> MemberIDs
+        public ObservableCollection<ChatSessionID> MemberIDs
         {
             get
             {

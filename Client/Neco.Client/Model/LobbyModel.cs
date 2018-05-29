@@ -109,30 +109,16 @@ namespace Neco.Client.Model
 
         private void RemoveSessionIdFromViewModel(string sessionId)
         {
-            foreach(ObservableCollection<ViewModel.ChatSessionID> chatSessionIdList in lobbyViewModel.MemberIDs)
+            foreach(ViewModel.ChatSessionID chatSessionIds in lobbyViewModel.MemberIDs)
             {
-                foreach(ViewModel.ChatSessionID chatSessionIds in chatSessionIdList)
-                {
-                    if (chatSessionIds.SessionID.Equals(sessionId)) chatSessionIds.SessionID = "LEFT"; return;
-                }
+                if (chatSessionIds.SessionID.Equals(sessionId)) chatSessionIds.SessionID = "LEFT"; return;
             }
         }
 
         private void AddSessionIdToViewModel(string sessionId)
         {
             ViewModel.ChatSessionID sessionIdWrapper = new ViewModel.ChatSessionID();
-            foreach (ObservableCollection<ViewModel.ChatSessionID> chatSessionIdList in lobbyViewModel.MemberIDs)
-            {
-                if (chatSessionIdList.Count < 4)
-                {
-                    chatSessionIdList.Add(sessionIdWrapper);
-                    sessionIdWrapper.SessionID = sessionId;
-                    return;
-                }
-            }
-            ObservableCollection<ViewModel.ChatSessionID> collection = new ObservableCollection<ViewModel.ChatSessionID>();
-            lobbyViewModel.MemberIDs.Add(collection);
-            collection.Add(sessionIdWrapper);
+            lobbyViewModel.MemberIDs.Add(sessionIdWrapper);
             sessionIdWrapper.SessionID = sessionId;
         }
 

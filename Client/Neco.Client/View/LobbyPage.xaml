@@ -34,20 +34,14 @@
                    AutomationId="rangeLabel"
                    BackgroundColor="#666666"
                    HorizontalOptions="EndAndExpand" />
-            <control:TemplatedGrid HorizontalContentAlignment="Center"
-                                x:Name="memberGrid"
-                                ItemsSource="{Binding MemberIDs}"
-                                ItemTemplate="{StaticResource sessionButtonTemplate}">
-                <!--<control:TemplatedGrid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                </control:TemplatedGrid.RowDefinitions>
-                <control:TemplatedGrid.ColumnDefinitions>
-                    <ColumnDefinition Width="25*" />
-                    <ColumnDefinition Width="25*" />
-                    <ColumnDefinition Width="25*" />
-                    <ColumnDefinition Width="25*" />
-                </control:TemplatedGrid.ColumnDefinitions>-->
-            </control:TemplatedGrid>
+            <ListView VerticalOptions="FillAndExpand"
+                      x:Name="memberList"
+                      AutomationId="memberList"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      ItemsSource="{Binding MemberIDs}"
+                      ItemTemplate="{StaticResource sessionButtonTemplate}">
+            </ListView>
         </StackLayout>
     </neco:NotifiableContentPage.Content>
 </neco:NotifiableContentPage>

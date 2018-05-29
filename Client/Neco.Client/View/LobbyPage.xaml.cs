@@ -49,33 +49,28 @@ namespace Neco.Client
         private void SetupComponents(ViewModel.LobbyViewModel viewModel)
         {
             model = viewModel.Model;
-            memberGrid.ItemsSource = viewModel.MemberIDs;
-            /*memberGrid.ItemTapped += (object sender, ItemTappedEventArgs e) =>
+
+            var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
+            memberList.ItemTapped += (object sender, ItemTappedEventArgs e) =>
             {
                 if (e.Item == null) return;
                 var sessionId = (e.Item as Button).Text;
                 if (sessionId != null && sessionId.Length > 0) StartSession(sessionId);
                 memberList.SelectedItem = null;
-            };*/
+            };
 
             viewModel.MemberIDs.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) =>
             {
                 for (int i = e.NewStartingIndex; i < e.NewItems.Count; ++i)
                 {
-                    (e.NewItems[i] as ObservableCollection<ViewModel.ChatSessionID>).CollectionChanged += (object se, NotifyCollectionChangedEventArgs nce) =>
+                    (e.NewItems[i] as ViewModel.ChatSessionID).PropertyChanged += (object s, PropertyChangedEventArgs ev) =>
                     {
-                        for (int j = nce.NewStartingIndex; j < nce.NewItems.Count; ++j)
+                        Device.BeginInvokeOnMainThread(() =>
                         {
-                            (nce.NewItems[j] as ViewModel.ChatSessionID).PropertyChanged += (object s, PropertyChangedEventArgs ev) =>
-                            {
-                                 Device.BeginInvokeOnMainThread(() =>
-                                 {
-                                    // Trigger an update
-                                    memberGrid.ItemsSource = null;
-                                    memberGrid.ItemsSource = viewModel.MemberIDs;
-                                 });
-                            };
-                        }
+                            // Trigger an update
+                            memberList.ItemsSource = null;
+                            memberList.ItemsSource = viewModel.MemberIDs;
+                        });
                     };
                 }
             };
