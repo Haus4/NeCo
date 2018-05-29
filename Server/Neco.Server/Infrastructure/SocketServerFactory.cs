@@ -33,6 +33,7 @@ namespace Neco.Server.Infrastructure
                 LogAllSocketException = false,
                 LogBasicSessionActivity = false,
                 LogCommand = false,
+                MaxRequestLength = int.MaxValue
             };
             var setuped = _necoSocketServer.Setup(rootConfig, serverConfig);
             var started = _necoSocketServer.Start();
