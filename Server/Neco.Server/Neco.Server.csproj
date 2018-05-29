@@ -86,12 +86,12 @@
     <Compile Include="Infrastructure\Commands\RequestCommand.cs" />
     <Compile Include="Infrastructure\Commands\PingCommand.cs" />
     <Compile Include="Infrastructure\Commands\ResponseCommand.cs" />
-    <Compile Include="Infrastructure\InfrastructureInitializer.cs" />
     <Compile Include="Infrastructure\NecoCommandBase.cs" />
     <Compile Include="Infrastructure\NecoReceiveFilter.cs" />
     <Compile Include="Infrastructure\ClientSession.cs" />
     <Compile Include="Infrastructure\RequestSerializer.cs" />
     <Compile Include="Infrastructure\RequestsHandler.cs" />
+    <Compile Include="Infrastructure\SocketServerFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
