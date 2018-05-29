@@ -7,3 +7,4 @@
 *.bak
 /packages.static/
 **/Resource.Designer.cs
+/TestResults/
