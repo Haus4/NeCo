@@ -59,15 +59,22 @@ namespace Neco.Client.Network
         public void Stop()
         {
             CloseSocket();
-            receiveThread?.Join();
+            if (receiveThread != null && receiveThread.IsAlive)
+            {
+                receiveThread.Join();
+            }
         }
 
         public async Task SendResponse(ResponseBase response)
         {
             if (Connected)
             {
-                byte[] data = RequestSerializer.Serialize(response);
-                await SendCommand(CommandTypes.Response, data);
+                try
+                {
+                    byte[] data = RequestSerializer.Serialize(response);
+                    await SendCommand(CommandTypes.Response, data);
+                }
+                catch(Exception) {}
             }
         }
 
@@ -77,25 +84,30 @@ namespace Neco.Client.Network
 
             if (Connected)
             {
-                byte[] data = RequestSerializer.Serialize(request);
-                await SendCommand(CommandTypes.Request, data);
-
-                lock (responses)
+                try
                 {
-                    // This tells the system that we're waiting for a specific response with this token
-                    responses[request.Token] = null;
-                }
+                    byte[] data = RequestSerializer.Serialize(request);
 
-                WaitForResponse(request.Token).Wait(timeout);
-
-                lock (responses)
-                {
-                    if (responses.ContainsKey(request.Token))
+                    lock (responses)
                     {
-                        result = responses[request.Token];
-                        responses.Remove(request.Token);
+                        // This tells the system that we're waiting for a specific response with this token
+                        responses[request.Token] = null;
+                    }
+
+                    await SendCommand(CommandTypes.Request, data);
+
+                    WaitForResponse(request.Token).Wait(timeout);
+
+                    lock (responses)
+                    {
+                        if (responses.ContainsKey(request.Token))
+                        {
+                            result = responses[request.Token];
+                            responses.Remove(request.Token);
+                        }
                     }
                 }
+                catch(Exception) {}
             }
 
             return result;
@@ -134,7 +146,7 @@ namespace Neco.Client.Network
                     stream.Flush();
                     return true;
                 }
-                catch (Exception) { }
+                catch (Exception) {}
             }
 
             return false;
@@ -149,21 +161,24 @@ namespace Neco.Client.Network
 
         private bool OpenSocket()
         {
-            IPHostEntry host = Dns.GetHostEntry(hostname);
-            for(int i = 0; i < host.AddressList.Length; ++i)
+            try
             {
-                try
+                IPHostEntry host = Dns.GetHostEntry(hostname);
+
+                for (int i = 0; i < host.AddressList.Length; ++i)
                 {
-                    client = new TcpClient(host.AddressList[i].AddressFamily);
-                    if (client.ConnectAsync(host.AddressList[i], port).Wait(2000))
+                    try
                     {
-                        return true;
+                        client = new TcpClient(host.AddressList[i].AddressFamily);
+                        if (client.ConnectAsync(host.AddressList[i], port).Wait(2000))
+                        {
+                            return true;
+                        }
                     }
-                }
-                catch (Exception)
-                {
+                    catch (Exception) {}
                 }
             }
+            catch (Exception) {}
 
             CloseSocket();
             return false;
@@ -195,10 +210,7 @@ namespace Neco.Client.Network
                             for (int i = 0; i < length; ++i) dataQueue.Enqueue(bytes[i]);
                         }
                     }
-                    catch (Exception)
-                    {
-
-                    }
+                    catch (Exception) {}
                 }
                 else
                 {
@@ -265,10 +277,7 @@ namespace Neco.Client.Network
 
                     Task.Run(async () => await SendResponse(response));
                 }
-                catch(Exception)
-                {
-
-                }
+                catch(Exception) {}
             }
             else if (type == CommandTypes.Response)
             {
@@ -284,10 +293,7 @@ namespace Neco.Client.Network
                         }
                     }
                 }
-                catch (Exception)
-                {
-
-                }
+                catch (Exception) {}
             }
         }
 
@@ -299,7 +305,7 @@ namespace Neco.Client.Network
                 {
                     if (data is T obj)
                     {
-                        handler(obj);
+                        handler.Invoke(obj);
                     }
 
                     return null;
@@ -315,7 +321,7 @@ namespace Neco.Client.Network
                 {
                     if (data is T obj)
                     {
-                        return handler(obj);
+                        return handler.Invoke(obj);
                     }
 
                     return null;

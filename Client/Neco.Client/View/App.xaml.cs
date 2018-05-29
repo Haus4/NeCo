@@ -27,7 +27,7 @@ namespace Neco.Client
 
             locator = new Core.GeoLocator();
             cryptoHandler = new Core.CryptoHandler(context);
-            backendConnector = new Network.BackendConnector(/*"neco.it.dh-karlsruhe.de:9000"*/"kthx.at:28960");
+            backendConnector = new Network.BackendConnector("neco.it.dh-karlsruhe.de:9000");
 
             mainPage = new MainPage();
             notifyingNavigationPage = new NotifyingNavigationPage(mainPage);

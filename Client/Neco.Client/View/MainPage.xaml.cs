@@ -7,10 +7,13 @@ namespace Neco.Client
 {
     public partial class MainPage : ContentPage
     {
+        private IMessage messageHandler;
         private ViewModel.ChatSession session;
 
         public MainPage()
         {
+            messageHandler = DependencyService.Get<IMessage>();
+
             InitializeComponent();
         }
 
@@ -36,8 +39,6 @@ namespace Neco.Client
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        IMessage messageHandler = DependencyService.Get<IMessage>();
-
                         if (App.Instance.Locator.CurrentState == State.Error)
                         {
                             messageHandler.ShowToast("Unable to connect to get location");
@@ -111,8 +112,8 @@ namespace Neco.Client
                     }
                     else
                     {
-                        IMessage messageHandler = DependencyService.Get<IMessage>();
                         messageHandler?.ShowToast("Unable to join a chat lobby");
+                        session.Model.CloseSession();
                     }
 
                     chatButton.Text = "Start chatting";

@@ -1,8 +1,11 @@
 ﻿using Neco.DataTransferObjects;
+using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -31,16 +34,16 @@ namespace Neco.Client
             model.CloseSession();
         }
 
-        public async void Close()
+        public void Close()
         {
-            await App.Instance.MainPage.Navigation.PopAsync(true);
+            Device.BeginInvokeOnMainThread(async () => await App.Instance.MainPage.Navigation.PopAsync(true));
         }
 
         private void OnBackendStateChanged(object sender, EventArgs e)
         {
             if(sender is Network.BackendConnector connector && connector.CurrentState == Core.State.Error)
             {
-                Device.BeginInvokeOnMainThread(() => Close());
+                Close();
             }
         }
 
@@ -68,6 +71,27 @@ namespace Neco.Client
             sendButton.Clicked += delegate
             {
                 SubmitMessage();
+            };
+
+            shareButton.Clicked += async (object sender, EventArgs args) =>
+            {
+                try
+                {
+                    FileData fileData = await CrossFilePicker.Current.PickFile();
+                    if (fileData == null)
+                        return; // user canceled file picking
+
+                    if (fileData.FileName.EndsWith("jpg", StringComparison.Ordinal)
+                || fileData.FileName.EndsWith("png", StringComparison.Ordinal))
+                    {
+                        model.PushImage(fileData.DataArray);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    System.Console.WriteLine("Exception choosing file: " + ex.ToString());
+                }
             };
 
             viewModel.Messages.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) =>
