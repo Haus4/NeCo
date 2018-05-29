@@ -41,7 +41,7 @@ namespace Neco.Client
 
         private void OnBackendStateChanged(object sender, EventArgs e)
         {
-            if(sender is Network.BackendConnector connector && connector.CurrentState == Core.State.Error)
+            if (sender is Network.BackendConnector connector && connector.CurrentState == Core.State.Error)
             {
                 Close();
             }
@@ -117,7 +117,7 @@ namespace Neco.Client
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         //ForceLayout();
-                        messageList.ScrollTo(viewModel.Messages.LastOrDefault(), ScrollToPosition.Start, true);
+                        messageList.ScrollTo(viewModel.Messages.LastOrDefault(), ScrollToPosition.End, true);
                     });
                 }
             };
