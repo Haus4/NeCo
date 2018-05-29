@@ -9,16 +9,16 @@ using SuperSocket.SocketBase.Config;
 
 namespace Neco.Server.Infrastructure
 {
-    public class InfrastructureInitializer
+    public class SocketServerFactory
     {
         private readonly Settings _settings;
         private SocketServer _necoSocketServer;
-        public InfrastructureInitializer(Settings settings)
+        public SocketServerFactory(Settings settings)
         {
             _settings = settings;
         }
 
-        public void Init()
+        public void Build()
         {
             _necoSocketServer = new SocketServer();
             var rootConfig = new RootConfig();
@@ -33,6 +33,7 @@ namespace Neco.Server.Infrastructure
                 LogAllSocketException = false,
                 LogBasicSessionActivity = false,
                 LogCommand = false,
+                MaxRequestLength = int.MaxValue
             };
             var setuped = _necoSocketServer.Setup(rootConfig, serverConfig);
             var started = _necoSocketServer.Start();
