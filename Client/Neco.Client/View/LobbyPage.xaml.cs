@@ -49,12 +49,12 @@ namespace Neco.Client
         private void SetupComponents(ViewModel.LobbyViewModel viewModel)
         {
             model = viewModel.Model;
+            memberList.ItemsSource = viewModel.MemberIDs;
 
-            var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             memberList.ItemTapped += (object sender, ItemTappedEventArgs e) =>
             {
                 if (e.Item == null) return;
-                var sessionId = (e.Item as Button).Text;
+                var sessionId = (e.Item as ViewModel.ChatSessionID).SessionID;
                 if (sessionId != null && sessionId.Length > 0) StartSession(sessionId);
                 memberList.SelectedItem = null;
             };

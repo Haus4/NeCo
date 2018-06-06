@@ -137,9 +137,11 @@ namespace Neco.Client.Model
 
         public byte[] GetMemberKey(string sessionId)
         {
-            string[] arr = memberPublicKeyDictionary[sessionId].Split('-');
-            byte[] bytes = new byte[arr.Length];
-            for (int i = 0; i < arr.Length; i++) bytes[i] = Convert.ToByte(arr[i]);
+            string hexkey = memberPublicKeyDictionary[sessionId].Replace("-","");
+            int NumberChars = hexkey.Length;
+            byte[] bytes = new byte[NumberChars / 2];
+            for (int i = 0; i < NumberChars; i += 2)
+                bytes[i / 2] = Convert.ToByte(hexkey.Substring(i, 2), 16);
             return bytes;
         }
     }

@@ -8,8 +8,9 @@
     <neco:NotifiableContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="sessionButtonTemplate">
-                <StackLayout BackgroundColor="Gray" WidthRequest="75" HeightRequest="55">
-                    <control:ColoredButton Text="{Binding SessionID}"
+                <ViewCell>
+                    <StackLayout BackgroundColor="Gray" WidthRequest="75" HeightRequest="55">
+                        <control:ColoredButton Text="{Binding SessionID}"
                                                FontAttributes="Bold"
                                                BorderRadius="20"
                                                x:Name="sessionButton"
@@ -17,7 +18,8 @@
                                                Color="#666666"
                                                TextColor="#FFFFFF"
                                                Grid.Column="0" />
-                </StackLayout>
+                    </StackLayout>
+                </ViewCell>
             </DataTemplate>
         </ResourceDictionary>
     </neco:NotifiableContentPage.Resources>
@@ -39,7 +41,6 @@
                       AutomationId="memberList"
                       HasUnevenRows="True"
                       SeparatorVisibility="None"
-                      ItemsSource="{Binding MemberIDs}"
                       ItemTemplate="{StaticResource sessionButtonTemplate}">
             </ListView>
         </StackLayout>
