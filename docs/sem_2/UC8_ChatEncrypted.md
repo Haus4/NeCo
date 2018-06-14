@@ -62,12 +62,15 @@ This makes 34,6 FP
 
 All function point calculation tables are also located in one spreadsheet. Please take a look at this [document][fpc spreadsheet].
 
+## 8. Unit Testing
+We tested the class for this use case with Microsoft UnitTest , you find the test code [here][unittest]
 
 <!-- Link definitions: -->
 [fpc spreadsheet]:<https://github.com/Haus4/NeCo/raw/develop/docs/sem_2/time_estimation_uc.xlsx> "Function point calculation spreadsheet"
 
 [fp calculation]: <http://groups.umd.umich.edu/cis/course.des/cis525/js/f00/harvey/FP_Calc.html#FPCalc> "FP calculation"
 
+[unittest]: https://github.com/Haus4/NeCo/blob/dev/client/Client/Neco.UnitTest/CryptoHandlerTest.cs "Unit Test"
 
 [basic flow]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC3_CreateIdentity.jpg "Create Identity Basic Flow"
 
