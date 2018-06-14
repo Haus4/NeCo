@@ -95,7 +95,7 @@ namespace Neco.Server.Infrastructure
         {
             string key = BitConverter.ToString(memberKey);
             if (lobbyMembers.TryGetValue(key, out ClientSession session) && 
-                chatSessions.TryGetValue(session.SessionID, out ChatSession chatSession))
+                chatSessions.TryGetValue(session.ChatSessionId, out ChatSession chatSession))
             {
                 return chatSession;
             }

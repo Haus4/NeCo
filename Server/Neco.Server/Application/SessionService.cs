@@ -31,7 +31,7 @@ namespace Neco.Server.Application
                     //var creatorKey = ChatLobbyManager.JoinSession(session.ChatLobbyId, request.MemberKey, membersession);
                     SessionRequest sessionrequest = new SessionRequest
                     {
-                        MemberKey = request.MemberKey
+                        MemberKey = session.PublicKey
                     };
                     membersession.Send<SessionRequest>(sessionrequest);
                     response.Success = true;

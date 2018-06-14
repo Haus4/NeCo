@@ -78,11 +78,14 @@ namespace Neco.Client
 
         public async void DisplaySessionAlert(byte[] memberKey)
         {
-            var doJoin = await this.DisplayAlert("User wants to chat!", "Would you chat with stanger X?", "Yes", "No");
-            if(doJoin)
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                StartSession(null, memberKey);
-            }
+                var doJoin = await DisplayAlert("User wants to chat!", "Would you chat with stanger X?", "Yes", "No");
+                if (doJoin)
+                {
+                    StartSession(null, memberKey);
+                }
+            });
         }
 
         private void StartSession(string sessionId, byte[] memberKey)
@@ -97,7 +100,8 @@ namespace Neco.Client
                 {
                     if (success)
                     {
-                        await Navigation.PushAsync(chatViewModel.View, true);
+                        //await Navigation.PopModalAsync();
+                        await Navigation.PushModalAsync(chatViewModel.View, true);
                     }
                     else
                     {
