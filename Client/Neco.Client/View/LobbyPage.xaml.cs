@@ -55,7 +55,7 @@ namespace Neco.Client
             {
                 if (e.Item == null) return;
                 var sessionId = (e.Item as ViewModel.ChatSessionID).SessionID;
-                if (sessionId != null && sessionId.Length > 0) StartSession(sessionId);
+                if (sessionId != null && sessionId.Length > 0) StartSession(sessionId, null);
                 memberList.SelectedItem = null;
             };
 
@@ -76,9 +76,18 @@ namespace Neco.Client
             };
         }
 
-        private void StartSession(string sessionId)
+        public async void DisplaySessionAlert(byte[] memberKey)
         {
-            var memberKey = model.GetMemberKey(sessionId);
+            var doJoin = await this.DisplayAlert("User wants to chat!", "Would you chat with stanger X?", "Yes", "No");
+            if(doJoin)
+            {
+                StartSession(null, memberKey);
+            }
+        }
+
+        private void StartSession(string sessionId, byte[] memberKey)
+        {
+            if(memberKey == null) memberKey = model.GetMemberKey(sessionId);
             Task.Run(async () =>
             {
                 chatViewModel = new ViewModel.ChatViewModel();

@@ -58,16 +58,15 @@ namespace Neco.Server.Infrastructure
             if (chatLobbies.Count < 1) HasLobby = false;
         }
 
-        public static Task<byte[]> OpenSession(String lobbyId, ClientSession hostSession)
+        public static void OpenSession(String lobbyId, ClientSession hostSession)
         {
             var lobby = GetLobby(lobbyId);
             if (lobby != null)
             {
-                return lobby.CreateSession(hostSession);
+                lobby.CreateSession(hostSession);
             } else
             {
                 log.Error("No such lobby for Id: " + lobbyId);
-                return null;
             }
         }
 

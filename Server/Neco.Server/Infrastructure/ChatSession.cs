@@ -39,18 +39,6 @@ namespace Neco.Server.Infrastructure
             _sessionCreator.JoinChatSession(SessionId);
         }
 
-        public Task<byte[]> AwaitMemberKey()
-        {
-            return Task.Run(() =>
-            {
-                while (!hasMember)
-                {
-                    Thread.Sleep(100);
-                }
-                return sessionMembers.First().PublicKey;
-            });
-        }
-
         public byte[] JoinSession(ClientSession sessionMember)
         {
             for(var i=0; i<sessionMembers.Length; i++)

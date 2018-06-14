@@ -25,9 +25,16 @@ namespace Neco.Server.Application
                 }
                 else
                 {
-                    var publicKey = await ChatLobbyManager.OpenSession(session.ChatLobbyId, session);
+                    ChatLobbyManager.OpenSession(session.ChatLobbyId, session);
+                    var membersession = ChatLobbyManager.GetLobby(session.ChatLobbyId).GetLobbyMember(request.MemberKey);
+                    response.PublicKey = request.MemberKey;
+                    //var creatorKey = ChatLobbyManager.JoinSession(session.ChatLobbyId, request.MemberKey, membersession);
+                    SessionRequest sessionrequest = new SessionRequest
+                    {
+                        MemberKey = request.MemberKey
+                    };
+                    membersession.Send<SessionRequest>(sessionrequest);
                     response.Success = true;
-                    response.PublicKey = publicKey;
                     return response;
                 }
             }

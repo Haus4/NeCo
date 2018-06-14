@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace Neco.Client.ViewModel
 {
@@ -15,6 +16,11 @@ namespace Neco.Client.ViewModel
             memberIdList = new ObservableCollection<ChatSessionID>();
             lobbyModel = new Model.LobbyModel(this);
             lobbyView = new LobbyPage(this);
+        }
+
+        public void NotifyUserForActiveSession(byte[] memberKey)
+        {
+            lobbyView.DisplaySessionAlert(memberKey);
         }
         public ObservableCollection<ChatSessionID> MemberIDs
         {

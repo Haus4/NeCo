@@ -39,20 +39,24 @@ namespace Neco.Server.Infrastructure
             Longitude = longitude;
             Latitude = latitude;
             Range = range;
+            HasSession = false;
             lobbyMembers = new Dictionary<string, ClientSession>();
+            chatSessions = new Dictionary<string, ChatSession>();
             lobbyMembers.Add(BitConverter.ToString(lobbyCreator.PublicKey), lobbyCreator);
         }
 
         public void JoinLobby(ClientSession lobbyMember)
         {
-            if (IsOpen && CurrentMembers < TotalMembers)
+            lobbyMember.JoinChatLobby(LobbyId);
+            var key = BitConverter.ToString(lobbyMember.PublicKey);
+            if (IsOpen && CurrentMembers < TotalMembers && !lobbyMembers.Keys.Contains(key))
             {
-                lobbyMembers.Add(BitConverter.ToString(lobbyMember.PublicKey), lobbyMember);
+                lobbyMembers.Add(key, lobbyMember);
                 CurrentMembers++;
                 if (CurrentMembers == TotalMembers) IsOpen = false;
             } else
             {
-                log.Error("Client tried to connect to full lobby... " + CurrentMembers + "/" + TotalMembers + " " + lobbyMember.ChatLobbyId);
+                //log.Error("Client tried to connect to full lobby... " + CurrentMembers + "/" + TotalMembers + " " + lobbyMember.ChatLobbyId);
             }
         }
 
@@ -69,12 +73,11 @@ namespace Neco.Server.Infrastructure
             if (CurrentMembers == TotalMembers) IsOpen = false;
         }
 
-        public Task<byte[]> CreateSession(ClientSession hostSession)
+        public void CreateSession(ClientSession hostSession)
         {
             ChatSession chatSession = new ChatSession(hostSession, LobbyId, "CHAT" + hostSession.SessionID, 2);
             log.Info("Chat Session created");
             chatSessions.Add(chatSession.SessionId, chatSession);
-            return chatSession.AwaitMemberKey();
         }
 
         public bool HasMemberSession(byte[] memberKey)
@@ -104,6 +107,16 @@ namespace Neco.Server.Infrastructure
             if (chatSessions.TryGetValue(sessionId, out ChatSession chatSession))
             {
                 return chatSession;
+            }
+            return null;
+        }
+
+        public ClientSession GetLobbyMember(byte[] memberKey)
+        {
+            string key = BitConverter.ToString(memberKey);
+            if (lobbyMembers.TryGetValue(key, out ClientSession lobbyMember))
+            {
+                return lobbyMember;
             }
             return null;
         }

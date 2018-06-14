@@ -23,6 +23,11 @@ namespace Neco.Client.Model
         public LobbyModel(ViewModel.LobbyViewModel viewModel)
         {
             lobbyViewModel = viewModel;
+
+            App.Instance.Connector.Receive<SessionRequest>((message) =>
+            {
+               lobbyViewModel.NotifyUserForActiveSession(message.MemberKey);
+            });
         }
 
         public void LeaveLobby()
