@@ -4,14 +4,14 @@ using System.Collections.ObjectModel;
 
 namespace Neco.Client.ViewModel
 {
-    public class ChatSession : ViewModelBase
+    public class ChatViewModel : ViewModelBase
     {
         private ObservableCollection<ChatMessage> messageList;
 
         private ChatPage chatView;
         private Model.ChatModel chatModel;
 
-        public ChatSession()
+        public ChatViewModel()
         {
             messageList = new ObservableCollection<ChatMessage>();
             chatModel = new Model.ChatModel(this);

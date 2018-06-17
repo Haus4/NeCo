@@ -12,23 +12,29 @@ namespace Neco.Server.Application
     {
         public async Task<SessionResponse> Session(ClientSession session, SessionRequest request)
         {
-            session.PublicKey = request.PublicKey;
             var response = request.CreateResponse<SessionResponse>();
+            response.Token = request.Token;
             if (session.HasChat) session.LeaveChatSession();
             try
             {
-                if (ChatSessionManager.IsSessionAvailable())
+                if (ChatLobbyManager.HasMemberSession(session.ChatLobbyId, request.MemberKey))
                 {
-                    var chatSessionId = ChatSessionManager.GetIdForNextOpenSession();
-                    response.PublicKey = ChatSessionManager.JoinSession(chatSessionId, session);
+                    response.PublicKey = ChatLobbyManager.JoinSession(session.ChatLobbyId, request.MemberKey, session);
                     response.Success = true;
                     return response;
                 }
                 else
                 {
-                    var publicKey = await ChatSessionManager.CreateSession(session);
+                    ChatLobbyManager.OpenSession(session.ChatLobbyId, session);
+                    var membersession = ChatLobbyManager.GetLobby(session.ChatLobbyId).GetLobbyMember(request.MemberKey);
+                    response.PublicKey = request.MemberKey;
+                    //var creatorKey = ChatLobbyManager.JoinSession(session.ChatLobbyId, request.MemberKey, membersession);
+                    SessionRequest sessionrequest = new SessionRequest
+                    {
+                        MemberKey = session.PublicKey
+                    };
+                    membersession.Send<SessionRequest>(sessionrequest);
                     response.Success = true;
-                    response.PublicKey = publicKey;
                     return response;
                 }
             }
@@ -41,6 +47,7 @@ namespace Neco.Server.Application
         public SessionCloseResponse SessionClose(ClientSession session, SessionCloseRequest request)
         {
             var response = request.CreateResponse<SessionCloseResponse>();
+            response.Token = request.Token;
             try
             {
                 if (session.HasChat) session.LeaveChatSession();

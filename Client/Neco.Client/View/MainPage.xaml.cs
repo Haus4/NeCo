@@ -8,7 +8,7 @@ namespace Neco.Client
     public partial class MainPage : ContentPage
     {
         private IMessage messageHandler;
-        private ViewModel.ChatSession session;
+        private ViewModel.LobbyViewModel lobbyViewModel;
 
         public MainPage()
         {
@@ -64,7 +64,7 @@ namespace Neco.Client
                         chatButton.Clicked -= ReconnectHandler;
                         chatButton.Clicked -= StartSessionHandler;
                         chatButton.Clicked += StartSessionHandler;
-                        chatButton.Text = "Start chatting";
+                        chatButton.Text = "Connect to chat-lobby";
                         chatButton.IsEnabled = true;
                         spinner.IsRunning = false;
                     });
@@ -101,25 +101,25 @@ namespace Neco.Client
 
             Task.Run(async () =>
             {
-                session = new ViewModel.ChatSession();
-                bool success = await session.Model.Join();
+                lobbyViewModel = new ViewModel.LobbyViewModel();
+                bool success = await lobbyViewModel.Model.Join();
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     if (success)
                     {
-                        await Navigation.PushAsync(session.View, true);
+                        await Navigation.PushAsync(lobbyViewModel.View, true);
                     }
                     else
                     {
                         messageHandler?.ShowToast("Unable to join a chat lobby");
-                        session.Model.CloseSession();
                     }
 
                     chatButton.Text = "Start chatting";
                     chatButton.IsEnabled = true;
                     spinner.IsRunning = false;
                 });
+                if (success) lobbyViewModel.Model.StartRequestInterval();
 
             });
         }

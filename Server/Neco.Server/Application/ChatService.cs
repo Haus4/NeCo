@@ -12,9 +12,10 @@ namespace Neco.Server.Application
     {
         public void Message(ClientSession session, MessageRequest request)
         {
-            if (session.HasChat)
+            if (session.HasLobby && session.HasChat)
             {
-                var chatSession = ChatSessionManager.GetSession(session.ChatSessionId);
+                var chatLobby = ChatLobbyManager.GetLobby(session.ChatLobbyId);
+                var chatSession = chatLobby.GetSession(session.ChatSessionId);
                 var data = RequestSerializer.Serialize<RequestBase>(request);
                 if(chatSession != null) chatSession.SendToSpecificMember(session.RemoteEndPoint, data);
             }

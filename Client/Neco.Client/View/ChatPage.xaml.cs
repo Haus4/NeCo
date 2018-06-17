@@ -20,7 +20,7 @@ namespace Neco.Client
     {
         private Model.ChatModel model;
 
-        public ChatPage(ViewModel.ChatSession viewModel)
+        public ChatPage(ViewModel.ChatViewModel viewModel)
         {
             InitializeComponent();
             SetupComponents(viewModel);
@@ -47,7 +47,7 @@ namespace Neco.Client
             }
         }
 
-        private void SetupComponents(ViewModel.ChatSession viewModel)
+        private void SetupComponents(ViewModel.ChatViewModel viewModel)
         {
             model = viewModel.Model;
             messageList.ItemsSource = viewModel.Messages;

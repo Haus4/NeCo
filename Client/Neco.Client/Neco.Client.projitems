@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Control\ColoredButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Control\TemplatedGrid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\CryptoHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\GeoLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\IDataStore.cs" />
@@ -17,10 +18,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\NotifiableContentPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\NotifyingNavigationPage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\StateHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\LobbyModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\RequestSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\RequestsHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ChatSession.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\LobbyViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ChatViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Network\BackendConnector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ChatSessionID.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -31,6 +35,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\ChatModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ChatMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)View\ChatMessageTemplateSelector.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)View\LobbyPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)View\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -52,13 +59,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Model\" />
-    <Folder Include="$(MSBuildThisFileDirectory)View\" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Image\logo.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Image\logo_shadow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)View\LobbyPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

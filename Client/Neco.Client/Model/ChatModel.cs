@@ -14,14 +14,14 @@ namespace Neco.Client.Model
 {
     public class ChatModel
     {
+        private ViewModel.ChatViewModel chatViewModel;
         private IMessage messageHandler;
-        private ViewModel.ChatSession sessionViewmodel;
         private byte[] remotePublicKey;
 
-        public ChatModel(ViewModel.ChatSession viewModel, bool showMessage = true)
+        public ChatModel(ViewModel.ChatViewModel viewModel, bool showMessage = true)
         {
             messageHandler = showMessage ? DependencyService.Get<IMessage>() : null;
-            sessionViewmodel = viewModel;
+            chatViewModel = viewModel;
 
             App.Instance.Connector.Receive<MessageRequest>((message) =>
             {
@@ -33,7 +33,7 @@ namespace Neco.Client.Model
 
             App.Instance.Connector.Receive<SessionCloseRequest>((message) =>
             {
-                sessionViewmodel.View.Close();
+                chatViewModel.View.Close();
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -55,20 +55,17 @@ namespace Neco.Client.Model
             Task.Run(async () => await App.Instance.Connector.SendRequest(request));
         }
 
-        public async Task<bool> Join()
+        public async Task<bool> Join(byte[] memberKey)
         {
             SessionRequest request = new SessionRequest
             {
-                PublicKey = App.Instance.CryptoHandler.SerializePublicKey(),
-                Signature = App.Instance.CryptoHandler.CalculateSecuritySignature(),
-                Latitude = App.Instance.Locator.Position?.Latitude ?? 0.0,
-                Longitude = App.Instance.Locator.Position?.Longitude ?? 0.0
+                MemberKey = memberKey
             };
 
             var response = await App.Instance.Connector.SendRequest(request, 30000);
             if (response != null && response is SessionResponse sessionResp && sessionResp.Success)
             {
-                remotePublicKey = sessionResp.PublicKey;
+                remotePublicKey = memberKey;
                 return true;
             }
 
@@ -77,7 +74,7 @@ namespace Neco.Client.Model
 
         public void PushMessage(String message)
         {
-            sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
+            chatViewModel.Messages.Add(new ViewModel.ChatMessage
             {
                 Time = DateTime.Now,
                 Message = message,
@@ -86,13 +83,25 @@ namespace Neco.Client.Model
             });
 
             byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+            var signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes);
+
+            TransformMessage(messageBytes);
+
             MessageRequest request = new MessageRequest
             {
                 Message = messageBytes,
-                Signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes)
+                Signature = signature
             };
 
             Task.Run(async () => await App.Instance.Connector.SendRequest(request));
+        }
+
+        public void TransformMessage(byte[] data)
+        {
+            for (int i = 0; i < data.Length; ++i)
+            {
+                data[i] ^= 0xFF;
+            }
         }
 
         public void PushImage(byte[] image)
@@ -100,7 +109,7 @@ namespace Neco.Client.Model
             MemoryStream stream = new MemoryStream(image);
             stream.Seek(0, SeekOrigin.Begin);
 
-            sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
+            chatViewModel.Messages.Add(new ViewModel.ChatMessage
             {
                 Time = DateTime.Now,
                 Image = ImageSource.FromStream(() => stream),
@@ -129,6 +138,8 @@ namespace Neco.Client.Model
 
         private void PushForeignData(byte[] data)
         {
+            TransformMessage(data);
+
             if(data.Length >= 4 && data[0] == 0xFF && data[1] == 0xFF && data[2] == 0xFF && data[3] == 0xFF)
             {
                 PushForeignImage(new List<byte>(data).Skip(4).ToArray());
@@ -144,7 +155,7 @@ namespace Neco.Client.Model
             MemoryStream stream = new MemoryStream(image);
             stream.Seek(0, SeekOrigin.Begin);
 
-            sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
+            chatViewModel.Messages.Add(new ViewModel.ChatMessage
             {
                 Time = DateTime.Now,
                 Image = ImageSource.FromStream(() => stream),
@@ -155,7 +166,7 @@ namespace Neco.Client.Model
 
         private void PushForeignMessage(String message)
         {
-            sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
+            chatViewModel.Messages.Add(new ViewModel.ChatMessage
             {
                 Time = DateTime.Now,
                 Message = message,
