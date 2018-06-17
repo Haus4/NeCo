@@ -83,13 +83,25 @@ namespace Neco.Client.Model
             });
 
             byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+            var signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes);
+
+            TransformMessage(messageBytes);
+
             MessageRequest request = new MessageRequest
             {
                 Message = messageBytes,
-                Signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes)
+                Signature = signature
             };
 
             Task.Run(async () => await App.Instance.Connector.SendRequest(request));
+        }
+
+        public void TransformMessage(byte[] data)
+        {
+            for (int i = 0; i < data.Length; ++i)
+            {
+                data[i] ^= 0xFF;
+            }
         }
 
         public void PushImage(byte[] image)
@@ -126,6 +138,8 @@ namespace Neco.Client.Model
 
         private void PushForeignData(byte[] data)
         {
+            TransformMessage(data);
+
             if(data.Length >= 4 && data[0] == 0xFF && data[1] == 0xFF && data[2] == 0xFF && data[3] == 0xFF)
             {
                 PushForeignImage(new List<byte>(data).Skip(4).ToArray());
