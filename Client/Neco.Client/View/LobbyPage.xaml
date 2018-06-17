@@ -9,10 +9,9 @@
         <ResourceDictionary>
             <DataTemplate x:Key="sessionButtonTemplate">
                 <ViewCell>
-                    <StackLayout BackgroundColor="Gray" WidthRequest="75" HeightRequest="55">
+                    <StackLayout WidthRequest="75" HeightRequest="55">
                         <control:ColoredButton Text="{Binding SessionID}"
                                                FontAttributes="Bold"
-                                               BorderRadius="20"
                                                x:Name="sessionButton"
                                                AutomationId="sessionButton"
                                                Color="#666666"
@@ -26,15 +25,13 @@
     <neco:NotifiableContentPage.Content>
         <StackLayout Orientation="Vertical">
             <Label Text="Lobby"
-                   TextColor="#FFFFFF"
-                   BackgroundColor="#666666"
+                   TextColor="#666666"
                    FontAttributes="Bold"
                    HorizontalOptions="EndAndExpand" />
             <Label Text="Range: "
-                   TextColor="#FFFFFF"
+                   TextColor="#666666"
                    x:Name="rangeLabel"
                    AutomationId="rangeLabel"
-                   BackgroundColor="#666666"
                    HorizontalOptions="EndAndExpand" />
             <ListView VerticalOptions="FillAndExpand"
                       x:Name="memberList"
