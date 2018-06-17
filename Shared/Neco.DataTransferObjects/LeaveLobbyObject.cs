@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace Neco.DataTransferObjects
 {
-    public class SessionRequest : RequestBase
+    public class LeaveLobbyRequest : RequestBase
     {
-        public byte[] MemberKey { get; set; }
+        public byte[] PublicKey { get; set; }
     }
 
-    public class SessionResponse : ResponseBase
+    public class LeaveLobbyResponse : ResponseBase
     {
         public bool Success { get; set; }
-        public byte[] PublicKey { get; set; }
     }
 }

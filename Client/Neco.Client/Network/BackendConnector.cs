@@ -86,6 +86,7 @@ namespace Neco.Client.Network
             {
                 try
                 {
+                    Console.Out.WriteLine("sending " + request.GetType().ToString());
                     byte[] data = RequestSerializer.Serialize(request);
 
                     lock (responses)
@@ -131,7 +132,8 @@ namespace Neco.Client.Network
         {
             Command command = new Command(type, data);
             byte[] outData = CommandParser.ToBytes(command);
-
+            string bytes = BitConverter.ToString(outData).Replace("-", " ");
+            Console.Out.WriteLine(bytes);
             await SendData(outData);
         }
 

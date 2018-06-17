@@ -74,6 +74,7 @@ namespace Neco.Server.Infrastructure.Commands
             }
             catch (Exception exc)
             {
+                log.Error(exc);
                 log.ErrorFormat("{0}"+Environment.NewLine+
                     "{1} failed ({2},  {3})", exc.Message, methodAndInstancePair.Item1.Name, request.GetType().Name, session.SessionID);
             }
