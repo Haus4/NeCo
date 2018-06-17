@@ -16,6 +16,7 @@
                                                AutomationId="sessionButton"
                                                Color="#666666"
                                                TextColor="#FFFFFF"
+                                               IsEnabled="False"
                                                Grid.Column="0" />
                     </StackLayout>
                 </ViewCell>

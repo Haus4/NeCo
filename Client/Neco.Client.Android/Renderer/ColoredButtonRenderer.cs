@@ -25,6 +25,11 @@ namespace Neco.Client.Droid
                     var androidColor = control.Color.ToAndroid();
                     Control.Background.SetColorFilter(androidColor, PorterDuff.Mode.Src);
                 }
+                
+                if (!control.IsEnabled)
+                {
+                    Control.SetTextColor(Element.TextColor.ToAndroid());
+                }
             }
         }
     }
