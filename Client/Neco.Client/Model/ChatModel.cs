@@ -140,7 +140,7 @@ namespace Neco.Client.Model
         {
             TransformMessage(data);
 
-            if(data.Length >= 4 && data[0] == 0xFF && data[1] == 0xFF && data[2] == 0xFF && data[3] == 0xFF)
+            if(data.Length >= 4 && data.Take(4).SequenceEqual(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF }))
             {
                 PushForeignImage(new List<byte>(data).Skip(4).ToArray());
             }

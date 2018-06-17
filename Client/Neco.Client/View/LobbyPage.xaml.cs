@@ -80,7 +80,7 @@ namespace Neco.Client
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                var doJoin = await DisplayAlert("User wants to chat!", "Would you chat with stanger X?", "Yes", "No");
+                var doJoin = await DisplayAlert("User wants to chat!", "Do you want to accept the request?", "Yes", "No");
                 if (doJoin)
                 {
                     StartSession(null, memberKey);
@@ -110,7 +110,6 @@ namespace Neco.Client
                         chatViewModel.Model.CloseSession();
                     }
                 });
-
             });
         }
     }

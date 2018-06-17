@@ -186,38 +186,49 @@ namespace Neco.Client.Network
             return false;
         }
 
-        private void Runner()
+        private bool PrepareRunner()
         {
-            if(!OpenSocket())
+            if (!OpenSocket())
             {
                 CurrentState = State.Error;
-                return;
+                return false;
             }
 
             CurrentState = State.Success;
+            return true;
+        }
+
+        private void DoRunnerWork(byte[] bytes)
+        {
+            HandleData();
+
+            var stream = client.GetStream();
+            if (stream.DataAvailable)
+            {
+                try
+                {
+                    int length = stream.Read(bytes, 0, (int)bytes.Length);
+                    lock (dataQueue)
+                    {
+                        for (int i = 0; i < length; ++i) dataQueue.Enqueue(bytes[i]);
+                    }
+                }
+                catch (Exception) { }
+            }
+            else
+            {
+                Thread.Sleep(50);
+            }
+        }
+
+        private void Runner()
+        {
+            if (!PrepareRunner()) return;
 
             byte[] bytes = new byte[0x2000];
             while (Connected)
             {
-                HandleData();
-
-                var stream = client.GetStream();
-                if (stream.DataAvailable)
-                {
-                    try
-                    {
-                        int length = stream.Read(bytes, 0, (int)bytes.Length);
-                        lock (dataQueue)
-                        {
-                            for (int i = 0; i < length; ++i) dataQueue.Enqueue(bytes[i]);
-                        }
-                    }
-                    catch (Exception) {}
-                }
-                else
-                {
-                    Thread.Sleep(50);
-                }
+                DoRunnerWork(bytes);
             }
 
             CloseSocket();
@@ -255,48 +266,54 @@ namespace Neco.Client.Network
             }
         }
 
+        private void DispatchRequest(byte[] bytes)
+        {
+            RequestBase request = RequestSerializer.Deserialize<RequestBase>(bytes);
+            ResponseBase response = null;
+
+            lock (handlers)
+            {
+                if (handlers.ContainsKey(request.GetType()))
+                {
+                    response = handlers[request.GetType()](request);
+                }
+            }
+
+            if (response == null)
+            {
+                response = request.CreateResponse();
+            }
+
+            Task.Run(async () => await SendResponse(response));
+        }
+
+        private void DispatchResponse(byte[] bytes)
+        {
+            ResponseBase response = RequestSerializer.Deserialize<ResponseBase>(bytes);
+
+            lock (responses)
+            {
+                if (responses.ContainsKey(response.Token))
+                {
+                    responses[response.Token] = response;
+                }
+            }
+        }
+
         private void DispatchData(CommandTypes type, byte[] bytes)
         {
-            if (type == CommandTypes.Request)
+            try
             {
-                try
+                if (type == CommandTypes.Request)
                 {
-                    RequestBase request = RequestSerializer.Deserialize<RequestBase>(bytes);
-                    ResponseBase response = null;
-
-                    lock (handlers)
-                    {
-                        if (handlers.ContainsKey(request.GetType()))
-                        {
-                            response = handlers[request.GetType()](request);
-                        }
-                    }
-
-                    if (response == null)
-                    {
-                        response = request.CreateResponse();
-                    }
-
-                    Task.Run(async () => await SendResponse(response));
+                    DispatchRequest(bytes);
                 }
-                catch(Exception) {}
-            }
-            else if (type == CommandTypes.Response)
-            {
-                try
+                else if (type == CommandTypes.Response)
                 {
-                    ResponseBase response = RequestSerializer.Deserialize<ResponseBase>(bytes);
-
-                    lock (responses)
-                    {
-                        if (responses.ContainsKey(response.Token))
-                        {
-                            responses[response.Token] = response;
-                        }
-                    }
+                    DispatchResponse(bytes);
                 }
-                catch (Exception) {}
             }
+            catch (Exception) { }
         }
 
         public void Receive<T>(Action<T> handler) where T : RequestBase
