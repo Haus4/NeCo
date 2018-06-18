@@ -83,14 +83,13 @@ namespace Neco.Client.Model
             });
 
             byte[] messageBytes = Encoding.UTF8.GetBytes(message);
-            var signature = App.Instance?.CryptoHandler.CalculateSignature(messageBytes);
 
             TransformMessage(messageBytes);
 
             MessageRequest request = new MessageRequest
             {
                 Message = messageBytes,
-                Signature = signature
+                Signature = App.Instance?.CryptoHandler.CalculateSignature(messageBytes)
             };
 
             Task.Run(async () => await App.Instance?.Connector.SendRequest(request));
@@ -127,14 +126,13 @@ namespace Neco.Client.Model
             list.AddRange(image);
 
             byte[] messageBytes = list.ToArray();
-            var signature = App.Instance?.CryptoHandler.CalculateSignature(messageBytes);
 
             TransformMessage(messageBytes);
 
             MessageRequest request = new MessageRequest
             {
                 Message = messageBytes,
-                Signature = signature
+                Signature = App.Instance?.CryptoHandler.CalculateSignature(messageBytes)
             };
 
             Task.Run(async () => await App.Instance?.Connector.SendRequest(request));
