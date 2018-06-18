@@ -55,9 +55,31 @@ The app should have the right to request the users location.
 (n/a)
 
 ## 7. Function Point calculation
-(n/a)
+|transaction|DET|RET|FTR|Complexity|
+|---|---|---|---|---|
+|external input|0|||low|
+|external output|1|1||low|
+|external inquieries|0|||low|
+|internal logical files|||3|low|
+|external interface files|||3|low|
+
+This makes 46,2 FP
+
+[Link to calculation website][fp calculation]
+
+All function point calculation tables are also located in one spreadsheet. Please take a look at this [document][fpc spreadsheet].
+
+## 8. Unit Testing
+We tested the class for this use case with Microsoft UnitTest , you find the test code [here][unittest]
+
 
 <!-- Link definitions: -->
+[fpc spreadsheet]:<https://github.com/Haus4/NeCo/raw/develop/docs/sem_2/time_estimation_uc.xlsx> "Function point calculation spreadsheet"
+
+[fp calculation]: <http://groups.umd.umich.edu/cis/course.des/cis525/js/f00/harvey/FP_Calc.html#FPCalc> "FP calculation"
+
+[unittest]: https://github.com/Haus4/NeCo/blob/dev/client/Client/Neco.UnitTest/ChatTest.cs "Unit Test"
+
 [basic flow]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC2_ReceiveMessage.jpg "Basic Flow: Receive Message"
 
 [mockup]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UC1_2_3_Mockup.png "Chat Mockup"

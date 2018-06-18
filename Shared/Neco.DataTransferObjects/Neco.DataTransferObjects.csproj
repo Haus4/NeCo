@@ -39,6 +39,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestBase.cs" />
     <Compile Include="ResponseBase.cs" />
+    <Compile Include="LobbyObject.cs" />
+    <Compile Include="LeaveLobbyObject.cs" />
     <Compile Include="SessionCloseObject.cs" />
     <Compile Include="SessionObject.cs" />
   </ItemGroup>

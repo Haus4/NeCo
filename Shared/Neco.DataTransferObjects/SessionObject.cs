@@ -8,10 +8,7 @@ namespace Neco.DataTransferObjects
 {
     public class SessionRequest : RequestBase
     {
-        public byte[] PublicKey { get; set; }
-        public byte[] Signature { get; set; }
-        public Double Latitude { get; set; }
-        public Double Longitude { get; set; }
+        public byte[] MemberKey { get; set; }
     }
 
     public class SessionResponse : ResponseBase

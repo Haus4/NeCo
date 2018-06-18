@@ -2,6 +2,9 @@
 using Neco.Client.Network;
 using Neco.DataTransferObjects;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,26 +14,26 @@ namespace Neco.Client.Model
 {
     public class ChatModel
     {
+        private ViewModel.ChatViewModel chatViewModel;
         private IMessage messageHandler;
-        private ViewModel.ChatSession sessionViewmodel;
         private byte[] remotePublicKey;
 
-        public ChatModel(ViewModel.ChatSession viewModel)
+        public ChatModel(ViewModel.ChatViewModel viewModel, bool showMessage = true)
         {
-            messageHandler = DependencyService.Get<IMessage>();
-            sessionViewmodel = viewModel;
+            messageHandler = showMessage ? DependencyService.Get<IMessage>() : null;
+            chatViewModel = viewModel;
 
-            App.Instance.Connector.Receive<MessageRequest>((message) =>
+            App.Instance?.Connector.Receive<MessageRequest>((message) =>
             {
                 if (App.Instance.CryptoHandler.VerifySignature(remotePublicKey, message.Message, message.Signature))
                 {
-                    PushForeignMessage(Encoding.UTF8.GetString(message.Message));
+                    PushForeignData(message.Message);
                 }
             });
 
-            App.Instance.Connector.Receive<SessionCloseRequest>((message) =>
+            App.Instance?.Connector.Receive<SessionCloseRequest>((message) =>
             {
-                sessionViewmodel.View.Close();
+                chatViewModel.View.Close();
 
                 Device.BeginInvokeOnMainThread(() =>
                 {
@@ -52,20 +55,17 @@ namespace Neco.Client.Model
             Task.Run(async () => await App.Instance.Connector.SendRequest(request));
         }
 
-        public async Task<bool> Join()
+        public async Task<bool> Join(byte[] memberKey)
         {
             SessionRequest request = new SessionRequest
             {
-                PublicKey = App.Instance.CryptoHandler.SerializePublicKey(),
-                Signature = App.Instance.CryptoHandler.CalculateSecuritySignature(),
-                Latitude = App.Instance.Locator.Position?.Latitude ?? 0.0,
-                Longitude = App.Instance.Locator.Position?.Longitude ?? 0.0
+                MemberKey = memberKey
             };
 
             var response = await App.Instance.Connector.SendRequest(request, 30000);
             if (response != null && response is SessionResponse sessionResp && sessionResp.Success)
             {
-                remotePublicKey = sessionResp.PublicKey;
+                remotePublicKey = memberKey;
                 return true;
             }
 
@@ -74,30 +74,106 @@ namespace Neco.Client.Model
 
         public void PushMessage(String message)
         {
-            sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
+            chatViewModel.Messages.Add(new ViewModel.ChatMessage
             {
                 Time = DateTime.Now,
                 Message = message,
-                IsForeign = false
+                IsForeign = false,
+                IsImage = false
             });
 
             byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+
+            TransformMessage(messageBytes);
+
             MessageRequest request = new MessageRequest
             {
                 Message = messageBytes,
-                Signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes)
+                Signature = App.Instance?.CryptoHandler.CalculateSignature(messageBytes)
             };
 
-            Task.Run(async () => await App.Instance.Connector.SendRequest(request));
+            Task.Run(async () => await App.Instance?.Connector.SendRequest(request));
+        }
+
+        public void TransformMessage(byte[] data)
+        {
+            for (int i = 0; i < data.Length; ++i)
+            {
+                data[i] ^= 0xFF;
+            }
+        }
+
+        public void PushImage(byte[] image)
+        {
+            MemoryStream stream = new MemoryStream(image);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            chatViewModel.Messages.Add(new ViewModel.ChatMessage
+            {
+                Time = DateTime.Now,
+                Image = ImageSource.FromStream(() => stream),
+                IsForeign = false,
+                IsImage = true
+            });
+
+            List<byte> list = new List<byte>
+            {
+                0xFF,
+                0xFF,
+                0xFF,
+                0xFF
+            };
+            list.AddRange(image);
+
+            byte[] messageBytes = list.ToArray();
+
+            TransformMessage(messageBytes);
+
+            MessageRequest request = new MessageRequest
+            {
+                Message = messageBytes,
+                Signature = App.Instance?.CryptoHandler.CalculateSignature(messageBytes)
+            };
+
+            Task.Run(async () => await App.Instance?.Connector.SendRequest(request));
+        }
+
+        private void PushForeignData(byte[] data)
+        {
+            TransformMessage(data);
+
+            if(data.Length >= 4 && data.Take(4).SequenceEqual(new byte[] { 0xFF, 0xFF, 0xFF, 0xFF }))
+            {
+                PushForeignImage(new List<byte>(data).Skip(4).ToArray());
+            }
+            else
+            {
+                PushForeignMessage(Encoding.UTF8.GetString(data));
+            }
+        }
+
+        private void PushForeignImage(byte[] image)
+        {
+            MemoryStream stream = new MemoryStream(image);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            chatViewModel.Messages.Add(new ViewModel.ChatMessage
+            {
+                Time = DateTime.Now,
+                Image = ImageSource.FromStream(() => stream),
+                IsForeign = true,
+                IsImage = true
+            });
         }
 
         private void PushForeignMessage(String message)
         {
-            sessionViewmodel.Messages.Add(new ViewModel.ChatMessage
+            chatViewModel.Messages.Add(new ViewModel.ChatMessage
             {
                 Time = DateTime.Now,
                 Message = message,
-                IsForeign = true
+                IsForeign = true,
+                IsImage = false
             });
         }
     }

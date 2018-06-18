@@ -1,8 +1,11 @@
 ﻿using Neco.DataTransferObjects;
+using Plugin.FilePicker;
+using Plugin.FilePicker.Abstractions;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -17,7 +20,7 @@ namespace Neco.Client
     {
         private Model.ChatModel model;
 
-        public ChatPage(ViewModel.ChatSession viewModel)
+        public ChatPage(ViewModel.ChatViewModel viewModel)
         {
             InitializeComponent();
             SetupComponents(viewModel);
@@ -38,13 +41,13 @@ namespace Neco.Client
 
         private void OnBackendStateChanged(object sender, EventArgs e)
         {
-            if(sender is Network.BackendConnector connector && connector.CurrentState == Core.State.Error)
+            if (sender is Network.BackendConnector connector && connector.CurrentState == Core.State.Error)
             {
                 Close();
             }
         }
 
-        private void SetupComponents(ViewModel.ChatSession viewModel)
+        private void SetupComponents(ViewModel.ChatViewModel viewModel)
         {
             model = viewModel.Model;
             messageList.ItemsSource = viewModel.Messages;
@@ -70,6 +73,27 @@ namespace Neco.Client
                 SubmitMessage();
             };
 
+            shareButton.Clicked += async (object sender, EventArgs args) =>
+            {
+                try
+                {
+                    FileData fileData = await CrossFilePicker.Current.PickFile();
+                    if (fileData == null)
+                        return; // user canceled file picking
+
+                    if (fileData.FileName.EndsWith("jpg", StringComparison.Ordinal)
+                || fileData.FileName.EndsWith("png", StringComparison.Ordinal))
+                    {
+                        model.PushImage(fileData.DataArray);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    System.Console.WriteLine("Exception choosing file: " + ex.ToString());
+                }
+            };
+
             viewModel.Messages.CollectionChanged += (object sender, NotifyCollectionChangedEventArgs e) =>
             {
                 for (int i = e.NewStartingIndex; i < e.NewItems.Count; ++i)
@@ -93,7 +117,7 @@ namespace Neco.Client
                     Device.BeginInvokeOnMainThread(() =>
                     {
                         //ForceLayout();
-                        messageList.ScrollTo(viewModel.Messages.LastOrDefault(), ScrollToPosition.Start, true);
+                        messageList.ScrollTo(viewModel.Messages.LastOrDefault(), ScrollToPosition.End, true);
                     });
                 }
             };

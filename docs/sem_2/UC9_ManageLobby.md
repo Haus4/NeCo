@@ -1,20 +1,18 @@
-# NeCo - Use-Case Specification: Relay Message
+# NeCo - Use-Case Specification: Manage Lobby
 
 ## 1. Use-Case Name
-Relay Message
+Manage Lobby
 
 ### 1.1 Brief Description
-The app provides the server with the possibility to relay messages according to the user session.
-Each user in the same Session receives the same messages.
+The app provides the server with the possibility to manage lobbies.
 
 ### 1.2 Screenshot Mockup
 (n/a)
-
 ## 2. Flow of Events
 
 ### 2.1 Basic Flow
 
-<!-- ![basic flow] -->
+<!--![basic flow] -->
 
 
 ### 2.2 Alternative Flow
@@ -49,9 +47,25 @@ The user should have already opened the NeCo Application on his smartphone and n
 (n/a)
 
 ## 7. Function Point calculation
-(n/a)
+|transaction|DET|RET|FTR|Complexity|
+|---|---|---|---|---|
+|external input|1|||low|
+|external output|0|||low|
+|external inquieries|0|||low|
+|internal logical files|||3|low|
+|external interface files|||4|low|
+
+This makes 46,6 FP
+
+[Link to calculation website][fp calculation]
+
+All function point calculation tables are also located in one spreadsheet. Please take a look at this [document][fpc spreadsheet].
+
 
 <!-- Link definitions: -->
+[fpc spreadsheet]:<https://github.com/Haus4/NeCo/raw/develop/docs/sem_2/time_estimation_uc.xlsx> "Function point calculation spreadsheet"
 
-[basic flow]: <link> "Relay Message Basic Flow"
+[fp calculation]: <http://groups.umd.umich.edu/cis/course.des/cis525/js/f00/harvey/FP_Calc.html#FPCalc> "FP calculation"
+
+[basic flow]: <link> "Manage Session Basic Flow"
 

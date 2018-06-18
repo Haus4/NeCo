@@ -1,4 +1,5 @@
 # NeCo
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6a61f6a242244a8896d7ab31b544bf6f)](https://www.codacy.com/app/momo5502/NeCo?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Haus4/NeCo&amp;utm_campaign=Badge_Grade)  
 Near Comm App
 [SRS]
 

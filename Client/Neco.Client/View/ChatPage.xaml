@@ -20,6 +20,20 @@
                 </ViewCell>
             </DataTemplate>
 
+            <DataTemplate x:Key="foreignImageTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Vertical"
+                                 Padding="8" VerticalOptions="FillAndExpand"
+                                 BackgroundColor="#40865FC5">
+                        <Label Text="{Binding StringTime}"
+                               FontAttributes="Bold"
+                               HorizontalOptions="StartAndExpand" />
+                        <Image Source="{Binding Image}" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            
+
             <DataTemplate x:Key="ownMessageTemplate">
                 <ViewCell>
                     <StackLayout Orientation="Vertical"
@@ -34,9 +48,26 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
+
+            <DataTemplate x:Key="ownImageTemplate">
+                <ViewCell>
+                    <StackLayout Orientation="Vertical"
+                                 Padding="8"
+                                 VerticalOptions="FillAndExpand">
+                        <Label Text="{Binding StringTime}"
+                               FontAttributes="Bold"
+                               HorizontalOptions="EndAndExpand" />
+                        <Image Source="{Binding Image}"
+                               HorizontalOptions="EndAndExpand"/>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+
             <local:ChatMessageTemplateSelector x:Key="chatMessageTemplateSelector"
                                                OwnMessageTemplate="{StaticResource ownMessageTemplate}"
-                                               ForeignMessageTemplate="{StaticResource foreignMessageTemplate}" />
+                                               OwnImageTemplate="{StaticResource ownImageTemplate}"
+                                               ForeignMessageTemplate="{StaticResource foreignMessageTemplate}"
+                                               ForeignImageTemplate="{StaticResource foreignImageTemplate}"/>
         </ResourceDictionary>
     </neco:NotifiableContentPage.Resources>
 
@@ -60,6 +91,11 @@
               <control:ColoredButton Text="Send"
                                      x:Name="sendButton"
                                      AutomationId="sendButton"
+                                     Color="#666666"
+                                     TextColor="#FFFFFF" />
+                <control:ColoredButton Text="File"
+                                     x:Name="shareButton"
+                                     AutomationId="shareButton"
                                      Color="#666666"
                                      TextColor="#FFFFFF" />
             </StackLayout>

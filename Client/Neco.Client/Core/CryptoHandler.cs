@@ -12,15 +12,24 @@ namespace Neco.Client.Core
         private ECKeyPair keyPair;
         private const string securityString = "NeCo";
 
-        public CryptoHandler(object context)
+        public CryptoHandler(object context, IDataStore dataStore_ = null)
         {
-            dataStore = DependencyService.Get<IDataStore>();
+            dataStore = dataStore_ ?? DependencyService.Get<IDataStore>();
+            InitializeKey(context);
+        }
 
+        private void InitializeKey(object context)
+        {
             LoadKeyIfAvailable(dataStore, context);
-            if(keyPair == null)
+            if (keyPair == null)
             {
                 GenerateKey(dataStore, context);
             }
+        }
+
+        private bool IsKeyArrayValid(byte[] publicKeyBytes)
+        {
+            return publicKeyBytes.Length > 1 && publicKeyBytes[0] == (byte)Curve.DJB_TYPE;
         }
 
         private void LoadKeyIfAvailable(IDataStore dataStore, object context)
@@ -28,20 +37,19 @@ namespace Neco.Client.Core
             string privateKey = dataStore.GetString(context, "privateKey");
             string publicKey = dataStore.GetString(context, "publicKey");
 
-            if (privateKey != null && privateKey != null)
-            {
-                byte[] publicKeyBytes = Convert.FromBase64String(publicKey);
-                if (publicKeyBytes.Length > 1 && publicKeyBytes[0] == (byte)Curve.DJB_TYPE)
-                {
-                    DjbECPublicKey pubKey = new DjbECPublicKey(publicKeyBytes.Skip(1).ToArray());
-                    DjbECPrivateKey privKey = new DjbECPrivateKey(Convert.FromBase64String(privateKey));
-                    keyPair = new ECKeyPair(pubKey, privKey);
+            if (privateKey == null || privateKey == null) return;
 
-                    // Make sure the key is valid
-                    if(!VerifySecuritySignature(CalculateSecuritySignature()))
-                    {
-                        keyPair = null;
-                    }
+            byte[] publicKeyBytes = Convert.FromBase64String(publicKey);
+            if (IsKeyArrayValid(publicKeyBytes))
+            {
+                DjbECPublicKey pubKey = new DjbECPublicKey(publicKeyBytes.Skip(1).ToArray());
+                DjbECPrivateKey privKey = new DjbECPrivateKey(Convert.FromBase64String(privateKey));
+                keyPair = new ECKeyPair(pubKey, privKey);
+
+                // Make sure the key is valid
+                if (!VerifySecuritySignature(CalculateSecuritySignature()))
+                {
+                    keyPair = null;
                 }
             }
         }
@@ -129,8 +137,7 @@ namespace Neco.Client.Core
 
         private ECPublicKey ConvertPublicKey(byte[] publicKey)
         {
-            if (publicKey == null) return null;
-            if (publicKey.Length <= 1 || publicKey[0] != (byte)Curve.DJB_TYPE) return null;
+            if (publicKey == null || !IsKeyArrayValid(publicKey)) return null;
             return new DjbECPublicKey(publicKey.Skip(1).ToArray());
         }
     }

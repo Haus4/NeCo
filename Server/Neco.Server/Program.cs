@@ -10,14 +10,13 @@ namespace Neco.Server
     class Program
     {
         enum Commands { Help, Exit };
-
        
         static void Main(string[] args)
         {
             ServiceLocator.Init();
             log4net.Config.XmlConfigurator.Configure();
             InitConsole();
-            new InfrastructureInitializer(new Settings()).Init();
+            new SocketServerFactory(new Settings()).Build();
             string[] cmds = Enum.GetNames(typeof(Commands));
             string cmd = "";
             while (!cmd.Equals(Commands.Exit.ToString(), StringComparison.InvariantCultureIgnoreCase))

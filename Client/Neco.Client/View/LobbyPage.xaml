@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<neco:NotifiableContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Neco.Client"
+             xmlns:control="clr-namespace:Neco.Client.Control"
+             xmlns:neco="clr-namespace:Neco.Client;assembly=Neco.Client"
+             x:Class="Neco.Client.LobbyPage">
+    <neco:NotifiableContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="sessionButtonTemplate">
+                <ViewCell>
+                    <StackLayout WidthRequest="75" HeightRequest="55">
+                        <control:ColoredButton Text="{Binding SessionID}"
+                                               FontAttributes="Bold"
+                                               x:Name="sessionButton"
+                                               AutomationId="sessionButton"
+                                               Color="#666666"
+                                               TextColor="#FFFFFF"
+                                               IsEnabled="False"
+                                               Grid.Column="0" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </neco:NotifiableContentPage.Resources>
+    <neco:NotifiableContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Label Text="Lobby"
+                   TextColor="#666666"
+                   FontAttributes="Bold"
+                   HorizontalOptions="EndAndExpand" />
+            <Label Text="Range: "
+                   TextColor="#666666"
+                   x:Name="rangeLabel"
+                   AutomationId="rangeLabel"
+                   HorizontalOptions="EndAndExpand" />
+            <ListView VerticalOptions="FillAndExpand"
+                      x:Name="memberList"
+                      AutomationId="memberList"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      ItemTemplate="{StaticResource sessionButtonTemplate}">
+            </ListView>
+        </StackLayout>
+    </neco:NotifiableContentPage.Content>
+</neco:NotifiableContentPage>
