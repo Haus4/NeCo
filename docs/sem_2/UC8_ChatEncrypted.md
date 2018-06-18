@@ -32,7 +32,7 @@ The client uses the encryption library to encrypt the message.
 ## 4. Preconditions
 
 ### 4.1 User key is generated
-The chat messages are signed with a PGP-Key, which is generated upon opening the app.
+The chat messages are signed with a ECC-Key, which is generated upon opening the app.
 
 ### 4.2 User key is exchanged
 The keys must have been exchanged before chating.
