@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Tests\BackendConnectorTest.cs" />
     <Compile Include="Tests\StateHandlerTest.cs" />
     <Compile Include="Tests\ChatTest.cs" />
     <Compile Include="Tests\ChatMessageTest.cs" />
