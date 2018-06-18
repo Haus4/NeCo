@@ -29,7 +29,7 @@ In this section definitions and explanations of acronyms and abbreviations are l
 |			Title									|	Date		|
 |---------------------------------------------------|---------------|
 | [NeCo Blog](http:/necoproject.wordpress.com/) | 19.10.2017 |
-| [Ouverall Use Case Diagramm (OUCD)](https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/UseCaseDiagramm.jpg)| 19.10.2017 |
+| [Ouverall Use Case Diagramm (OUCD)](https://github.com/Haus4/NeCo/raw/develop/docs/img/UseCaseDiagramm_2nd.jpg)| 19.10.2017 |
 
 ### 1.5 Overview
 The following chapters are about our vision and perspective, the software requirements, the demands we have, licensing and
@@ -44,7 +44,8 @@ For security reasons we’ll use latest encryption technology like RSA & AES enc
 People using our App can chat with strangers in their near environment. 
 
 The following picture shows the overall use case diagram of our software:
-![OUCD]
+![OUCD2]
+
 
 ## 3. Specific Requirements
 ### 3.1 Functionality - Android App
@@ -63,18 +64,21 @@ The server manages sessions and refers users according to their private key to a
 #### 3.1.5 Relay messages
 The server receives messages of all users an relays them according to the session the user is in.
 
-#### 3.1.6 Chat encrypted
-The app provides an encypted chat, where messages get encrypted with RSA and AES.
-
-#### 3.1.7 Share files
+#### 3.1.6 Share files
 The user is able to share files with the chatroom.
 
-#### 3.1.8 Moderated Chat
-The app provides naming a moderator, who is able to kick or ban users and delete messages.
+#### 3.1.7 Chat Geo-localized
+The app provides the user with the possibility to receive a message from another in a certain distance around you.
 
-#### 3.1.9 Get Points
-The app provides a reward system where the user gets points for joining a chatroom or using the app.
+#### 3.1.8 Chat encrypted
+The app provides an encypted chat, where messages get encrypted and signed with ECDSA.
 
+
+#### 3.1.9 Manage Lobby
+he app provides the server with the possibility to manage lobbies.
+
+#### 3.1.10 Visualize Lobby
+The app provides the server with the possibility to visualisze lobbies.
 
 
 ### 3.2 Usability
@@ -120,6 +124,11 @@ Please consult the different use case descriptions for UI mockups (screenshots) 
 - [UC3: Create Identity][uc create identity]
 - [UC4: Manage Session][uc manage session]
 - [UC5: Relay Message][uc relay message]
+- [UC6: Share Files][uc share files]
+- [UC7: Chat Geo-Localized][uc geolocalize]
+- [UC8: Chat Encrypted][uc encrypt]
+- [UC9: Manage Lobbies][uc lobby]
+- [UC10: Visualize Lobbies][uc lobbyviz]
 
 <!--
 - [UC6: Manage profile][uc manage profile]
@@ -166,6 +175,12 @@ You can find any internal linked sources in the chapter References (go to the to
 
 [uc relay message]:https://github.com/Haus4/NeCo/blob/develop/docs/UC5_RelayMessage.md "Use Case 5: Relay message"
 
+[uc share files]: https://github.com/Haus4/NeCo/blob/develop/docs/sem_2/UC6_ShareFiles.md "Use Case 6: Share Files"
+[uc geolocalize]: https://github.com/Haus4/NeCo/blob/develop/docs/sem_2/UC7_ChatGeoLocalized.md "Use Case 7: Chat geolocalized"
+[uc encrypt]: https://github.com/Haus4/NeCo/blob/develop/docs/sem_2/UC8_ChatEncrypted.md "Use Case 8: Chat encrypted"
+[uc lobby]: https://github.com/Haus4/NeCo/blob/develop/docs/sem_2/UC9_ManageLobby.md "Use Case 9: Manage Lobby"
+[uc lobbyviz]: https://github.com/Haus4/NeCo/blob/develop/docs/sem_2/UC10_VisualizeLobby.md "Use Case 10: Visualize Lobby"
+
 <!--
 [uc share files]: <link einfügen> "Use Case 3: Share files with another User"
 [uc manage profile]: <link einfügen> "Use Case 5: Manage profile informations"
@@ -190,6 +205,8 @@ You can find any internal linked sources in the chapter References (go to the to
 
 <!-- Picture-Link definitions: -->
 [OUCD]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/UseCaseDiagramm.jpg "Overall Use Case Diagram"
+
+[OUCD2]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/UseCaseDiagramm_2nd.jpg "Overall Use Case Diagram"
 
 <!--
 
