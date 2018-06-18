@@ -43,12 +43,18 @@ The architectural details will be described in the following sections. This incl
 As we develop a Chross-Plattform mobile ab MVVM is the pattern of choice.
 It allows us to decouple the UI (View) from the Business Logic (Model/ViewModel).
 
+Xamarin provides MVVM for our purposes.
+
 ![mvvm]
 ## 3. Architectural Goals and Constraints
 As we use Xamarin we don't have any MVC tool.
 ## 4. Use-Case View
 ### 4.1 Use-Case Realizations
+Semester 1
 ![oucd]
+
+Semester 2
+![oucd2]
 ## 5. Logical View
 ### 5.1 Overview
 n/a
@@ -57,6 +63,21 @@ The class diagram; containing all Data Access Objects, Models and Controllers th
 
 ![Class Diagram]
 
+### 5.3 Pattern
+We’ve choosen a service locator pattern to be used on our server. This pattern is typical for C#.
+
+The service locator pattern is a design pattern used in to encapsulate the processes involved in obtaining a service with a strong abstraction layer. 
+
+This pattern uses a central registry known as the "service locator", which on request returns the information necessary to perform a certain task.
+
+The approach simplifies component-based applications where all dependencies are cleanly listed at the beginning of the whole application design, consequently making traditional dependency injection a more complex way of connecting objects.
+
+Therefore we rebuild our InfrastructureInitializer to a SocketServerFactory.
+![patternserver]
+
+As we already used some patterns since the beginning of development, we decided not to compromise the code integrity completely. Therefore not realy much changed in our code.
+
+![patternclass]
 ## 6. Process View
 n/a
 ## 7. Deployment View
@@ -80,4 +101,10 @@ n/a
 
 [client/server]: https://github.com/Haus4/NeCo/raw/develop/docs/img/Client_Server_Architecture.jpg "Client-Server-Architecture"
 
-[oucd]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/UseCaseDiagramm.jpg "Overall Use Case Diagram"
+[oucd]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/UseCaseDiagramm.jpg "Overall Use Case Diagram Semester 1"
+
+[oucd2]: https://github.com/Haus4/NeCo/raw/develop/docs/img/UseCaseDiagramm_2nd.jpg "Overall Use Case Diagram Semester 2"
+
+[patternclass]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/before_server_cd.PNG "Image of Pattern Class Diagram"
+
+[patternserver]: https://raw.githubusercontent.com/Haus4/NeCo/develop/docs/img/server_patterns.png "Image of Pattern Diagram"
