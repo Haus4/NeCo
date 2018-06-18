@@ -11,11 +11,11 @@ namespace Neco.Client.ViewModel
         private ChatPage chatView;
         private Model.ChatModel chatModel;
 
-        public ChatViewModel()
+        public ChatViewModel(bool showMessage = true, bool noView = false)
         {
             messageList = new ObservableCollection<ChatMessage>();
-            chatModel = new Model.ChatModel(this);
-            chatView = new ChatPage(this);
+            chatModel = new Model.ChatModel(this, showMessage);
+            chatView = noView ? null : new ChatPage(this);
         }
 
         public ObservableCollection<ChatMessage> Messages

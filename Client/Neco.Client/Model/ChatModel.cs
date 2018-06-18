@@ -23,7 +23,7 @@ namespace Neco.Client.Model
             messageHandler = showMessage ? DependencyService.Get<IMessage>() : null;
             chatViewModel = viewModel;
 
-            App.Instance.Connector.Receive<MessageRequest>((message) =>
+            App.Instance?.Connector.Receive<MessageRequest>((message) =>
             {
                 if (App.Instance.CryptoHandler.VerifySignature(remotePublicKey, message.Message, message.Signature))
                 {
@@ -31,7 +31,7 @@ namespace Neco.Client.Model
                 }
             });
 
-            App.Instance.Connector.Receive<SessionCloseRequest>((message) =>
+            App.Instance?.Connector.Receive<SessionCloseRequest>((message) =>
             {
                 chatViewModel.View.Close();
 
@@ -83,7 +83,7 @@ namespace Neco.Client.Model
             });
 
             byte[] messageBytes = Encoding.UTF8.GetBytes(message);
-            var signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes);
+            var signature = App.Instance?.CryptoHandler.CalculateSignature(messageBytes);
 
             TransformMessage(messageBytes);
 
@@ -93,7 +93,7 @@ namespace Neco.Client.Model
                 Signature = signature
             };
 
-            Task.Run(async () => await App.Instance.Connector.SendRequest(request));
+            Task.Run(async () => await App.Instance?.Connector.SendRequest(request));
         }
 
         public void TransformMessage(byte[] data)
@@ -127,13 +127,17 @@ namespace Neco.Client.Model
             list.AddRange(image);
 
             byte[] messageBytes = list.ToArray();
+            var signature = App.Instance?.CryptoHandler.CalculateSignature(messageBytes);
+
+            TransformMessage(messageBytes);
+
             MessageRequest request = new MessageRequest
             {
                 Message = messageBytes,
-                Signature = App.Instance.CryptoHandler.CalculateSignature(messageBytes)
+                Signature = signature
             };
 
-            Task.Run(async () => await App.Instance.Connector.SendRequest(request));
+            Task.Run(async () => await App.Instance?.Connector.SendRequest(request));
         }
 
         private void PushForeignData(byte[] data)
