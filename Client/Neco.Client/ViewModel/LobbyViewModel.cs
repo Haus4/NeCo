@@ -11,11 +11,11 @@ namespace Neco.Client.ViewModel
         private LobbyPage lobbyView;
         private Model.LobbyModel lobbyModel;
 
-        public LobbyViewModel()
+        public LobbyViewModel(bool skipUi = false)
         {
             memberIdList = new ObservableCollection<ChatSessionID>();
             lobbyModel = new Model.LobbyModel(this);
-            lobbyView = new LobbyPage(this);
+            lobbyView = skipUi ? null : new LobbyPage(this);
         }
 
         public void NotifyUserForActiveSession(byte[] memberKey)

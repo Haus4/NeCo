@@ -1,3 +1,4 @@
+using libsignal.ecc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -65,6 +66,14 @@ namespace Neco.UnitTest
         public void ShouldSerializePublicKey()
         {
             Assert.IsNotNull(handler.SerializePublicKey());
+        }
+
+        [TestMethod]
+        public void ShouldVerifyKeys()
+        {
+            Assert.IsFalse(handler.IsKeyArrayValid(new byte[] { (byte)Curve.DJB_TYPE }));
+            Assert.IsFalse(handler.IsKeyArrayValid(new byte[] { 0x00 }));
+            Assert.IsTrue(handler.IsKeyArrayValid(new byte[] { (byte)Curve.DJB_TYPE, 0x00 }));
         }
     }
 }

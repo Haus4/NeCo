@@ -27,7 +27,7 @@ namespace Neco.Client.Core
             }
         }
 
-        private bool IsKeyArrayValid(byte[] publicKeyBytes)
+        public bool IsKeyArrayValid(byte[] publicKeyBytes)
         {
             return publicKeyBytes.Length > 1 && publicKeyBytes[0] == (byte)Curve.DJB_TYPE;
         }

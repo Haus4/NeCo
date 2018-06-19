@@ -23,8 +23,9 @@ namespace Neco.Client.Model
         public LobbyModel(ViewModel.LobbyViewModel viewModel)
         {
             lobbyViewModel = viewModel;
+            memberPublicKeyDictionary = new Dictionary<string, string>();
 
-            App.Instance.Connector.Receive<SessionRequest>((message) =>
+            App.Instance?.Connector.Receive<SessionRequest>((message) =>
             {
                lobbyViewModel.NotifyUserForActiveSession(message.MemberKey);
             });
@@ -84,7 +85,7 @@ namespace Neco.Client.Model
             return false;
         }
 
-        private void RefreshMemberList(List<string> newMembers)
+        public void RefreshMemberList(List<string> newMembers)
         {
             //if(lobbyViewModel.Members != null && lobbyViewModel.Members.Count > 0) lobbyViewModel.Members.Clear();
             List<string> removeEntries = new List<string>();
