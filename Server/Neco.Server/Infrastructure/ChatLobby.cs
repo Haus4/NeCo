@@ -133,10 +133,10 @@ namespace Neco.Server.Infrastructure
 
         public void CloseSession(String SessionId, ClientSession ses)
         {
-            var hostSession = GetSession(SessionId);
-            if (hostSession != null)
+            var chatSession = GetSession(SessionId);
+            if (chatSession != null)
             {
-                hostSession.CloseSession(ses);
+                chatSession.CloseSession(ses);
                 chatSessions.Remove(SessionId);
             }
             if (chatSessions.Count < 1) HasSession = false;

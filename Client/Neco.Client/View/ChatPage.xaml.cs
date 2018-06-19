@@ -30,13 +30,13 @@ namespace Neco.Client
 
         public override void OnPopped()
         {
-            App.Instance.Connector.StateChanged -= OnBackendStateChanged;
             model.CloseSession();
+            App.Instance.Connector.StateChanged -= OnBackendStateChanged;
         }
 
         public void Close()
         {
-            Device.BeginInvokeOnMainThread(async () => await App.Instance.MainPage.Navigation.PopAsync(true));
+            Device.BeginInvokeOnMainThread(async () => await App.Instance.MainPage.Navigation.PopModalAsync(true));
         }
 
         private void OnBackendStateChanged(object sender, EventArgs e)

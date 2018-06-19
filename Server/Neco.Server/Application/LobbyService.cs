@@ -67,9 +67,19 @@ namespace Neco.Server.Application
 
         public LeaveLobbyResponse LeaveLobby(ClientSession session, LeaveLobbyRequest request)
         {
-            var response = new LeaveLobbyResponse();
+            var response = request.CreateResponse<LeaveLobbyResponse>();
             response.Token = request.Token;
-            return response;
+            try
+            {
+                if (session.HasLobby) session.LeaveChatLobby();
+                response.Success = true;
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Success = false;
+                return response;
+            }
         }
     }
 }

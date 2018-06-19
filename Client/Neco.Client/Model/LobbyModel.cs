@@ -114,9 +114,9 @@ namespace Neco.Client.Model
 
         private void RemoveSessionIdFromViewModel(string sessionId)
         {
-            foreach(ViewModel.ChatSessionID chatSessionIds in lobbyViewModel.MemberIDs)
+            foreach(ViewModel.ChatSessionID chatSessionId in lobbyViewModel.MemberIDs)
             {
-                if (chatSessionIds.SessionID.Equals(sessionId)) chatSessionIds.SessionID = "LEFT"; return;
+                if (chatSessionId.SessionID.Equals(sessionId)) lobbyViewModel.MemberIDs.Remove(chatSessionId); return;
             }
         }
 
