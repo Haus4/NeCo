@@ -14,6 +14,7 @@
 - [Logical View](#5-logical-view)
     - [Overview](#51-overview)
     - [Architecturally Significant Design Packages](#52-architecturally-significant-design-packages)
+    - [Pattern](#53-Pattern)
 - [Process View](#6-process-view)
 - [Deployment View](#7-deployment-view)
 - [Implementation View](#8-implementation-view)
@@ -50,16 +51,13 @@ Xamarin provides MVVM for our purposes.
 As we use Xamarin we don't have any MVC tool.
 ## 4. Use-Case View
 ### 4.1 Use-Case Realizations
-Semester 1
-![oucd]
 
-Semester 2
 ![oucd2]
 ## 5. Logical View
 ### 5.1 Overview
 n/a
 ### 5.2 Architecturally Significant Design Packages
-The class diagram; containing all Data Access Objects, Models and Controllers that we will need to finish the basic functionality:
+The class diagram; containing all Data Access Objects, Models and Controllers that we will need to finish for the basic functionality:
 
 ![Class Diagram]
 
@@ -95,7 +93,7 @@ n/a
 n/a
 
 
-[Class Diagram]: https://github.com/Haus4/NeCo/raw/develop/docs/img/ClassDiagram_mvvm.png "Class Diagram with MVVM"
+[Class Diagram]: https://github.com/Haus4/NeCo/raw/develop/docs/img/ClassDiagram_mvvm_2ndSem.png "Class Diagram with MVVM"
 
 [mvvm]: https://github.com/Haus4/NeCo/raw/develop/docs/img/mvvm.png "Model-View-Viewmodel"
 
